@@ -9,17 +9,13 @@ body {
     overflow-y: scroll;
 }
 
-.yyl-header {
-    background-color: #1E9FFF;
-}
-
-.yyl-nav {
-    text-align: center;
-}
-
 .yyl-logo {
     line-height: 60px;
     text-align: center;
+}
+
+.yyl-hr {
+    margin: 0 0 10px 0;
 }
 
 .yyl-slogan {
@@ -31,23 +27,29 @@ body {
 }
 
 .yyl-slogan-title {
-    padding: 20px 0;
-    color: #555;
+    padding-top: 20px;
+    color: #2d99bb;
     font-weight: 600;
 }
 
+.yyl-slogan-image {
+    padding-top: 30px;
+}
+
 .yyl-slogan-desc {
-    padding: 10px 0;
-    color: #888;
+    padding-top: 30px;
+}
+
+.yyl-code {
+    padding-top: 30px;
+}
+
+.yyl-idea {
+    padding-top: 30px;
 }
 
 .yyl-footer {
     padding-top: 10px;
-    text-align: center;
-    background-color: #f7fbfd;
-}
-
-.yyl-footer-nav {
     text-align: center;
 }
 
@@ -56,48 +58,13 @@ body {
 }
 
 .yyl-margin-top {
-    margin-top: 15px;
+    margin-top: 30px;
 }
 
 .yyl-text-center {
     text-align: center;
 }
 
-/* code */
-.yyl-github {
-    padding: 10px 25px;
-}
-
-.yyl-demo {
-    margin-top: 100px;
-}
-
-/* gitee start */
-.osc_pro_color {
-    color: #4183c4 !important;
-}
-
-.osc_panel_color {
-    background-color: #ffffff !important;
-}
-
-.osc_background_color {
-    background-color: #ffffff !important;
-}
-
-.osc_border_color {
-    border-color: #e3e9ed !important;
-}
-
-.osc_desc_color {
-    color: #666666 !important;
-}
-
-.osc_link_color * {
-    color: #9b9b9b !important;
-}
-
 #cnzz_stat_icon_1279293279 {
     text-align: center;
-    background-color: #f7fbfd;
 }

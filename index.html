@@ -3,11 +3,11 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>yylAdmin - 首页</title>
-	<meta name="keywords" content="yylAdmin">
-	<meta name="description" content="yylAdmin基于ThinkPHP6和Element2的极简后台管理系统，只有登录注销、权限管理等基本功能，方便扩展">
-	<meta name="renderer" content="webkit">
+	<title>yylAdmin - 基于ThinkPHP6和Vue2的极简后台管理系统</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="yyladmin,thinkphp,vue">
+	<meta name="description" content="yylAdmin基于ThinkPHP6和Vue2的极简后台管理系统，只有登录退出、权限管理、日志管理等基本功能；极简纯粹，前后分离，开源免费。">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
@@ -23,18 +23,11 @@
 			<div class="layui-row">
 				<div class="layui-col-xs1 layui-col-sm3 yyl-logo">
 					<a href="./">
-						<img src="./img/logo.png" height="40" width="40" alt="yylAdmin">
+						<img src="./img/logo.png" width="40" height="40">
 					</a>
 				</div>
-				<div class="layui-col-xs11 layui-col-sm9">
-					<ul class="layui-nav layui-bg-blue yyl-nav" lay-filter="">
-						<li class="layui-nav-item"><a href="demo.html">演示</a></li>
-						<li class="layui-nav-item"><a href="doc.html">文档</a></li>
-						<li class="layui-nav-item"><a href="code.html">代码</a></li>
-						<li class="layui-nav-item"><a href="sponsor.html">赞助</a></li>
-					</ul>
-				</div>
 			</div>
+			<hr class="yyl-hr">
 		</div>
 	</div>
 
@@ -43,10 +36,47 @@
 			<div class="layui-row">
 				<div class="layui-col-sm12 yyl-slogan">
 					<h1 class="yyl-slogan-title">yylAdmin</h1>
-					<h3 class="yyl-slogan-desc">基于ThinkPHP6和Element2的极简后台管理系统，只有登录退出、权限管理、日志管理等基本功能，前后端分离</h3>
+					<p class="yyl-slogan-image"><img src="/img/logo.png"></p>
+					<h3 class="yyl-slogan-desc">基于ThinkPHP6和Vue2的极简后台管理系统</h3>
 				</div>
-				<div class="layui-col-sm12 layui-col-md12">
-					<img src="./img/banner.png" width="100%" alt="Element">
+			</div>
+			<div class="layui-row yyl-code">
+				<div class="layui-col-sm12" style="text-align: center;">
+					<a href="https://gitee.com/skyselang/yylAdmin/blob/master/README.gitee.md" class="layui-btn layui-btn-radius layui-btn-primary">
+						<img src="./img/logo.png" alt="Gitee" width="18" height="18"> 起步
+					</a>
+					<a href="https://gitee.com/skyselang/yylAdmin/" class="layui-btn layui-btn-radius layui-btn-primary">
+						<img src="./img/gitee.png" alt="Gitee" width="18" height="18"> Gitee
+					</a>
+					<a href="https://github.com/skyselang/yylAdmin/" class="layui-btn layui-btn-radius layui-btn-primary">
+						<img src="./img/github.png" alt="Github" width="18" height="18"> Github
+					</a>
+				</div>
+			</div>
+			<div class="layui-row layui-col-space10 yyl-idea">
+				<div class="layui-col-sm4">
+					<div class="layui-card yyl-text-center">
+						<div class="layui-card-header">极简纯粹</div>
+						<div class="layui-card-body">
+							只有登录退出、权限管理、日志管理等基本功能，没有花里胡哨，一个纯粹的后台系统。
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-sm4">
+					<div class="layui-card yyl-text-center">
+						<div class="layui-card-header">前后分离</div>
+						<div class="layui-card-body">
+							前端后端分离，并行开发，提高效率，API数据交互，JWT用户认证。
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-sm4">
+					<div class="layui-card yyl-text-center">
+						<div class="layui-card-header">开源免费</div>
+						<div class="layui-card-body">
+							Apache2开源协议，无需授权即可商业使用，代码开源免费，无任何加密。
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -55,59 +85,13 @@
 	<div class="yyl-footer">
 		<div class="layui-container">
 			<div class="layui-row">
-				<div class="layui-col-xs6">
-					<form class="layui-form yyl-footer-nav" action="">
-						<div class="layui-form-item">
-							<a href="https://git-scm.com/" target="_blank">Git</a>
-						</div>
-						<div class="layui-form-item">
-							<a href="https://nodejs.org/zh-cn/" target="_blank">Node.js</a>
-						</div>
-						<div class="layui-form-item">
-							<a href="https://www.phpcomposer.com/" target="_blank">Composer</a>
-						</div>
-						<div class="layui-form-item">
-							<a href="https://www.kancloud.cn/manual/thinkphp6_0/1037479" target="_blank">ThinkPHP</a>
-						</div>
-						<div class="layui-form-item">
-							<a href="https://element.eleme.cn/#/zh-CN/component/installation" target="_blank">Element</a>
-						</div>
-						<div class="layui-form-item">
-							<a href="https://www.xp.cn/" target="_blank">PhpStudy</a>
-						</div>
-					</form>
-				</div>
-				<div class="layui-col-xs6">
-					<form class="layui-form yyl-footer-nav" action="">
-						<div class="layui-form-item">
-							<a href="demo.html">演示</a>
-						</div>
-						<div class="layui-form-item">
-							<a href="https://gitee.com/skyselang/yylAdmin/" target="_blank">代码仓库</a>
-						</div>
-						<div class="layui-form-item">
-							<a href="https://gitee.com/skyselang/yylAdmin/issues" target="_blank">反馈建议</a>
-						</div>
-						<div class="layui-form-item">
-							<a href="sponsor.html">赞助</a>
-						</div>
-					</form>
-				</div>
-				<div class="layui-col-xs12">
-					<p class="yyl-copyright">© 2020 yylAdmin MIT license</p>
+				<div class="layui-col-sm12">
+					<p class="yyl-copyright">Copyright © 2020 yylAdmin, Apache-2.0 license</p>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<script src='https://gitee.com/skyselang/yylAdmin/widget_preview' async defer></script>
-	<script src="./layui/layui.js"></script>
-	<script>
-		layui.use('element', function () {
-			var element = layui.element;
-
-		});
-	</script>
 	<script>
 		var _hmt = _hmt || [];
 		(function () {
