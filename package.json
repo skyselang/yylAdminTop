@@ -1,7 +1,7 @@
 {
-  "name": "yyl-admin-top-vue",
-  "version": "1.0.0",
-  "description": "yylAdminTopVue",
+  "name": "yyladmintop",
+  "version": "2.1.1",
+  "description": "yylAdminTop",
   "author": "skyselang <215817969@qq.com>",
   "private": true,
   "scripts": {
