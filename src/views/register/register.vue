@@ -20,7 +20,9 @@
 </template>
 
 <script>
+import { getToken } from '@/utils/userinfo'
 import { register } from '@/apis/register'
+
 export default {
   name: 'Register',
   data () {
@@ -36,7 +38,16 @@ export default {
       }
     }
   },
+  created () {
+    this.isLogin()
+  },
   methods: {
+    isLogin () {
+      const token = getToken()
+      if (token) {
+        this.$router.push('/user')
+      }
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
