@@ -34,7 +34,7 @@ export default {
       model: {
         username: 'admin、yyladmin',
         password: '123456',
-        adminurl: 'https://demo.yyladmin.top/#/login'
+        adminurl: 'https://admin.yyladmin.top/#/login'
       }
     }
   },
