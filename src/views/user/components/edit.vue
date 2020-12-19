@@ -16,6 +16,9 @@
             <el-form-item label="邮箱" prop="email">
               <el-input v-model="model.email" type="text" placeholder=""></el-input>
             </el-form-item>
+            <el-form-item label="地区" prop="region_id">
+              <el-cascader v-model="model.region_id" :options="regionTree" :props="regionProps" @change="regionChange" placeholder="请选择所在地区" style="width:100%" />
+            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submitForm('form')">提交</el-button>
               <el-button @click="resetForm('form')">重置</el-button>
@@ -39,7 +42,17 @@ export default {
       loading: false,
       model: {
         member_id: '',
-        username: ''
+        username: '',
+        phone: '',
+        email: '',
+        region_id: ''
+      },
+      regionTree: [],
+      regionProps: {
+        expandTrigger: 'hover',
+        checkStrictly: true,
+        value: 'region_id',
+        label: 'region_name'
       },
       rules: {
         username: [{ required: true, message: '请输入账号', trigger: 'blur' }]
@@ -58,29 +71,32 @@ export default {
     },
     userInfo () {
       this.loading = true
-      userInfo()
-        .then(res => {
-          this.model = res.data
-          this.loading = false
-        })
-        .catch((err) => {
-          this.loading = false
-          this.$message({ message: err.msg, type: 'error' })
-        })
+      userInfo().then(res => {
+        this.model = res.data.member_info
+        this.regionTree = res.data.region_tree
+        this.loading = false
+      }).catch((err) => {
+        this.loading = false
+        this.$message({ message: err.msg, type: 'error' })
+      })
+    },
+    // 地区选择
+    regionChange (value) {
+      if (value) {
+        this.model.region_id = value[value.length - 1]
+      }
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true
-          userEdit(this.model)
-            .then(res => {
-              this.userInfo()
-              this.loading = false
-              this.$message({ message: res.msg, type: 'success' })
-            })
-            .catch(() => {
-              this.loading = false
-            })
+          userEdit(this.model).then(res => {
+            this.userInfo()
+            this.loading = false
+            this.$message({ message: res.msg, type: 'success' })
+          }).catch(() => {
+            this.loading = false
+          })
         }
       })
     },

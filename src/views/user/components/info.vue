@@ -19,6 +19,9 @@
             <el-form-item label="邮箱" prop="email">
               <el-input v-model="model.email" type="text" placeholder=""></el-input>
             </el-form-item>
+            <el-form-item label="地区" prop="region_id">
+              <el-cascader v-model="model.region_id" :options="regionTree" :props="regionProps" placeholder="" style="width:100%" />
+            </el-form-item>
             <el-form-item label="登录次数" prop="login_num">
               <el-input v-model="model.login_num" type="text" placeholder=""></el-input>
             </el-form-item>
@@ -54,6 +57,13 @@ export default {
     return {
       loading: false,
       model: {},
+      regionTree: [],
+      regionProps: {
+        expandTrigger: 'hover',
+        checkStrictly: true,
+        value: 'region_id',
+        label: 'region_name'
+      },
       rules: {}
     }
   },
@@ -69,15 +79,14 @@ export default {
     },
     userInfo () {
       this.loading = true
-      userInfo()
-        .then(res => {
-          this.model = res.data
-          this.loading = false
-        })
-        .catch((err) => {
-          this.loading = false
-          this.$message({ message: err.msg, type: 'error' })
-        })
+      userInfo().then(res => {
+        this.model = res.data.member_info
+        this.regionTree = res.data.region_tree
+        this.loading = false
+      }).catch((err) => {
+        this.loading = false
+        this.$message({ message: err.msg, type: 'error' })
+      })
     }
   }
 }
