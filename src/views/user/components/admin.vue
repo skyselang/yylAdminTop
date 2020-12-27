@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <el-row :gutter="0">
         <el-col :span="24">
-          <el-form ref="form" label-width="120px">
+          <el-form ref="form" :model="model" label-width="120px">
             <el-form-item label="账号" prop="username">
               <el-input v-model="model.username" type="text" placeholder=""></el-input>
             </el-form-item>

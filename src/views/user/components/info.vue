@@ -85,7 +85,7 @@ export default {
         this.loading = false
       }).catch((err) => {
         this.loading = false
-        this.$message({ message: err.msg, type: 'error' })
+        this.$message.error(err.msg)
       })
     }
   }

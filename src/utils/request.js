@@ -1,8 +1,5 @@
 import axios from 'axios'
-import {
-  Message,
-  MessageBox
-} from 'element-ui'
+import { Message, MessageBox } from 'element-ui'
 import { getToken, getMemberId, delUserInfo } from '@/utils/userinfo'
 
 // 创建axios实例
@@ -27,7 +24,7 @@ service.interceptors.request.use(
   },
   error => {
     // 对请求错误做些什么
-    console.log(error) // 用于调试
+    // console.log(error) // 用于调试
     return Promise.reject(error)
   }
 )
@@ -49,13 +46,9 @@ service.interceptors.response.use(
     const res = response.data
 
     // 如果自定义代码不是200，则判断为错误
-    if (res.code !== 200) {
-      Message({
-        message: res.msg || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
-
+    if (res.code === 200) {
+      return res
+    } else {
       // 401:token无效；
       if (res.code === 401) {
         // 重新登录
@@ -66,20 +59,26 @@ service.interceptors.response.use(
         }).then(() => {
           delUserInfo()
           location.reload()
+        }).catch(() => {})
+      } else {
+        Message({
+          showClose: true,
+          message: res.msg || 'Error',
+          type: 'error',
+          duration: 5000
         })
       }
       return Promise.reject(new Error(res.msg || 'Error'))
-    } else {
-      return res
     }
   },
   error => {
     // 对响应错误做点什么
-    console.log('err' + error) // 用于调试
+    // console.log('err' + error) // 用于调试
     Message({
+      showClose: true,
       message: error.message,
       type: 'error',
-      duration: 5 * 1000
+      duration: 5000
     })
     return Promise.reject(error)
   }

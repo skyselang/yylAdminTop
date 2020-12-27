@@ -10,18 +10,18 @@
             <el-form-item label="昵称" prop="nickname">
               <el-input v-model="model.nickname" type="text" placeholder=""></el-input>
             </el-form-item>
-            <el-form-item label="手机" prop="phone">
-              <el-input v-model="model.phone" type="text" placeholder=""></el-input>
-            </el-form-item>
             <el-form-item label="邮箱" prop="email">
               <el-input v-model="model.email" type="text" placeholder=""></el-input>
+            </el-form-item>
+            <el-form-item label="手机" prop="phone">
+              <el-input v-model="model.phone" type="text" placeholder=""></el-input>
             </el-form-item>
             <el-form-item label="地区" prop="region_id">
               <el-cascader v-model="model.region_id" :options="regionTree" :props="regionProps" @change="regionChange" placeholder="请选择所在地区" style="width:100%" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('form')">提交</el-button>
               <el-button @click="resetForm('form')">重置</el-button>
+              <el-button type="primary" @click="submitForm('form')">提交</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import { userInfo, userEdit } from '@/apis/user'
 import { getToken } from '@/utils/userinfo'
+import { userEdit } from '@/apis/user'
 
 export default {
   name: 'UserEdit',
@@ -43,13 +43,13 @@ export default {
       model: {
         member_id: '',
         username: '',
-        phone: '',
         email: '',
+        phone: '',
         region_id: ''
       },
       regionTree: [],
       regionProps: {
-        expandTrigger: 'hover',
+        expandTrigger: 'click',
         checkStrictly: true,
         value: 'region_id',
         label: 'region_name'
@@ -71,13 +71,13 @@ export default {
     },
     userInfo () {
       this.loading = true
-      userInfo().then(res => {
+      userEdit().then(res => {
         this.model = res.data.member_info
         this.regionTree = res.data.region_tree
         this.loading = false
       }).catch((err) => {
         this.loading = false
-        this.$message({ message: err.msg, type: 'error' })
+        this.$message.error(err.msg)
       })
     },
     // 地区选择
@@ -90,10 +90,10 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true
-          userEdit(this.model).then(res => {
+          userEdit(this.model, 'post').then(res => {
             this.userInfo()
             this.loading = false
-            this.$message({ message: res.msg, type: 'success' })
+            this.$message.success(res.msg)
           }).catch(() => {
             this.loading = false
           })

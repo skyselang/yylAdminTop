@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loading">
-    <el-tabs v-model="activeName">
+    <el-tabs v-model="tabActName">
       <el-tab-pane label="信息" name="info">
         <user-info></user-info>
       </el-tab-pane>
@@ -42,7 +42,7 @@ export default {
   data () {
     return {
       loading: false,
-      activeName: 'info'
+      tabActName: 'info'
     }
   },
   created () {

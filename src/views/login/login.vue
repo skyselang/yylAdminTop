@@ -10,8 +10,8 @@
             <el-input v-model="model.password" type="password" clearable show-password placeholder="请输入密码"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('form')">登录</el-button>
             <el-button @click="resetForm('form')">重置</el-button>
+            <el-button type="primary" @click="submitForm('form')">登录</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -46,7 +46,7 @@ export default {
           login(this.model).then(res => {
             setUserInfo(res.data)
             this.loading = false
-            this.$message({ message: res.msg, type: 'success' })
+            this.$message.success(res.msg)
             this.$router.push('/user')
           }).catch(() => {
             this.loading = false

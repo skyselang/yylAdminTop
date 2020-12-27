@@ -29,7 +29,7 @@ export default {
   methods: {
     submit () {
       logout(this.usersModel).then(res => {
-        this.$message({ message: res.msg, type: 'success' })
+        this.$message.success(res.msg)
         delUserInfo()
         window.location.href = './'
       })

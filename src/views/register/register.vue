@@ -10,8 +10,8 @@
             <el-input v-model="model.password" type="password" clearable show-password placeholder="6至18个字符，字母、数字"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('form')">注册</el-button>
             <el-button @click="resetForm('form')">重置</el-button>
+            <el-button type="primary" @click="submitForm('form')">注册</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -54,7 +54,7 @@ export default {
           this.loading = true
           register(this.model).then(res => {
             this.loading = false
-            this.$message({ message: '注册成功，请登录', type: 'success' })
+            this.$message.success('注册成功，请登录')
             this.$router.push('/login')
           }).catch(() => {
             this.loading = false

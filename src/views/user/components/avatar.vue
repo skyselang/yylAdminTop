@@ -3,12 +3,12 @@
     <el-card class="box-card">
       <el-row :gutter="0">
         <el-col :span="24">
-          <el-form ref="usersRef" label-width="120px">
+          <el-form ref="form" label-width="120px">
             <el-form-item label="头像">
               <el-avatar v-if="avatar" shape="circle" fit="contain" :size="100" :src="avatar" />
             </el-form-item>
             <el-form-item label="">
-              <div>jpg、png图片，小于50kb，宽高1:1。</div>
+              <div>jpg、png图片，小于50kb，宽高1:1</div>
             </el-form-item>
             <el-form-item>
               <el-upload name="avatar_file" :show-file-list="false" :action="uploadAction" :headers="uploadHeaders" :on-success="uploadSuccess">
@@ -51,9 +51,9 @@ export default {
         setAvatar(res.data.avatar)
         this.getAvatar()
         this.avatar = res.data.avatar
-        this.$message({ message: res.msg, type: 'success' })
+        this.$message.success(res.msg)
       } else {
-        this.$message({ message: res.msg, type: 'error' })
+        this.$message.error(res.msg)
       }
     }
   }

@@ -17,12 +17,20 @@ export function userInfo (params) {
    * 修改信息
    * @param {array} data 请求数据
    */
-export function userEdit (data) {
-  return request({
-    url: '/index/User/userEdit',
-    method: 'post',
-    data
-  })
+export function userEdit (data, method = 'get') {
+  if (method === 'get') {
+    return request({
+      url: '/index/User/userEdit',
+      method: 'get',
+      params: data
+    })
+  } else {
+    return request({
+      url: '/index/User/userEdit',
+      method: 'post',
+      data
+    })
+  }
 }
 /**
    * 修改头像
