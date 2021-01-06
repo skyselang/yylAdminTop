@@ -52,10 +52,10 @@
       <el-col class="yyl-text-center" :xs="24" :sm="8">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>代码开源</span>
+            <span>免费开源</span>
           </div>
           <div class="text item">
-            Apache2开源协议，无需授权即可商业使用，代码完全开源，无任何加密。
+            Apache2开源协议，无需授权即可商业使用，代码免费开源，无任何加密。
           </div>
         </el-card>
       </el-col>
