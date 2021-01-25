@@ -28,28 +28,38 @@
       </el-col>
     </el-row>
 
-    <el-row :gutter="5" class="intro">
-      <el-col class="yyl-text-center" :xs="24" :sm="8">
+    <el-row :gutter="10" class="intro">
+      <el-col class="yyl-text-center" :xs="24" :sm="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>极简即用</span>
+            <span>简单轻量</span>
           </div>
           <div class="text item">
-            只有登录退出、权限管理、日志管理等基本功能，前后台基础框架，开箱即用。
+            快速、简单、轻量，保持出色的性能和至简代码的同时，更注重易用性，上手简单。
           </div>
         </el-card>
       </el-col>
-      <el-col class="yyl-text-center" :xs="24" :sm="8">
+      <el-col class="yyl-text-center" :xs="24" :sm="6">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>开箱即用</span>
+          </div>
+          <div class="text item">
+            登录退出、权限管理、日志管理等基本功能，前后台基础框架，安装后即可使用。
+          </div>
+        </el-card>
+      </el-col>
+      <el-col class="yyl-text-center" :xs="24" :sm="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>前后分离</span>
           </div>
           <div class="text item">
-            前端后端分离，并行开发，提高效率，API数据交互，JWT用户认证。
+            前端后端分离，并行开发，提高效率，API、JSON数据交互，JWT用户认证。
           </div>
         </el-card>
       </el-col>
-      <el-col class="yyl-text-center" :xs="24" :sm="8">
+      <el-col class="yyl-text-center" :xs="24" :sm="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>免费开源</span>
