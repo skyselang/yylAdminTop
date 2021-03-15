@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'MemberToken'
+const TokenKey = 'UserToken'
 const getToken = function () {
   return Cookies.get(TokenKey)
 }
@@ -11,15 +11,15 @@ const delToken = function () {
   return Cookies.remove(TokenKey)
 }
 
-const MemberIdKey = 'MemberId'
-const getMemberId = function () {
-  return Cookies.get(MemberIdKey)
+const UserIdKey = 'UserId'
+const getUserId = function () {
+  return Cookies.get(UserIdKey)
 }
-const setMemberId = function (MemberId) {
-  return Cookies.set(MemberIdKey, MemberId)
+const setUserId = function (UserId) {
+  return Cookies.set(UserIdKey, UserId)
 }
-const delMemberId = function () {
-  return Cookies.remove(MemberIdKey)
+const delUserId = function () {
+  return Cookies.remove(UserIdKey)
 }
 
 const NicknameKey = 'Nickname'
@@ -56,8 +56,8 @@ const delAvatar = function () {
 }
 
 const setUserInfo = function (data) {
-  Cookies.set(TokenKey, data.token)
-  Cookies.set(MemberIdKey, data.member_id)
+  Cookies.set(TokenKey, data.user_token)
+  Cookies.set(UserIdKey, data.user_id)
   Cookies.set(NicknameKey, data.nickname)
   Cookies.set(UsernameKey, data.username)
   Cookies.set(AvatarKey, data.avatar)
@@ -65,7 +65,7 @@ const setUserInfo = function (data) {
 
 const delUserInfo = function () {
   Cookies.remove(TokenKey)
-  Cookies.remove(MemberIdKey)
+  Cookies.remove(UserIdKey)
   Cookies.remove(NicknameKey)
   Cookies.remove(UsernameKey)
   Cookies.remove(AvatarKey)
@@ -75,9 +75,9 @@ export {
   getToken,
   setToken,
   delToken,
-  getMemberId,
-  setMemberId,
-  delMemberId,
+  getUserId,
+  setUserId,
+  delUserId,
   getNickname,
   setNickname,
   delNickname,

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
-import { getToken, getMemberId, delUserInfo } from '@/utils/userinfo'
+import { getToken, delUserInfo } from '@/utils/userinfo'
 
 // 创建axios实例
 const service = axios.create({
@@ -17,8 +17,7 @@ service.interceptors.request.use(
     // 让每个请求头部带上token
     // tokenKey自定义头部键名
     // 可以根据实际情况修改
-    config.headers['MemberToken'] = getToken() ? getToken() : ''
-    config.headers['MemberId'] = getMemberId() ? getMemberId() : ''
+    config.headers['UserToken'] = getToken() ? getToken() : ''
 
     return config
   },
@@ -59,7 +58,7 @@ service.interceptors.response.use(
         }).then(() => {
           delUserInfo()
           location.reload()
-        }).catch(() => {})
+        }).catch(() => { })
       } else {
         Message({
           showClose: true,

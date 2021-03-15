@@ -8,7 +8,7 @@
     </div>
     <!-- 日志列表 -->
     <el-table v-loading="loading" :data="logData" :height="height" style="width: 100%" border @sort-change="logSort">
-      <el-table-column prop="member_log_id" label="ID" min-width="100" sortable="custom" fixed="left" />
+      <el-table-column prop="user_log_id" label="ID" min-width="100" sortable="custom" fixed="left" />
       <el-table-column prop="api_name" label="操作" min-width="130" />
       <el-table-column prop="request_ip" label="IP" min-width="130" />
       <el-table-column prop="request_region" label="地区" min-width="150" />

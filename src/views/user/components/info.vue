@@ -80,7 +80,7 @@ export default {
     userInfo () {
       this.loading = true
       userInfo().then(res => {
-        this.model = res.data.member_info
+        this.model = res.data.user_info
         this.regionTree = res.data.region_tree
         this.loading = false
       }).catch((err) => {

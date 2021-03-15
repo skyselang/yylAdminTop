@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { getToken, getMemberId, getAvatar, setAvatar } from '@/utils/userinfo'
+import { getToken, getUserId, getAvatar, setAvatar } from '@/utils/userinfo'
 
 export default {
   name: 'UserAvatar',
@@ -34,8 +34,8 @@ export default {
       uploadAction:
         process.env.VUE_APP_BASE_API + '/index/User/userAvatar',
       uploadHeaders: {
-        MemberToken: getToken(),
-        MemberId: getMemberId()
+        UserToken: getToken(),
+        UserId: getUserId()
       }
     }
   },
