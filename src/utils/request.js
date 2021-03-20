@@ -72,13 +72,26 @@ service.interceptors.response.use(
   },
   error => {
     // 对响应错误做点什么
-    // console.log('err' + error) // 用于调试
-    Message({
-      showClose: true,
-      message: error.message,
-      type: 'error',
-      duration: 5000
-    })
+    console.log(error.response)
+    const res = error.response.data
+    if (res.code === 401) {
+      // 重新登录
+      MessageBox.confirm(res.message, '提示', {
+        confirmButtonText: '重新登录',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        delUserInfo()
+        location.reload()
+      }).catch(() => { })
+    } else {
+      Message({
+        showClose: true,
+        message: res.message || error.message,
+        type: 'error',
+        duration: 5000
+      })
+    }
     return Promise.reject(error)
   }
 )
