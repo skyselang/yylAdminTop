@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
-import { getToken, delUserInfo } from '@/utils/userinfo'
+import { getMemberToken, delUserInfo } from '@/utils/userinfo'
 
 // 创建axios实例
 const service = axios.create({
@@ -17,7 +17,7 @@ service.interceptors.request.use(
     // 让每个请求头部带上token
     // tokenKey自定义头部键名
     // 可以根据实际情况修改
-    config.headers['UserToken'] = getToken() ? getToken() : ''
+    config.headers['MemberToken'] = getMemberToken() ? getMemberToken() : ''
 
     return config
   },
@@ -72,26 +72,13 @@ service.interceptors.response.use(
   },
   error => {
     // 对响应错误做点什么
-    console.log(error.response)
-    const res = error.response.data
-    if (res.code === 401) {
-      // 重新登录
-      MessageBox.confirm(res.message, '提示', {
-        confirmButtonText: '重新登录',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        delUserInfo()
-        location.reload()
-      }).catch(() => { })
-    } else {
-      Message({
-        showClose: true,
-        message: res.message || error.message,
-        type: 'error',
-        duration: 5000
-      })
-    }
+    // console.log('err' + error) // 用于调试
+    Message({
+      showClose: true,
+      message: error.message,
+      type: 'error',
+      duration: 5000
+    })
     return Promise.reject(error)
   }
 )

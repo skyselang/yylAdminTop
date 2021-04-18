@@ -9,7 +9,7 @@
       <el-col :span="12">
         <el-row v-if="islogin" :gutter="0">
           <el-col class="nav-item" :span="4" :offset="20">
-            <router-link class="nav-a" to="/user" title="个人中心">
+            <router-link class="nav-a" to="/member" title="个人中心">
               <el-avatar v-if="avatar" class="nav-avatar" shape="circle" fit="contain" :size="40" :src="avatar" />
               <span v-else :title="nickname">个人中心</span>
             </router-link>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { getToken, getNickname, getAvatar } from '@/utils/userinfo'
+import { getMemberToken, getNickname, getAvatar } from '@/utils/userinfo'
 
 export default {
   name: 'AppHeader',
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     isLogin () {
-      const token = getToken()
+      const token = getMemberToken()
       if (token) {
         this.nickname = getNickname()
         this.avatar = getAvatar()

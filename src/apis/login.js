@@ -3,8 +3,8 @@ import request from '@/utils/request'
 // ----------------登录/退出----------------
 
 /**
-  * 验证码
-  */
+* 验证码
+*/
 export function verify () {
   return request({
     url: '/index/Login/verify',

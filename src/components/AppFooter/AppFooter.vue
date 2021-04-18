@@ -24,8 +24,8 @@ export default {
 
 <style scoped>
 a {
-  text-decoration: none;
-  color:black;
+    text-decoration: none;
+    color:black;
 }
 .copyright {
   text-align: center;

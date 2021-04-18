@@ -28,9 +28,9 @@ export default new Router({
       }
     },
     {
-      path: '/user',
-      name: 'User',
-      component: () => import('@/views/user/user'),
+      path: '/member',
+      name: 'Member',
+      component: () => import('@/views/member/member'),
       meta: {
         title: 'yylAdmin - 个人中心'
       }

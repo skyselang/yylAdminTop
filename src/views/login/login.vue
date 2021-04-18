@@ -3,8 +3,8 @@
     <el-row :gutter="0" class="form">
       <el-col :span="8" :offset="8">
         <el-form ref="form" :model="model" :rules="rules" label-width="80px">
-          <el-form-item label="用户名" prop="username">
-            <el-input v-model="model.username" type="text" clearable placeholder="请输入用户名"></el-input>
+          <el-form-item label="账号" prop="username">
+            <el-input v-model="model.username" type="text" clearable placeholder="请输入账号"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input v-model="model.password" type="password" clearable show-password placeholder="请输入密码"></el-input>
@@ -45,7 +45,7 @@ export default {
         verify_code: ''
       },
       rules: {
-        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
         verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
       }
@@ -80,7 +80,7 @@ export default {
             setUserInfo(res.data)
             this.loading = false
             this.$message.success(res.msg)
-            this.$router.push('/user')
+            this.$router.push('/member')
           }).catch(() => {
             this.loading = false
           })
