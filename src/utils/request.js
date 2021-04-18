@@ -72,10 +72,11 @@ service.interceptors.response.use(
   },
   error => {
     // 对响应错误做点什么
-    // console.log('err' + error) // 用于调试
+    console.log('err' + error) // 用于调试
+    const res = error.response.data
     Message({
       showClose: true,
-      message: error.message,
+      message: res.message || error.message,
       type: 'error',
       duration: 5000
     })
