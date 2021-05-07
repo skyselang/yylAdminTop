@@ -9,12 +9,12 @@
           <el-form-item label="密码" prop="password">
             <el-input v-model="model.password" type="password" clearable show-password placeholder="请输入密码"></el-input>
           </el-form-item>
-          <el-form-item label="验证码" v-if="verifyShow" prop="verify_code">
-            <el-col :span="13">
-              <el-input ref="verify_code_ipt" v-model="model.verify_code" type="text" placeholder="请输入验证码" prefix-icon="el-icon-picture" autocomplete="off" style="height:45px;line-height:45px;" clearable />
+          <el-form-item label="验证码" v-if="verify_switch" prop="verify_code">
+            <el-col :span="12">
+              <el-input ref="verify_code_ipt" v-model="model.verify_code" type="text" placeholder="请输入验证码" prefix-icon="el-icon-picture" autocomplete="off" style="height:40px;line-height:40px;" clearable />
             </el-col>
-            <el-col :span="11">
-              <el-image :src="verifySrc" fit="fill" alt="验证码" title="点击刷新验证码" style="width:120px;height:45px;float:right" @click="verifyRefresh" />
+            <el-col :span="12">
+              <el-image :src="verify_src" fit="fill" alt="验证码" title="点击刷新验证码" style="height:40px;float:right" @click="verifyRefresh" />
             </el-col>
           </el-form-item>
           <el-form-item>
@@ -36,8 +36,8 @@ export default {
   data () {
     return {
       loading: false,
-      verifyShow: false,
-      verifySrc: '',
+      verify_switch: 0,
+      verify_src: '',
       model: {
         username: '',
         password: '',
@@ -58,9 +58,9 @@ export default {
     // 验证码配置
     getVerify () {
       verify().then(res => {
-        this.verifyShow = res.data.verify_switch
+        this.verify_switch = res.data.verify_switch
         if (res.data.verify_switch) {
-          this.verifySrc = res.data.verify_src
+          this.verify_src = res.data.verify_src
           this.model.verify_id = res.data.verify_id
         }
       })
