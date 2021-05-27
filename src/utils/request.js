@@ -78,7 +78,7 @@ service.interceptors.response.use(
     const res = error.response.data
     if (res.code === 401) {
       // 重新登录
-      MessageBox.confirm(res.msg, '提示', {
+      MessageBox.confirm(res.msg || res.message, '提示', {
         confirmButtonText: '重新登录',
         cancelButtonText: '取消',
         type: 'warning'

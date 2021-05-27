@@ -5,9 +5,9 @@ import request from '@/utils/request'
 /**
 * 验证码
 */
-export function verify () {
+export function captcha () {
   return request({
-    url: '/index/Register/verify',
+    url: '/index/Register/captcha',
     method: 'get'
   })
 }

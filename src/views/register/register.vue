@@ -9,12 +9,12 @@
           <el-form-item label="密码" prop="password">
             <el-input v-model="model.password" type="password" clearable show-password placeholder="6至18个字符，字母、数字"></el-input>
           </el-form-item>
-          <el-form-item label="验证码" v-if="verify_switch" prop="verify_code">
+          <el-form-item label="验证码" v-if="captcha_switch" prop="captcha_code">
             <el-col :span="12">
-              <el-input ref="verify_code_ipt" v-model="model.verify_code" type="text" placeholder="请输入验证码" prefix-icon="el-icon-picture" autocomplete="off" style="height:40px;line-height:40px;" clearable />
+              <el-input ref="captcha_code_ipt" v-model="model.captcha_code" type="text" placeholder="请输入验证码" prefix-icon="el-icon-picture" autocomplete="off" style="height:40px;line-height:40px;" clearable />
             </el-col>
             <el-col :span="12">
-              <el-image :src="verify_src" fit="fill" alt="验证码" title="点击刷新验证码" style="height:40px;float:right" @click="verifyRefresh" />
+              <el-image :src="captcha_src" fit="fill" alt="验证码" title="点击刷新验证码" style="height:40px;float:right" @click="captchaRefresh" />
             </el-col>
           </el-form-item>
           <el-form-item>
@@ -29,31 +29,31 @@
 
 <script>
 import { getMemberToken } from '@/utils/userinfo'
-import { verify, register } from '@/apis/register'
+import { captcha, register } from '@/apis/register'
 
 export default {
   name: 'Register',
   data () {
     return {
       loading: false,
-      verify_switch: 0,
-      verify_src: '',
+      captcha_switch: 0,
+      captcha_src: '',
       model: {
         username: '',
         password: '',
-        verify_id: '',
-        verify_code: ''
+        captcha_id: '',
+        captcha_code: ''
       },
       rules: {
         username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
+        captcha_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
       }
     }
   },
   created () {
     this.isLogin()
-    this.getVerify()
+    this.getCaptcha()
   },
   methods: {
     isLogin () {
@@ -63,21 +63,21 @@ export default {
       }
     },
     // 验证码配置
-    getVerify () {
-      verify().then(res => {
-        this.verify_switch = res.data.verify_switch
-        if (res.data.verify_switch) {
-          this.verify_src = res.data.verify_src
-          this.model.verify_id = res.data.verify_id
+    getCaptcha () {
+      captcha().then(res => {
+        this.captcha_switch = res.data.captcha_switch
+        if (res.data.captcha_switch) {
+          this.captcha_src = res.data.captcha_src
+          this.model.captcha_id = res.data.captcha_id
         }
       })
     },
     // 验证码刷新
-    verifyRefresh () {
-      this.model.verify_id = ''
-      this.model.verify_code = ''
-      this.getVerify()
-      // this.$refs.verify_code_ipt.focus()
+    captchaRefresh () {
+      this.model.captcha_id = ''
+      this.model.captcha_code = ''
+      this.getCaptcha()
+      // this.$refs.captcha_code_ipt.focus()
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
