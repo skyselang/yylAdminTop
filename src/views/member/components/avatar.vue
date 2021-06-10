@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     getAvatar () {
-      this.avatar = getAvatar() ? getAvatar : ''
+      this.avatar = getAvatar()
     },
     uploadSuccess (res, file) {
       if (res.code === 200) {
