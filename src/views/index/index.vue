@@ -11,7 +11,7 @@
     <el-row :gutter="5" class="yyl-guide">
       <el-col class="yyl-text-center" :span="24">
         <el-button round>
-          <el-link href="https://gitee.com/skyselang/yylAdmin/blob/master/README.gitee.md" target="_blank">
+          <el-link href="https://skyselang.github.io/yylAdminDoc/" target="_blank">
             <img class="yyl-guide-img" src="@/assets/img/logo.png" alt="Gitee" width="18" height="18" /> 起步
           </el-link>
         </el-button>
