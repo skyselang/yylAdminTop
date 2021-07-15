@@ -25,6 +25,11 @@
             <img class="yyl-guide-img" src="@/assets/img/github.png" alt="Github" width="18" height="18" /> Github
           </el-link>
         </el-button>
+        <el-button round>
+          <el-link href="/comment">
+            <img class="yyl-guide-img" src="@/assets/img/logo.png" alt="Github" width="18" height="18" /> 留言
+          </el-link>
+        </el-button>
       </el-col>
     </el-row>
 

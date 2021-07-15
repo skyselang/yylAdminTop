@@ -20,6 +20,14 @@ export default new Router({
       }
     },
     {
+      path: '/comment',
+      name: 'Comment',
+      component: () => import('@/views/comment/comment'),
+      meta: {
+        title: 'yylAdmin - 留言'
+      }
+    },
+    {
       path: '/login',
       name: 'Login',
       component: () => import('@/views/login/login'),
