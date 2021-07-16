@@ -7,9 +7,6 @@
       <el-tab-pane label="修改" name="edit">
         <edit></edit>
       </el-tab-pane>
-      <el-tab-pane label="头像" name="avatar">
-        <avatar></avatar>
-      </el-tab-pane>
       <el-tab-pane label="密码" name="pwd">
         <pwd></pwd>
       </el-tab-pane>
@@ -30,7 +27,6 @@
 import { getMemberToken } from '@/utils/userinfo'
 import Info from './components/info'
 import Edit from './components/edit'
-import Avatar from './components/avatar'
 import Pwd from './components/pwd'
 import Log from './components/log'
 import Logout from './components/logout'
@@ -38,7 +34,7 @@ import Admin from './components/admin'
 
 export default {
   name: 'Member',
-  components: { Info, Edit, Avatar, Pwd, Log, Logout, Admin },
+  components: { Info, Edit, Pwd, Log, Logout, Admin },
   data () {
     return {
       loading: false,

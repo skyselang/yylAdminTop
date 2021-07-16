@@ -25,15 +25,10 @@ export function edit (data) {
   })
 }
 /**
- * 修改头像
- * @param {array} data 请求数据
+ * 上传头像
  */
-export function avatar (data) {
-  return request({
-    url: '/index/Member/avatar',
-    method: 'post',
-    data
-  })
+export function avatar () {
+  return process.env.VUE_APP_BASE_API + '/index/Member/avatar'
 }
 /**
  * 修改密码

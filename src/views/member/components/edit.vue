@@ -4,6 +4,30 @@
       <el-row :gutter="0">
         <el-col :span="24">
           <el-form ref="form" :model="model" :rules="rules" label-width="120px">
+            <el-form-item label="头像" prop="avatar_url">
+              <el-col :span="10">
+                <el-image
+                  v-if="model.avatar_url"
+                  style="width: 100px; height: 100px; border-radius: 100px;"
+                  :src="model.avatar_url"
+                  :preview-src-list="[model.avatar_url]"
+                  title="点击查看大图"
+                />
+              </el-col>
+              <el-col :span="14">
+                <el-upload
+                  name="file"
+                  :show-file-list="false"
+                  :action="uploadAction"
+                  :headers="uploadHeaders"
+                  :on-success="uploadSuccess"
+                  :on-error="uploadError"
+                >
+                  <el-button size="mini">上传头像</el-button>
+                </el-upload>
+                <span>jpg、png图片，小于50kb，宽高1:1</span>
+              </el-col>
+            </el-form-item>
             <el-form-item label="账号" prop="username">
               <el-input v-model="model.username" type="text" placeholder=""></el-input>
             </el-form-item>
@@ -33,7 +57,7 @@
 <script>
 import { getMemberToken } from '@/utils/userinfo'
 import { tree } from '@/apis/region'
-import { info, edit } from '@/apis/member'
+import { info, edit, avatar } from '@/apis/member'
 
 export default {
   name: 'MemberEdit',
@@ -43,11 +67,15 @@ export default {
       loading: false,
       model: {
         member_id: '',
+        avatar: '',
+        avatar_url: '',
         username: '',
         email: '',
         phone: '',
         region_id: ''
       },
+      uploadAction: avatar(),
+      uploadHeaders: { MemberToken: getMemberToken() },
       regionTree: [],
       regionProps: {
         expandTrigger: 'click',
@@ -108,6 +136,19 @@ export default {
     reset (formName) {
       this.$refs[formName].resetFields()
       this.info()
+    },
+    // 上传头像
+    uploadSuccess (res) {
+      if (res.code === 200) {
+        this.model.avatar = res.data.path
+        this.model.avatar_url = res.data.url
+        this.$message.success(res.msg)
+      } else {
+        this.$message.error(res.msg)
+      }
+    },
+    uploadError (res) {
+      this.$message.error(res.msg || '上传出错')
     }
   }
 }

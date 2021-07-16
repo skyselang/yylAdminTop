@@ -4,8 +4,8 @@
       <el-row :gutter="0">
         <el-col :span="24">
           <el-form ref="form" :model="model" :rules="rules" label-width="120px">
-            <el-form-item label="头像" prop="avatar">
-              <el-avatar v-if="model.avatar" shape="circle" fit="contain" :size="100" :src="model.avatar" />
+            <el-form-item label="头像" prop="avatar_url">
+              <el-avatar v-if="model.avatar_url" shape="circle" fit="contain" :size="100" :src="model.avatar_url" />
             </el-form-item>
             <el-form-item label="账号" prop="username">
               <el-input v-model="model.username" type="text" placeholder=""></el-input>
