@@ -2,7 +2,10 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <div class="copyright">友情链接：<a href="https://www.luhu.co" target="_blank">芦虎导航</a></div>
+        <div class="copyright">
+          <a href="https://www.luhu.co" target="_blank">芦虎导航</a>
+          <a class="margin-left" href="https://beian.miit.gov.cn" target="_blank">粤ICP备2020084102号</a>
+        </div>
       </el-col>
     </el-row>
     <el-row>
@@ -29,5 +32,8 @@ a {
 }
 .copyright {
   text-align: center;
+}
+.margin-left {
+  margin-left: 10px;
 }
 </style>
