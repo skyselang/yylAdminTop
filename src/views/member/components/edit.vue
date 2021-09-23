@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { getMemberToken } from '@/utils/userinfo'
+import { getMemberToken, setAvatar } from '@/utils/userinfo'
 import { tree } from '@/apis/region'
 import { info, edit, avatar } from '@/apis/member'
 
@@ -67,7 +67,7 @@ export default {
       loading: false,
       model: {
         member_id: '',
-        avatar: '',
+        avatar_id: 0,
         avatar_url: '',
         username: '',
         email: '',
@@ -125,6 +125,7 @@ export default {
           this.loading = true
           edit(this.model, 'post').then(res => {
             this.info()
+            setAvatar(this.model.avatar_url)
             this.loading = false
             this.$message.success(res.msg)
           }).catch(() => {
@@ -140,8 +141,8 @@ export default {
     // 上传头像
     uploadSuccess (res) {
       if (res.code === 200) {
-        this.model.avatar = res.data.path
-        this.model.avatar_url = res.data.url
+        this.model.avatar_id = res.data.file_id
+        this.model.avatar_url = res.data.file_url
         this.$message.success(res.msg)
       } else {
         this.$message.error(res.msg)
