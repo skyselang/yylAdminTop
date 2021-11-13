@@ -9,6 +9,15 @@
           <el-form-item label="密码" prop="password">
             <el-input v-model="model.password" type="password" clearable show-password placeholder="6至18个字符，字母、数字"></el-input>
           </el-form-item>
+           <el-form-item label="昵称" prop="nickname">
+            <el-input v-model="model.nickname" type="text" clearable placeholder=""></el-input>
+          </el-form-item>
+           <el-form-item label="手机" prop="phone">
+            <el-input v-model="model.phone" type="text" clearable placeholder=""></el-input>
+          </el-form-item>
+           <el-form-item label="邮箱" prop="email">
+            <el-input v-model="model.email" type="text" clearable placeholder=""></el-input>
+          </el-form-item>
           <el-form-item label="验证码" v-if="captcha_switch" prop="captcha_code">
             <el-col :span="12">
               <el-input ref="captcha_code_ipt" v-model="model.captcha_code" type="text" placeholder="请输入验证码" prefix-icon="el-icon-picture" autocomplete="off" style="height:40px;line-height:40px;" clearable />
@@ -41,6 +50,9 @@ export default {
       model: {
         username: '',
         password: '',
+        nickname: '',
+        phone: '',
+        email: '',
         captcha_id: '',
         captcha_code: ''
       },
