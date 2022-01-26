@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { getMemberToken, getNickname, getAvatar } from '@/utils/userinfo'
+import { getApiToken, getNickname, getAvatar } from '@/utils/userinfo'
 
 export default {
   name: 'AppHeader',
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     isLogin () {
-      const token = getMemberToken()
+      const token = getApiToken()
       if (token) {
         this.nickname = getNickname()
         this.avatar = getAvatar()

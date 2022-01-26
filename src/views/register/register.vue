@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { getMemberToken } from '@/utils/userinfo'
+import { getApiToken } from '@/utils/userinfo'
 import { captcha, register } from '@/apis/register'
 
 export default {
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     isLogin () {
-      const token = getMemberToken()
+      const token = getApiToken()
       if (token) {
         this.$router.push('/member')
       }

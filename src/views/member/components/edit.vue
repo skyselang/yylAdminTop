@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { getMemberToken, setAvatar } from '@/utils/userinfo'
+import { getApiToken, setAvatar } from '@/utils/userinfo'
 import { tree } from '@/apis/region'
 import { info, edit, avatar } from '@/apis/member'
 
@@ -75,7 +75,7 @@ export default {
         region_id: ''
       },
       uploadAction: avatar(),
-      uploadHeaders: { MemberToken: getMemberToken() },
+      uploadHeaders: { ApiToken: getApiToken() },
       regionTree: [],
       regionProps: {
         expandTrigger: 'click',
@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     isLogin () {
-      const token = getMemberToken()
+      const token = getApiToken()
       if (token) {
         this.info()
       }

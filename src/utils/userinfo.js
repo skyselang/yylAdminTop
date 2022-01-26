@@ -1,14 +1,14 @@
 import Cookies from 'js-cookie'
 
-const MemberTokenKey = 'MemberToken'
-const getMemberToken = function () {
-  return Cookies.get(MemberTokenKey)
+const ApiTokenKey = 'ApiToken'
+const getApiToken = function () {
+  return Cookies.get(ApiTokenKey)
 }
-const setMemberToken = function (memberToken) {
-  return Cookies.set(MemberTokenKey, memberToken)
+const setApiToken = function (apiToken) {
+  return Cookies.set(ApiTokenKey, apiToken)
 }
-const delMemberToken = function () {
-  return Cookies.remove(MemberTokenKey)
+const delApiToken = function () {
+  return Cookies.remove(ApiTokenKey)
 }
 
 const MemberIdKey = 'MemberId'
@@ -56,7 +56,7 @@ const delAvatar = function () {
 }
 
 const setUserInfo = function (data) {
-  Cookies.set(MemberTokenKey, data.member_token)
+  Cookies.set(ApiTokenKey, data.api_token)
   Cookies.set(MemberIdKey, data.member_id)
   Cookies.set(UsernameKey, data.username)
   Cookies.set(NicknameKey, data.nickname)
@@ -64,7 +64,7 @@ const setUserInfo = function (data) {
 }
 
 const delUserInfo = function () {
-  Cookies.remove(MemberTokenKey)
+  Cookies.remove(ApiTokenKey)
   Cookies.remove(MemberIdKey)
   Cookies.remove(UsernameKey)
   Cookies.remove(NicknameKey)
@@ -72,9 +72,9 @@ const delUserInfo = function () {
 }
 
 export {
-  getMemberToken,
-  setMemberToken,
-  delMemberToken,
+  getApiToken,
+  setApiToken,
+  delApiToken,
   getMemberId,
   setMemberId,
   delMemberId,

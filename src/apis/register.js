@@ -7,7 +7,7 @@ import request from '@/utils/request'
 */
 export function captcha () {
   return request({
-    url: '/index/Register/captcha',
+    url: '/api/Register/captcha',
     method: 'get'
   })
 }
@@ -18,7 +18,7 @@ export function captcha () {
    */
 export function register (data) {
   return request({
-    url: '/index/Register/register',
+    url: '/api/Register/register',
     method: 'post',
     data
   })

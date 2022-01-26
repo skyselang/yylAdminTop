@@ -50,7 +50,7 @@
 <script>
 import { tree } from '@/apis/region'
 import { info } from '@/apis/member'
-import { getMemberToken } from '@/utils/userinfo'
+import { getApiToken } from '@/utils/userinfo'
 
 export default {
   name: 'MemberInfo',
@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     isLogin () {
-      const token = getMemberToken()
+      const token = getApiToken()
       if (token) {
         this.info()
       }

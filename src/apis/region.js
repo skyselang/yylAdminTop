@@ -7,7 +7,7 @@ import request from '@/utils/request'
 */
 export function list () {
   return request({
-    url: '/index/Region/list',
+    url: '/api/Region/list',
     method: 'get'
   })
 }
@@ -18,7 +18,7 @@ export function list () {
  */
 export function info (data) {
   return request({
-    url: '/index/Region/info',
+    url: '/api/Region/info',
     method: 'get',
     params: data
   })
@@ -30,7 +30,7 @@ export function info (data) {
  */
 export function tree (data) {
   return request({
-    url: '/index/Region/tree',
+    url: '/api/Region/tree',
     method: 'get',
     params: data
   })

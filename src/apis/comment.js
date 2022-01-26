@@ -8,7 +8,7 @@ import request from '@/utils/request'
    */
 export function comment (data) {
   return request({
-    url: '/index/cms.Comment/add',
+    url: '/api/cms.Comment/add',
     method: 'post',
     data
   })

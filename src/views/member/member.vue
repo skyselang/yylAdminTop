@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { getMemberToken } from '@/utils/userinfo'
+import { getApiToken } from '@/utils/userinfo'
 import Info from './components/info'
 import Edit from './components/edit'
 import Pwd from './components/pwd'
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     isLogin () {
-      const token = getMemberToken()
+      const token = getApiToken()
       if (token) {
 
       } else {

@@ -22,7 +22,7 @@
 
 <script>
 import Pagination from '@/components/Pagination'
-import { getMemberToken } from '@/utils/userinfo'
+import { getApiToken } from '@/utils/userinfo'
 import { log } from '@/apis/member'
 
 export default {
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     isLogin () {
-      const token = getMemberToken()
+      const token = getApiToken()
       if (token) {
         this.logs()
       }
