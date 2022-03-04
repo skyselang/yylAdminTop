@@ -3,20 +3,14 @@
     <el-row :gutter="0" class="form">
       <el-col :span="8" :offset="8">
         <el-form ref="form" :model="model" :rules="rules" label-width="80px">
-          <el-form-item label="账号" prop="username">
-            <el-input v-model="model.username" type="text" clearable placeholder="2至32个字符，字母、数字"></el-input>
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="model.username" type="text" clearable placeholder="2至32个字符"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <el-input v-model="model.password" type="password" clearable show-password placeholder="6至18个字符，字母、数字"></el-input>
+            <el-input v-model="model.password" type="password" clearable show-password placeholder="6至18个字符"></el-input>
           </el-form-item>
-           <el-form-item label="昵称" prop="nickname">
-            <el-input v-model="model.nickname" type="text" clearable placeholder=""></el-input>
-          </el-form-item>
-           <el-form-item label="手机" prop="phone">
-            <el-input v-model="model.phone" type="text" clearable placeholder=""></el-input>
-          </el-form-item>
-           <el-form-item label="邮箱" prop="email">
-            <el-input v-model="model.email" type="text" clearable placeholder=""></el-input>
+          <el-form-item label="昵称" prop="nickname">
+            <el-input v-model="model.nickname" type="text" clearable placeholder="1至64个字符"></el-input>
           </el-form-item>
           <el-form-item label="验证码" v-if="captcha_switch" prop="captcha_code">
             <el-col :span="12">
@@ -51,13 +45,11 @@ export default {
         username: '',
         password: '',
         nickname: '',
-        phone: '',
-        email: '',
         captcha_id: '',
         captcha_code: ''
       },
       rules: {
-        username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
         captcha_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
       }

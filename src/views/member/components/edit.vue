@@ -28,7 +28,7 @@
                 <span>jpg、png图片，小于50kb，宽高1:1</span>
               </el-col>
             </el-form-item>
-            <el-form-item label="账号" prop="username">
+            <el-form-item label="用户名" prop="username">
               <el-input v-model="model.username" type="text" placeholder=""></el-input>
             </el-form-item>
             <el-form-item label="昵称" prop="nickname">
@@ -84,7 +84,7 @@ export default {
         label: 'region_name'
       },
       rules: {
-        username: [{ required: true, message: '请输入账号', trigger: 'blur' }]
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
       }
     }
   },
