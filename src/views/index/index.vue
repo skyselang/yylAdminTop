@@ -37,31 +37,17 @@
       <el-col class="yyl-text-center" :xs="24" :sm="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>简单轻量</span>
-          </div>
-          <div class="text item">
-            快速、简单、轻量，保持出色的性能和至简代码的同时，更注重易用性，上手简单。
-          </div>
-        </el-card>
-      </el-col>
-      <el-col class="yyl-text-center" :xs="24" :sm="6">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>开箱即用</span>
-          </div>
-          <div class="text item">
-            登录退出、权限管理、日志管理等基本功能，前后台基础框架，安装后即可使用。
-          </div>
-        </el-card>
-      </el-col>
-      <el-col class="yyl-text-center" :xs="24" :sm="6">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
             <span>前后分离</span>
           </div>
-          <div class="text item">
-            前端后端分离，并行开发，提高效率，API、JSON数据交互，JWT用户认证。
+          <div class="text item">前后分离开发模式，开发更清晰，分工更明确，提升开发效率，API、JSON数据交互，JWT用户认证。</div>
+        </el-card>
+      </el-col>
+      <el-col class="yyl-text-center" :xs="24" :sm="6">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>简单轻量</span>
           </div>
+          <div class="text item">快速、简单、轻量，保持出色的性能和至简代码的同时，更注重易用性，代码一目了然，上手简单。</div>
         </el-card>
       </el-col>
       <el-col class="yyl-text-center" :xs="24" :sm="6">
@@ -69,9 +55,15 @@
           <div slot="header" class="clearfix">
             <span>免费开源</span>
           </div>
-          <div class="text item">
-            Apache2开源协议，无需授权即可商业使用，代码免费开源，无任何加密。
+          <div class="text item">Apache2开源协议，无需授权即可商业化使用，代码全部免费开源，没有任何加密。</div>
+        </el-card>
+      </el-col>
+      <el-col class="yyl-text-center" :xs="24" :sm="6">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>开箱即用</span>
           </div>
+          <div class="text item">登录退出、权限管理、日志管理、接口文档等基本功能，前后台基础框架，安装后即可使用。</div>
         </el-card>
       </el-col>
     </el-row>
