@@ -8,34 +8,34 @@
               <el-avatar v-if="model.avatar_url" shape="circle" fit="contain" :size="100" :src="model.avatar_url" />
             </el-form-item>
             <el-form-item label="用户名" prop="username">
-              <el-input v-model="model.username" type="text" placeholder=""></el-input>
+              <el-input v-model="model.username" type="text" placeholder="" disabled></el-input>
             </el-form-item>
             <el-form-item label="昵称" prop="nickname">
-              <el-input v-model="model.nickname" type="text" placeholder=""></el-input>
+              <el-input v-model="model.nickname" type="text" placeholder="" disabled></el-input>
             </el-form-item>
             <el-form-item label="手机" prop="phone">
-              <el-input v-model="model.phone" type="text" placeholder=""></el-input>
+              <el-input v-model="model.phone" type="text" placeholder="" disabled></el-input>
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
-              <el-input v-model="model.email" type="text" placeholder=""></el-input>
+              <el-input v-model="model.email" type="text" placeholder="" disabled></el-input>
             </el-form-item>
             <el-form-item label="地区" prop="region_id">
-              <el-cascader v-model="model.region_id" :options="regionTree" :props="regionProps" placeholder="" style="width:100%" />
+              <el-cascader v-model="model.region_id" :options="regionTree" :props="regionProps" placeholder="" disabled style="width:100%" />
             </el-form-item>
             <el-form-item label="登录次数" prop="login_num">
-              <el-input v-model="model.login_num" type="text" placeholder=""></el-input>
+              <el-input v-model="model.login_num" type="text" placeholder="" disabled></el-input>
             </el-form-item>
             <el-form-item label="登录IP" prop="login_ip">
-              <el-input v-model="model.login_ip" type="text" placeholder=""></el-input>
+              <el-input v-model="model.login_ip" type="text" placeholder="" disabled></el-input>
             </el-form-item>
             <el-form-item label="登录地区" prop="login_region">
-              <el-input v-model="model.login_region" type="text" placeholder=""></el-input>
+              <el-input v-model="model.login_region" type="text" placeholder="" disabled></el-input>
             </el-form-item>
             <el-form-item label="登陆时间" prop="login_time">
-              <el-input v-model="model.login_time" type="text" placeholder=""></el-input>
+              <el-input v-model="model.login_time" type="text" placeholder="" disabled></el-input>
             </el-form-item>
             <el-form-item label="注册时间" prop="create_time">
-              <el-input v-model="model.create_time" type="text" placeholder=""></el-input>
+              <el-input v-model="model.create_time" type="text" placeholder="" disabled></el-input>
             </el-form-item>
             <el-form-item>
               <el-button @click="info()">刷新</el-button>

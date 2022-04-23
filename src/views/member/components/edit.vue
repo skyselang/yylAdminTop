@@ -34,12 +34,6 @@
             <el-form-item label="昵称" prop="nickname">
               <el-input v-model="model.nickname" type="text" placeholder=""></el-input>
             </el-form-item>
-            <el-form-item label="邮箱" prop="email">
-              <el-input v-model="model.email" type="text" placeholder=""></el-input>
-            </el-form-item>
-            <el-form-item label="手机" prop="phone">
-              <el-input v-model="model.phone" type="text" placeholder=""></el-input>
-            </el-form-item>
             <el-form-item label="地区" prop="region_id">
               <el-cascader v-model="model.region_id" :options="regionTree" :props="regionProps" @change="regionChange" placeholder="请选择所在地区" style="width:100%" />
             </el-form-item>
