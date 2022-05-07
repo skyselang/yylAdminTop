@@ -95,7 +95,7 @@ export default {
     info () {
       this.loading = true
       tree().then(res => {
-        this.regionTree = res.data
+        this.regionTree = res.data.list
       }).catch((err) => {
         this.$message.error(err.msg)
       })
