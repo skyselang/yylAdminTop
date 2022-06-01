@@ -34,7 +34,7 @@
             <el-form-item label="昵称" prop="nickname">
               <el-input v-model="model.nickname" type="text" placeholder=""></el-input>
             </el-form-item>
-            <el-form-item label="地区" prop="region_id">
+            <el-form-item label="所在地" prop="region_id">
               <el-cascader v-model="model.region_id" :options="regionTree" :props="regionProps" @change="regionChange" placeholder="请选择所在地区" style="width:100%" />
             </el-form-item>
             <el-form-item>

@@ -19,7 +19,7 @@
             <el-form-item label="邮箱" prop="email">
               <el-input v-model="model.email" type="text" placeholder="" disabled></el-input>
             </el-form-item>
-            <el-form-item label="地区" prop="region_id">
+            <el-form-item label="所在地" prop="region_id">
               <el-cascader v-model="model.region_id" :options="regionTree" :props="regionProps" placeholder="" disabled style="width:100%" />
             </el-form-item>
             <el-form-item label="登录次数" prop="login_num">
