@@ -26,8 +26,8 @@
           </el-link>
         </el-button>
         <el-button round>
-          <el-link href="/comment">
-            <img class="yyl-guide-img" src="@/assets/img/logo.png" alt="Github" width="18" height="18" /> 留言
+          <el-link href="/feedback">
+            <img class="yyl-guide-img" src="@/assets/img/logo.png" alt="Github" width="18" height="18" /> 反馈
           </el-link>
         </el-button>
       </el-col>
@@ -55,7 +55,7 @@
           <div slot="header" class="clearfix">
             <span>免费开源</span>
           </div>
-          <div class="text item">Apache2开源协议，无需授权即可商业化使用，代码全部免费开源，没有任何加密。</div>
+          <div class="text item">Apache2 开源协议，无需授权即可商业化使用，代码全部免费开源，没有任何加密。 </div>
         </el-card>
       </el-col>
       <el-col class="yyl-text-center" :xs="24" :sm="6">
@@ -63,7 +63,7 @@
           <div slot="header" class="clearfix">
             <span>开箱即用</span>
           </div>
-          <div class="text item">登录退出、权限管理、日志管理、接口文档等基本功能，前后台基础框架，安装后即可使用。</div>
+          <div class="text item">登录退出、权限管理、日志管理、接口文档等基本功能，前后台基础框架，安装后即可使用。 </div>
         </el-card>
       </el-col>
     </el-row>

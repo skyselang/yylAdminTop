@@ -7,7 +7,7 @@ import request from '@/utils/request'
 */
 export function captcha () {
   return request({
-    url: '/api/Login/captcha',
+    url: '/api/member.Login/captcha',
     method: 'get'
   })
 }
@@ -18,7 +18,7 @@ export function captcha () {
  */
 export function login (data) {
   return request({
-    url: '/api/Login/login',
+    url: '/api/member.Login/login',
     method: 'post',
     data
   })
@@ -30,7 +30,7 @@ export function login (data) {
  */
 export function logout (data) {
   return request({
-    url: '/api/Login/logout',
+    url: '/api/member.Logout/logout',
     method: 'post',
     data
   })

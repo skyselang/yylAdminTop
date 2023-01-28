@@ -8,7 +8,7 @@ import request from '@/utils/request'
    */
 export function userInfo (params) {
   return request({
-    url: '/api/User/userInfo',
+    url: '/api/member.Member/info',
     method: 'get',
     params: params
   })
@@ -20,13 +20,13 @@ export function userInfo (params) {
 export function userEdit (data, method = 'get') {
   if (method === 'get') {
     return request({
-      url: '/api/User/userEdit',
+      url: '/api/member.Member/edit',
       method: 'get',
       params: data
     })
   } else {
     return request({
-      url: '/api/User/userEdit',
+      url: '/api/member.Member/edit',
       method: 'post',
       data
     })
@@ -38,7 +38,7 @@ export function userEdit (data, method = 'get') {
    */
 export function userAvatar (data) {
   return request({
-    url: '/api/User/userAvatar',
+    url: '/api/member.Member/avatar',
     method: 'post',
     data
   })
@@ -49,7 +49,7 @@ export function userAvatar (data) {
    */
 export function userPwd (data) {
   return request({
-    url: '/api/User/userPwd',
+    url: '/api/member.Member/pwd',
     method: 'post',
     data
   })
@@ -60,7 +60,7 @@ export function userPwd (data) {
    */
 export function logList (params) {
   return request({
-    url: '/api/User/userLog',
+    url: '/api/member.Memberlog',
     method: 'get',
     params: params
   })

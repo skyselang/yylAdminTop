@@ -10,7 +10,7 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <div class="copyright">Copyright © 2021 yylAdmin, Apache-2.0 license</div>
+        <div class="copyright">Copyright © 2018-2023 yylAdmin, Apache-2.0 license</div>
       </el-col>
     </el-row>
   </div>

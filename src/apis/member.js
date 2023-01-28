@@ -8,7 +8,7 @@ import request from '@/utils/request'
  */
 export function info (params) {
   return request({
-    url: '/api/Member/info',
+    url: '/api/member.Member/info',
     method: 'get',
     params: params
   })
@@ -19,7 +19,7 @@ export function info (params) {
  */
 export function edit (data) {
   return request({
-    url: '/api/Member/edit',
+    url: '/api/member.Member/edit',
     method: 'post',
     data
   })
@@ -28,7 +28,7 @@ export function edit (data) {
  * 上传头像
  */
 export function avatar () {
-  return process.env.VUE_APP_BASE_API + '/api/Member/avatar'
+  return process.env.VUE_APP_BASE_API + '/api/member.Member/avatar'
 }
 /**
  * 修改密码
@@ -36,7 +36,7 @@ export function avatar () {
  */
 export function pwd (data) {
   return request({
-    url: '/api/Member/pwd',
+    url: '/api/member.Member/pwd',
     method: 'post',
     data
   })
@@ -47,7 +47,7 @@ export function pwd (data) {
  */
 export function log (params) {
   return request({
-    url: '/api/Member/log',
+    url: '/api/member.Member/log',
     method: 'get',
     params: params
   })

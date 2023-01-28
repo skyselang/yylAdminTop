@@ -20,11 +20,11 @@ export default new Router({
       }
     },
     {
-      path: '/comment',
-      name: 'Comment',
-      component: () => import('@/views/comment/comment'),
+      path: '/feedback',
+      name: 'Feedback',
+      component: () => import('@/views/feedback/feedback'),
       meta: {
-        title: 'yylAdmin - 留言'
+        title: 'yylAdmin - 反馈'
       }
     },
     {

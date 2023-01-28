@@ -3,17 +3,17 @@
     <el-row :gutter="0" class="form">
       <el-col :span="8" :offset="8">
         <el-form ref="form" :model="model" :rules="rules" label-width="80px">
-          <el-form-item label="称呼" prop="call">
-            <el-input v-model="model.call" type="text" clearable placeholder=""></el-input>
+          <el-form-item label="标题" prop="title">
+            <el-input v-model="model.title" type="text" clearable placeholder="反馈标题"></el-input>
+          </el-form-item>
+          <el-form-item label="内容" prop="content">
+            <el-input v-model="model.content" type="textarea" clearable placeholder="反馈内容"></el-input>
           </el-form-item>
           <el-form-item label="手机" prop="mobile">
             <el-input v-model="model.mobile" type="text" clearable placeholder=""></el-input>
           </el-form-item>
-          <el-form-item label="标题" prop="title">
-            <el-input v-model="model.title" type="text" clearable placeholder=""></el-input>
-          </el-form-item>
-          <el-form-item label="内容" prop="content">
-            <el-input v-model="model.content" type="textarea" clearable placeholder=""></el-input>
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="model.email" type="text" clearable placeholder=""></el-input>
           </el-form-item>
           <el-form-item>
             <el-button @click="resetForm('form')">重置</el-button>
@@ -26,37 +26,46 @@
 </template>
 
 <script>
-import { comment } from '@/apis/comment'
+import { getApiToken } from '@/utils/userinfo'
+import { feedback } from '@/apis/feedback'
 
 export default {
-  name: 'Comment',
+  name: 'Feedback',
   data () {
     return {
       loading: false,
       model: {
-        call: '',
-        mobile: '',
         title: '',
-        content: ''
+        content: '',
+        mobile: '',
+        email: ''
       },
       rules: {
-        call: [{ required: true, message: '请输入称呼', trigger: 'blur' }],
-        mobile: [{ required: true, message: '请输入手机', trigger: 'blur' }],
         title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
         content: [{ required: true, message: '请输入内容', trigger: 'blur' }]
       }
     }
   },
-  created () {},
+  created () {
+    this.isLogin()
+  },
   methods: {
+    isLogin () {
+      const token = getApiToken()
+      if (token) {
+
+      } else {
+        this.$router.push('/login')
+      }
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true
-          comment(this.model).then(res => {
+          feedback(this.model).then(res => {
             this.loading = false
-            this.$message.success('留言成功')
-            this.$router.push('/login')
+            this.$message.success('反馈成功')
+            this.$router.push('/')
           }).catch(() => {
             this.loading = false
           })

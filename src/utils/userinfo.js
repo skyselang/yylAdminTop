@@ -56,7 +56,7 @@ const delAvatar = function () {
 }
 
 const setUserInfo = function (data) {
-  Cookies.set(ApiTokenKey, data.api_token)
+  Cookies.set(ApiTokenKey, data.ApiToken)
   Cookies.set(MemberIdKey, data.member_id)
   Cookies.set(UsernameKey, data.username)
   Cookies.set(NicknameKey, data.nickname)
