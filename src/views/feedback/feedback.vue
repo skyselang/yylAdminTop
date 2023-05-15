@@ -55,7 +55,7 @@ export default {
       if (token) {
 
       } else {
-        this.$router.push('/login')
+        // this.$router.push('/login')
       }
     },
     submitForm (formName) {
