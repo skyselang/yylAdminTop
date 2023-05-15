@@ -26,9 +26,9 @@
           </el-link>
         </el-button>
         <el-button round>
-          <el-link href="/feedback">
+          <router-link to="/feedback" title="反馈">
             <img class="yyl-guide-img" src="@/assets/img/logo.png" alt="Github" width="18" height="18" /> 反馈
-          </el-link>
+          </router-link>
         </el-button>
       </el-col>
     </el-row>
