@@ -4,22 +4,63 @@
       <el-col :span="8" :offset="8">
         <el-form ref="form" :model="model" :rules="rules" label-width="80px">
           <el-form-item label="账号" prop="account">
-            <el-input v-model="model.account" type="text" clearable placeholder="请输入账号"></el-input>
+            <el-input
+              v-model="model.account"
+              type="text"
+              clearable
+              placeholder="请输入账号"
+            ></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <el-input v-model="model.password" type="password" clearable show-password placeholder="请输入密码"></el-input>
+            <el-input
+              v-model="model.password"
+              type="password"
+              clearable
+              show-password
+              placeholder="请输入密码"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="验证码" v-if="captcha_switch" prop="captcha_code">
+          <el-form-item
+            label="验证码"
+            v-if="captcha_switch"
+            prop="captcha_code"
+          >
             <el-col :span="12">
-              <el-input ref="captcha_code_ipt" v-model="model.captcha_code" type="text" placeholder="请输入验证码" prefix-icon="el-icon-picture" autocomplete="off" style="height:40px;line-height:40px;" clearable />
+              <el-input
+                ref="captcha_code_ipt"
+                v-model="model.captcha_code"
+                type="text"
+                placeholder="请输入验证码"
+                prefix-icon="el-icon-picture"
+                autocomplete="off"
+                style="height: 40px; line-height: 40px"
+                clearable
+              />
             </el-col>
             <el-col :span="12">
-              <el-image :src="captcha_src" fit="fill" alt="验证码" title="点击刷新验证码" style="height:40px;float:right" @click="captchaRefresh" />
+              <el-image
+                :src="captcha_src"
+                fit="fill"
+                alt="验证码"
+                title="点击刷新验证码"
+                style="height: 40px; float: right"
+                @click="captchaRefresh"
+              />
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-button @click="resetForm('form')">重置</el-button>
-            <el-button type="primary" @click="submitForm('form')">登录</el-button>
+            <el-button type="primary" @click="submitForm('form')"
+              >登录</el-button
+            >
+          </el-form-item>
+          <el-form-item label="其它">
+            <a href="#" @click="toLogin"
+              ><img
+                src="@/assets/img/qq-login.png"
+                style="vertical-align: middle"
+                alt="QQ登录"
+            /></a>
           </el-form-item>
         </el-form>
       </el-col>
@@ -89,6 +130,8 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    toLogin () {
     }
   }
 }
