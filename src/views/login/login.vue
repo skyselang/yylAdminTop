@@ -132,6 +132,19 @@ export default {
       this.$refs[formName].resetFields()
     },
     toLogin () {
+      const appid = process.env.VUE_APP_QQ_APPID
+      const redirectUri = encodeURIComponent('https://www.yyladmin.top')
+      const state = this.randomString(12)
+      const url = 'https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=' + appid + '&redirect_uri=' + redirectUri + '&state=' + state
+      window.open(url, 'TencentLogin', 'width=450,height=320,menubar=0,scrollbars=1,resizable=1,status=1,titlebar=0,toolbar=0,location=1')
+    },
+    randomString (e) {
+      e = e || 32
+      const t = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
+      const a = t.length
+      var n = ''
+      for (let i = 0; i < e; i++) n += t.charAt(Math.floor(Math.random() * a))
+      return n
     }
   }
 }
