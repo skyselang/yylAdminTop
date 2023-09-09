@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-row>
-      <el-col :span="24">
+      <el-col>
         <el-container>
           <el-header>
             <app-header></app-header>
@@ -9,7 +9,7 @@
           <el-main id="app-main">
             <router-view />
           </el-main>
-          <el-footer height="30px">
+          <el-footer>
             <app-footer></app-footer>
           </el-footer>
         </el-container>
@@ -19,15 +19,15 @@
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader/AppHeader'
-import AppFooter from '@/components/AppFooter/AppFooter'
+import AppHeader from "@/components/AppHeader/AppHeader";
+import AppFooter from "@/components/AppFooter/AppFooter";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     AppHeader,
-    AppFooter
-  }
-}
+    AppFooter,
+  },
+};
 </script>
 
 <style scoped>

@@ -5,16 +5,22 @@
         <el-col :span="24">
           <el-form ref="form" :model="model" label-width="120px">
             <el-form-item label="账号" prop="username">
-              <el-input v-model="model.username" type="text" placeholder=""></el-input>
+              <el-input
+                v-model="model.username"
+                type="text"
+                placeholder=""
+              ></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-              <el-input v-model="model.password" type="text" placeholder=""></el-input>
+              <el-input
+                v-model="model.password"
+                type="text"
+                placeholder=""
+              ></el-input>
             </el-form-item>
             <el-form-item>
               <el-link :href="model.adminurl" class="el-link" target="_blank">
-                <el-button type="primary">
-                  后台
-                </el-button>
+                <el-button type="primary"> 后台 </el-button>
               </el-link>
             </el-form-item>
           </el-form>
@@ -25,22 +31,21 @@
 </template>
 
 <script>
-
 export default {
-  name: 'MemberAdmin',
+  name: "MemberAdmin",
   components: {},
-  data () {
+  data() {
     return {
       model: {
-        username: 'admin、yyladmin',
-        password: '123456',
-        adminurl: 'https://admin.yyladmin.top/#/login'
-      }
-    }
+        username: "admin、yyladmin",
+        password: "123456",
+        adminurl: "https://admin.yyladmin.top/#/login",
+      },
+    };
   },
-  created () { },
-  methods: {}
-}
+  created() {},
+  methods: {},
+};
 </script>
 
 <style scoped>

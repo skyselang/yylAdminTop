@@ -2,15 +2,13 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <div class="copyright">
-          <a href="https://www.luhu.co" target="_blank">芦虎导航</a>
-          <a class="margin-left" href="https://beian.miit.gov.cn" target="_blank">桂ICP备2021007680号-1</a>
+        <div class="link">
         </div>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
-        <div class="copyright">Copyright © 2018-2023 yylAdmin, Apache-2.0 license</div>
+        <div class="copyright">Copyright © 2018-{{year}} yylAdmin, Apache-2.0 license</div>
       </el-col>
     </el-row>
   </div>
@@ -20,7 +18,9 @@
 export default {
   name: 'AppFooter',
   data () {
-    return {}
+    return {
+      year: new Date().getFullYear()
+    }
   }
 }
 </script>
@@ -30,7 +30,11 @@ a {
     text-decoration: none;
     color:black;
 }
+.link {
+  text-align: center;
+}
 .copyright {
+  font-size: 16px;
   text-align: center;
 }
 .margin-left {

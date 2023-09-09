@@ -3,8 +3,8 @@ import request from '@/utils/request'
 // ----------------地区----------------
 
 /**
-* 地区列表
-*/
+ * 地区列表
+ */
 export function list () {
   return request({
     url: '/api/setting.Region/list',

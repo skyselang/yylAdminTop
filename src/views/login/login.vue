@@ -3,12 +3,12 @@
     <el-row :gutter="0" class="form">
       <el-col :span="8" :offset="8">
         <el-form ref="form" :model="model" :rules="rules" label-width="80px">
-          <el-form-item label="账号" prop="account">
+          <el-form-item label="用户名" prop="account">
             <el-input
               v-model="model.account"
               type="text"
               clearable
-              placeholder="请输入账号"
+              placeholder="请输入用户名"
             ></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
@@ -54,13 +54,23 @@
               >登录</el-button
             >
           </el-form-item>
-          <el-form-item label="其它">
-            <a href="#" @click="toLogin"
-              ><img
-                src="@/assets/img/qq-login.png"
+          <el-form-item label="">
+            <a href="#" @click="thirdLogin('qq')">
+              <img
+                src="@/assets/img/qq-login230x48.png"
                 style="vertical-align: middle"
                 alt="QQ登录"
-            /></a>
+              />
+            </a>
+          </el-form-item>
+          <el-form-item label="">
+            <a href="#" @click="thirdLogin('wb')">
+              <img
+                src="@/assets/img/weibo-login-48.png"
+                style="vertical-align: middle"
+                alt="微博登录"
+              />
+            </a>
           </el-form-item>
         </el-form>
       </el-col>
@@ -69,85 +79,123 @@
 </template>
 
 <script>
-import { captcha, login } from '@/apis/login'
-import { setUserInfo } from '@/utils/userinfo'
+import { captcha, login } from "@/api/login";
+import { getApiToken, setUserInfo, setApiToken } from "@/utils/userinfo";
 
 export default {
-  name: 'Login',
-  data () {
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: "Login",
+  data() {
     return {
       loading: false,
       captcha_switch: 0,
-      captcha_src: '',
+      captcha_src: "",
       model: {
-        account: '',
-        password: '',
-        captcha_id: '',
-        captcha_code: ''
+        account: "",
+        password: "",
+        captcha_id: "",
+        captcha_code: "",
       },
       rules: {
-        account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        captcha_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
-      }
-    }
+        account: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        captcha_code: [
+          { required: true, message: "请输入验证码", trigger: "blur" },
+        ],
+      },
+    };
   },
-  created () {
-    this.getCaptcha()
+  created() {
+    this.isLogin();
+    this.getCaptcha();
+    this.thirdLoginRes();
   },
   methods: {
+    isLogin() {
+      const token = getApiToken();
+      if (token) {
+        this.$router.push("/member");
+      }
+    },
     // 验证码配置
-    getCaptcha () {
-      captcha().then(res => {
-        this.captcha_switch = res.data.captcha_switch
+    getCaptcha() {
+      captcha().then((res) => {
+        this.captcha_switch = res.data.captcha_switch;
         if (res.data.captcha_switch) {
-          this.captcha_src = res.data.captcha_src
-          this.model.captcha_id = res.data.captcha_id
+          this.captcha_src = res.data.captcha_src;
+          this.model.captcha_id = res.data.captcha_id;
         }
-      })
+      });
     },
     // 验证码刷新
-    captchaRefresh () {
-      this.model.captcha_id = ''
-      this.model.captcha_code = ''
-      this.getCaptcha()
+    captchaRefresh() {
+      this.model.captcha_id = "";
+      this.model.captcha_code = "";
+      this.getCaptcha();
       // this.$refs.captcha_code_ipt.focus()
     },
-    submitForm (formName) {
+    submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.loading = true
-          login(this.model).then(res => {
-            setUserInfo(res.data)
-            this.loading = false
-            this.$message.success(res.msg)
-            this.$router.push('/member')
-          }).catch(() => {
-            this.loading = false
-          })
+          this.loading = true;
+          login(this.model)
+            .then((res) => {
+              setApiToken(res.data.ApiToken);
+              setUserInfo(res.data);
+              this.loading = false;
+              this.$message.success(res.msg);
+              this.$router.push("/member");
+            })
+            .catch(() => {
+              this.loading = false;
+            });
         }
-      })
+      });
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     },
-    toLogin () {
-      const appid = process.env.VUE_APP_QQ_APPID
-      const redirectUri = encodeURIComponent('https://www.yyladmin.top')
-      const state = this.randomString(12)
-      const url = 'https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=' + appid + '&redirect_uri=' + redirectUri + '&state=' + state
-      window.open(url, 'TencentLogin', 'width=450,height=320,menubar=0,scrollbars=1,resizable=1,status=1,titlebar=0,toolbar=0,location=1')
+    // 第三方登录
+    thirdLogin(app = "qq") {
+      const baseUrl = process.env.VUE_APP_BASE_API;
+      const loginUrl =
+        baseUrl +
+        "/api/member.Login/website?app=" +
+        app +
+        "&jump_url=" +
+        window.location.href;
+      window.open(loginUrl);
     },
-    randomString (e) {
-      e = e || 32
-      const t = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
-      const a = t.length
-      var n = ''
-      for (let i = 0; i < e; i++) n += t.charAt(Math.floor(Math.random() * a))
-      return n
-    }
-  }
-}
+    thirdLoginRes() {
+      const urlParam = this.getUrlParams();
+      if (urlParam) {
+        const tokenName = process.env.VUE_APP_TOKEN_NAME;
+        const token = urlParam[tokenName];
+        if (token) {
+          setApiToken(token);
+          this.$router.push("/member");
+        }
+      }
+    },
+    getUrlParams() {
+      // 获取当前页面的完整URL
+      var url = window.location.href;
+      // 将URL拆分成各个部分
+      var urlParts = url.split("?");
+      // 获取URL中的查询字符串部分
+      var queryString = urlParts[1];
+      // 将查询字符串拆分成键值对
+      var queryParameters = {};
+      if (queryString) {
+        queryString.split("&").forEach(function (part) {
+          var paramParts = part.split("=");
+          queryParameters[paramParts[0]] = paramParts[1];
+        });
+      }
+      return queryParameters;
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -8,7 +8,7 @@
               <el-col :span="10">
                 <el-image
                   v-if="model.avatar_url"
-                  style="width: 100px; height: 100px; border-radius: 100px;"
+                  style="width: 100px; height: 100px; border-radius: 100px"
                   :src="model.avatar_url"
                   :preview-src-list="[model.avatar_url]"
                   title="点击查看大图"
@@ -29,13 +29,28 @@
               </el-col>
             </el-form-item>
             <el-form-item label="用户名" prop="username">
-              <el-input v-model="model.username" type="text" placeholder=""></el-input>
+              <el-input
+                v-model="model.username"
+                type="text"
+                placeholder=""
+              ></el-input>
             </el-form-item>
             <el-form-item label="昵称" prop="nickname">
-              <el-input v-model="model.nickname" type="text" placeholder=""></el-input>
+              <el-input
+                v-model="model.nickname"
+                type="text"
+                placeholder=""
+              ></el-input>
             </el-form-item>
             <el-form-item label="所在地" prop="region_id">
-              <el-cascader v-model="model.region_id" :options="regionTree" :props="regionProps" @change="regionChange" placeholder="请选择所在地区" style="width:100%" />
+              <el-cascader
+                v-model="model.region_id"
+                :options="regionTree"
+                :props="regionProps"
+                @change="regionChange"
+                placeholder="请选择所在地区"
+                style="width: 100%"
+              />
             </el-form-item>
             <el-form-item>
               <el-button @click="reset('form')">重置</el-button>
@@ -49,104 +64,109 @@
 </template>
 
 <script>
-import { getApiToken, setAvatar } from '@/utils/userinfo'
-import { tree } from '@/apis/region'
-import { info, edit, avatar } from '@/apis/member'
+import { getApiToken, setAvatar } from "@/utils/userinfo";
+import { tree } from "@/api/region";
+import { info, edit, avatar } from "@/api/member";
 
 export default {
-  name: 'MemberEdit',
+  name: "MemberEdit",
   components: {},
-  data () {
+  data() {
     return {
       loading: false,
       model: {
-        member_id: '',
+        member_id: "",
         avatar_id: 0,
-        avatar_url: '',
-        username: '',
-        email: '',
-        phone: '',
-        region_id: ''
+        avatar_url: "",
+        username: "",
+        email: "",
+        phone: "",
+        region_id: "",
       },
       uploadAction: avatar(),
       uploadHeaders: { ApiToken: getApiToken() },
       regionTree: [],
       regionProps: {
-        expandTrigger: 'click',
+        expandTrigger: "click",
         checkStrictly: true,
-        value: 'region_id',
-        label: 'region_name'
+        value: "region_id",
+        label: "region_name",
       },
       rules: {
-        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
-      }
-    }
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+        ],
+      },
+    };
   },
-  created () {
-    this.isLogin()
+  created() {
+    this.isLogin();
   },
   methods: {
-    isLogin () {
-      const token = getApiToken()
+    isLogin() {
+      const token = getApiToken();
       if (token) {
-        this.info()
+        this.info();
       }
     },
-    info () {
-      this.loading = true
-      tree().then(res => {
-        this.regionTree = res.data.list
-      }).catch((err) => {
-        this.$message.error(err.msg)
-      })
-      info().then(res => {
-        this.model = res.data
-        this.loading = false
-      }).catch((err) => {
-        this.loading = false
-        this.$message.error(err.msg)
-      })
+    info() {
+      this.loading = true;
+      tree()
+        .then((res) => {
+          this.regionTree = res.data.list;
+        })
+        .catch(() => {});
+      info()
+        .then((res) => {
+          this.model = res.data;
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
     // 地区选择
-    regionChange (value) {
+    regionChange(value) {
       if (value) {
-        this.model.region_id = value[value.length - 1]
+        this.model.region_id = value[value.length - 1];
       }
     },
-    submit (formName) {
+    submit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.loading = true
-          edit(this.model, 'post').then(res => {
-            this.info()
-            setAvatar(this.model.avatar_url)
-            this.loading = false
-            this.$message.success(res.msg)
-          }).catch(() => {
-            this.loading = false
-          })
+          this.loading = true;
+          edit(this.model, "post")
+            .then((res) => {
+              this.info();
+              setAvatar(this.model.avatar_url);
+              this.loading = false;
+              this.$message.success(res.msg);
+            })
+            .catch(() => {
+              this.loading = false;
+            });
         }
-      })
+      });
     },
-    reset (formName) {
-      this.$refs[formName].resetFields()
-      this.info()
+    reset(formName) {
+      this.$refs[formName].resetFields();
+      this.info();
     },
     // 上传头像
-    uploadSuccess (res) {
+    uploadSuccess(res) {
       if (res.code === 200) {
-        this.model.avatar_id = res.data.file_id
-        this.model.avatar_url = res.data.file_url
-        this.$message.success(res.msg)
+        this.model.avatar_id = res.data.file_id;
+        this.model.avatar_url = res.data.file_url;
+        this.$message.success(res.msg);
       } else {
-        this.$message.error(res.msg)
+        this.$message.error(res.msg);
       }
     },
-    uploadError (res) {
-      this.$message.error(res.msg || '上传出错')
-    }
-  }
-}
+    uploadError(res) {
+      this.$message.error(res.msg || "上传出错");
+    },
+  },
+};
 </script>
 
 <style>

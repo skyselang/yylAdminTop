@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
-import { getApiToken, delUserInfo } from '@/utils/userinfo'
+import { getApiToken, delApiToken, delUserInfo } from '@/utils/userinfo'
 
 // 创建axios实例
 const service = axios.create({
@@ -18,7 +18,7 @@ service.interceptors.request.use(
     // tokenKey自定义头部键名
     // 可以根据实际情况修改
     if (getApiToken()) {
-      const tokenName = process.env.VUE_APP_API_TOKEN || 'ApiToken'
+      const tokenName = process.env.VUE_APP_TOKEN_NAME || 'ApiToken'
       config.headers[tokenName] = getApiToken() || ''
     }
 
@@ -59,8 +59,9 @@ service.interceptors.response.use(
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
+          delApiToken()
           delUserInfo()
-          location.reload()
+          location.href = '/login'
         }).catch((err) => {
           console.log(err)
         })
@@ -86,8 +87,9 @@ service.interceptors.response.use(
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        delApiToken()
         delUserInfo()
-        location.reload()
+        location.href = '/login'
       }).catch(() => { })
     } else {
       Message({

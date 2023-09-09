@@ -15,25 +15,25 @@
 </template>
 
 <script>
-import { logout } from '@/apis/login'
-import { delUserInfo } from '@/utils/userinfo'
+import { logout } from "@/api/login";
+import { delApiToken, delUserInfo } from "@/utils/userinfo";
 
 export default {
-  name: 'MemberLogout',
+  name: "MemberLogout",
   components: {},
-  data () {
-    return {
-    }
+  data() {
+    return {};
   },
-  created () { },
+  created() {},
   methods: {
-    submit () {
-      logout(this.usersModel).then(res => {
-        this.$message.success(res.msg)
-        delUserInfo()
-        window.location.href = './'
-      })
-    }
-  }
-}
+    submit() {
+      logout(this.usersModel).then((res) => {
+        this.$message.success(res.msg);
+        delApiToken();
+        delUserInfo();
+        window.location.href = "./";
+      });
+    },
+  },
+};
 </script>

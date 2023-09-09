@@ -7,23 +7,21 @@
         </a>
       </el-col>
       <el-col :span="12">
-        <el-row v-if="islogin" :gutter="0">
-          <el-col class="nav-item" :span="4" :offset="20">
-            <router-link class="nav-a" to="/member" title="个人中心">
-              <el-avatar v-if="avatar" class="nav-avatar" shape="circle" fit="contain" :size="40" :src="avatar" />
-              <span v-else :title="nickname">个人中心</span>
-            </router-link>
-          </el-col>
-        </el-row>
-        <el-row v-else :gutter="0">
-          <el-col class="nav-item" :span="4" :offset="12">
+        <el-row :gutter="0">
+          <el-col class="nav-item" :span="3" :offset="10">
             <router-link class="nav-a" to="/login">登录</router-link>
           </el-col>
-          <el-col class="nav-item" :span="4">
+          <el-col class="nav-item" :span="3">
             <router-link class="nav-a" to="/register">注册</router-link>
           </el-col>
-          <el-col class="nav-item" :span="4">
-            <router-link class="nav-a" to="/user">个人中心</router-link>
+          <el-col class="nav-item" :span="3">
+            <router-link class="nav-a" to="/feedback">反馈</router-link>
+          </el-col>
+          <el-col class="nav-item" :span="3">
+            <router-link class="nav-a" to="/member" title="个人中心">
+              <el-avatar v-if="avatar" class="nav-avatar" shape="circle" fit="contain" :size="30" :src="avatar" />
+              <span v-else :title="nickname">个人中心</span>
+            </router-link>
           </el-col>
         </el-row>
       </el-col>
