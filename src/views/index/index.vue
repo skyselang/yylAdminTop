@@ -4,7 +4,7 @@
       <el-col class="ya-text-center" :span="24">
         <h1 class="ya-slogan-title">yylAdmin</h1>
         <p class="ya-slogan-image"><img src="@/assets/img/logo.png" /></p>
-        <h3 class="ya-slogan-desc">基于ThinkPHP6和Vue2的极简后台管理系统</h3>
+        <h3 class="ya-slogan-desc">基于ThinkPHP8和Vue3的极简后台管理系统</h3>
       </el-col>
     </el-row>
 
