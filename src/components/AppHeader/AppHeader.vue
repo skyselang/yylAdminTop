@@ -1,76 +1,35 @@
 <template>
-  <div>
-    <el-row :gutter="0">
-      <el-col :span="12">
-        <a href="./">
-          <img src="@/assets/img/logo.png" width="60" height="60" alt="" srcset="" />
-        </a>
-      </el-col>
-      <el-col :span="12">
-        <el-row :gutter="0">
-          <el-col class="nav-item" :span="3" :offset="10">
-            <router-link class="nav-a" to="/login">登录</router-link>
-          </el-col>
-          <el-col class="nav-item" :span="3">
-            <router-link class="nav-a" to="/register">注册</router-link>
-          </el-col>
-          <el-col class="nav-item" :span="3">
-            <router-link class="nav-a" to="/feedback">反馈</router-link>
-          </el-col>
-          <el-col class="nav-item" :span="3">
-            <router-link class="nav-a" to="/member" title="个人中心">
-              <el-avatar v-if="avatar" class="nav-avatar" shape="circle" fit="contain" :size="30" :src="avatar" />
-              <span v-else :title="nickname">个人中心</span>
-            </router-link>
-          </el-col>
-        </el-row>
-      </el-col>
-    </el-row>
-    <el-divider class="divider"></el-divider>
-  </div>
+  <el-row>
+    <el-col>
+      <el-menu mode="horizontal" :ellipsis="false" router>
+        <el-menu-item index="/">
+          <img class="h-[40px]" src="@/assets/images/logo.png" alt="logo" />
+        </el-menu-item>
+        <div class="flex-grow"></div>
+        <el-menu-item v-if="token" index="/logout">退出</el-menu-item>
+        <el-menu-item v-if="!token" index="/login">登录</el-menu-item>
+        <el-menu-item v-if="!token" index="/register">注册</el-menu-item>
+        <el-menu-item index="/feedback">反馈</el-menu-item>
+        <el-menu-item index="/member">
+          <el-avatar
+            v-if="user.avatar_url"
+            :src="user.avatar_url"
+            :size="30"
+            class="v-middle"
+            shape="circle"
+            title="个人中心"
+          />
+          <el-text v-else :title="user.nickname">个人中心</el-text>
+        </el-menu-item>
+      </el-menu>
+    </el-col>
+  </el-row>
 </template>
 
-<script>
-import { getApiToken, getNickname, getAvatar } from '@/utils/userinfo'
+<script setup>
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/store/modules/user'
 
-export default {
-  name: 'AppHeader',
-  data () {
-    return {
-      islogin: false,
-      nickname: '',
-      avatar: ''
-    }
-  },
-  created () {
-    this.isLogin()
-  },
-  methods: {
-    isLogin () {
-      const token = getApiToken()
-      if (token) {
-        this.nickname = getNickname()
-        this.avatar = getAvatar()
-        this.islogin = true
-      }
-    }
-  }
-}
+const userStore = useUserStore()
+const { token, user } = storeToRefs(userStore)
 </script>
-
-<style scoped>
-.nav-item {
-  line-height: 60px;
-}
-.nav-a {
-  line-height: 0;
-  text-decoration: none;
-  color: black;
-}
-.nav-avatar {
-  vertical-align: middle;
-}
-.divider {
-  margin: 3px 0;
-}
-</style>11

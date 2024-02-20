@@ -1,9 +1,9 @@
 <template>
-  <div :class="{'hidden': hidden }" class="pagination-container">
+  <div :class="{ hidden: hidden }" class="pagination-container">
     <el-pagination
+      v-model:current-page="currentPage"
+      v-model:page-size="pageSize"
       :background="background"
-      :current-page.sync="currentPage"
-      :page-size.sync="pageSize"
       :layout="layout"
       :page-sizes="pageSizes"
       :total="total"
@@ -18,7 +18,6 @@
 import { scrollTo } from '@/utils/scroll-to'
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Pagination',
   props: {
     total: {
@@ -35,7 +34,7 @@ export default {
     },
     pageSizes: {
       type: Array,
-      default () {
+      default() {
         return [10, 12, 20, 30, 50, 80, 100, 150, 200]
       }
     },
@@ -58,30 +57,30 @@ export default {
   },
   computed: {
     currentPage: {
-      get () {
+      get() {
         return this.page
       },
-      set (val) {
+      set(val) {
         this.$emit('update:page', val)
       }
     },
     pageSize: {
-      get () {
+      get() {
         return this.limit
       },
-      set (val) {
+      set(val) {
         this.$emit('update:limit', val)
       }
     }
   },
   methods: {
-    handleSizeChange (val) {
+    handleSizeChange(val) {
       this.$emit('pagination', { page: this.currentPage, limit: val })
       if (this.autoScroll) {
         scrollTo(0, 800)
       }
     },
-    handleCurrentChange (val) {
+    handleCurrentChange(val) {
       this.$emit('pagination', { page: val, limit: this.pageSize })
       if (this.autoScroll) {
         scrollTo(0, 800)

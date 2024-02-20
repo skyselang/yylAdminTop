@@ -6,7 +6,7 @@ import request from '@/utils/request'
  * 我的信息
  * @param {array} params 请求参数
  */
-export function info (params) {
+export function info(params) {
   return request({
     url: '/api/member.Member/info',
     method: 'get',
@@ -17,7 +17,7 @@ export function info (params) {
  * 修改信息
  * @param {array} data 请求数据
  */
-export function edit (data) {
+export function edit(data) {
   return request({
     url: '/api/member.Member/edit',
     method: 'post',
@@ -27,14 +27,14 @@ export function edit (data) {
 /**
  * 上传头像
  */
-export function avatar () {
-  return process.env.VUE_APP_BASE_API + '/api/member.Member/avatar'
+export function avatar() {
+  return import.meta.env.VITE_APP_BASE_URL + '/api/member.Member/avatar'
 }
 /**
  * 修改密码
  * @param {array} data 请求数据
  */
-export function pwd (data) {
+export function pwd(data) {
   return request({
     url: '/api/member.Member/pwd',
     method: 'post',
@@ -45,7 +45,7 @@ export function pwd (data) {
  * 我的日志
  * @param {array} params 请求参数
  */
-export function log (params) {
+export function log(params) {
   return request({
     url: '/api/member.Member/log',
     method: 'get',
@@ -57,7 +57,7 @@ export function log (params) {
  * 第三方账号列表
  * @param {array} params 请求参数
  */
-export function thirdList (params) {
+export function thirdList(params) {
   return request({
     url: '/api/member.Member/thirdList',
     method: 'get',
@@ -69,7 +69,7 @@ export function thirdList (params) {
  * 第三方账号解绑
  * @param {array} params 请求参数
  */
-export function thirdUnbind (data) {
+export function thirdUnbind(data) {
   return request({
     url: '/api/member.Member/thirdUnbind',
     method: 'post',

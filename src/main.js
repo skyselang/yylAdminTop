@@ -1,23 +1,18 @@
-import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import { setupStore } from '@/store'
 
-Vue.config.productionTip = false
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.title) {
-    document.title = to.meta.title
-  }
-  next()
-})
+import '@/styles/index.css'
+import 'virtual:uno.css'
 
-Vue.use(ElementUI)
+import '@/permission'
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+const app = createApp(App)
+setupStore(app)
+app.use(router)
+app.use(ElementPlus)
+app.mount('#app')

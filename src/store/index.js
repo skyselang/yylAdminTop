@@ -1,17 +1,9 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createPinia } from 'pinia'
 
-Vue.use(Vuex)
+const store = createPinia()
 
-export default new Vuex.Store({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+export function setupStore(app) {
+  app.use(store)
+}
+
+export { store }

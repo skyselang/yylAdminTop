@@ -5,7 +5,7 @@ import request from '@/utils/request'
 /**
  * 验证码
  */
-export function captcha () {
+export function captcha() {
   return request({
     url: '/api/member.Register/captcha',
     method: 'get'
@@ -16,7 +16,7 @@ export function captcha () {
  * 注册
  * @param {array} data 请求数据
  */
-export function register (data) {
+export function register(data) {
   return request({
     url: '/api/member.Register/register',
     method: 'post',

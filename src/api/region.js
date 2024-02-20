@@ -5,7 +5,7 @@ import request from '@/utils/request'
 /**
  * 地区列表
  */
-export function list () {
+export function list() {
   return request({
     url: '/api/setting.Region/list',
     method: 'get'
@@ -16,7 +16,7 @@ export function list () {
  * 地区信息
  * @param {array} data 请求数据
  */
-export function info (data) {
+export function info(data) {
   return request({
     url: '/api/setting.Region/info',
     method: 'get',
@@ -28,7 +28,7 @@ export function info (data) {
  * 地区树形
  * @param {array} data 请求数据
  */
-export function tree (data) {
+export function tree(data) {
   return request({
     url: '/api/setting.Region/tree',
     method: 'get',

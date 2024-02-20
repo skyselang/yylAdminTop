@@ -1,173 +1,169 @@
 <template>
-  <div v-loading="loading">
-    <el-card class="box-card">
-      <el-row :gutter="0">
-        <el-col :span="24">
-          <el-form ref="form" :model="model" :rules="rules" label-width="120px">
-            <el-form-item label="头像" prop="avatar_url">
-              <el-col :span="10">
-                <el-image
-                  v-if="model.avatar_url"
-                  style="width: 100px; height: 100px; border-radius: 100px"
-                  :src="model.avatar_url"
-                  :preview-src-list="[model.avatar_url]"
-                  title="点击查看大图"
-                />
-              </el-col>
-              <el-col :span="14">
-                <el-upload
-                  name="file"
-                  :show-file-list="false"
-                  :action="uploadAction"
-                  :headers="uploadHeaders"
-                  :on-success="uploadSuccess"
-                  :on-error="uploadError"
-                >
-                  <el-button size="mini">上传头像</el-button>
-                </el-upload>
-                <span>jpg、png图片，小于50kb，宽高1:1</span>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="用户名" prop="username">
-              <el-input
-                v-model="model.username"
-                type="text"
-                placeholder=""
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="昵称" prop="nickname">
-              <el-input
-                v-model="model.nickname"
-                type="text"
-                placeholder=""
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="所在地" prop="region_id">
-              <el-cascader
-                v-model="model.region_id"
-                :options="regionTree"
-                :props="regionProps"
-                @change="regionChange"
-                placeholder="请选择所在地区"
-                style="width: 100%"
-              />
-            </el-form-item>
-            <el-form-item>
-              <el-button @click="reset('form')">重置</el-button>
-              <el-button type="primary" @click="submit('form')">提交</el-button>
-            </el-form-item>
-          </el-form>
+  <el-card v-loading="loading">
+    <el-form ref="form" :model="model" :rules="rules" label-width="120px">
+      <el-form-item label="头像" prop="avatar_url">
+        <el-col :span="10" class="h-[100px]">
+          <el-image
+            v-if="model.avatar_url"
+            style="width: 100px; height: 100px; border-radius: 100px"
+            :src="model.avatar_url"
+            :preview-src-list="[model.avatar_url]"
+            title="点击查看大图"
+          />
         </el-col>
-      </el-row>
-    </el-card>
-  </div>
+        <el-col :span="14">
+          <el-row>
+            <el-col>
+              <el-upload
+                name="file"
+                :show-file-list="false"
+                :action="uploadAction"
+                :headers="uploadHeaders"
+                :on-success="uploadSuccess"
+                :on-error="uploadError"
+              >
+                <el-button>上传</el-button>
+              </el-upload>
+              <el-button @click="avatarDel">删除</el-button>
+            </el-col>
+            <el-col>
+              <el-text>jpg、png图片，小于50kb，宽高1:1</el-text>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="用户名" prop="username">
+        <el-input v-model="model.username" type="text" placeholder="" />
+      </el-form-item>
+      <el-form-item label="昵称" prop="nickname">
+        <el-input v-model="model.nickname" type="text" placeholder="" />
+      </el-form-item>
+      <el-form-item label="所在地" prop="region_id">
+        <el-cascader
+          v-model="model.region_id"
+          :options="regionTree"
+          :props="regionProps"
+          style="width: 100%"
+          placeholder="请选择所在地区"
+          @change="regionChange"
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-button @click="reset('form')">重置</el-button>
+        <el-button type="primary" @click="submit('form')">提交</el-button>
+      </el-form-item>
+    </el-form>
+  </el-card>
 </template>
 
 <script>
-import { getApiToken, setAvatar } from "@/utils/userinfo";
-import { tree } from "@/api/region";
-import { info, edit, avatar } from "@/api/member";
+import { ElMessage } from 'element-plus'
+import { useUserStoreHook } from '@/store/modules/user'
+import { useSettingsStoreHook } from '@/store/modules/settings'
+import { tree } from '@/api/region'
+import { info, edit, avatar } from '@/api/member'
 
 export default {
-  name: "MemberEdit",
+  name: 'MemberEdit',
   components: {},
   data() {
     return {
       loading: false,
       model: {
-        member_id: "",
+        member_id: '',
         avatar_id: 0,
-        avatar_url: "",
-        username: "",
-        email: "",
-        phone: "",
-        region_id: "",
+        avatar_url: '',
+        username: '',
+        email: '',
+        phone: '',
+        region_id: ''
       },
       uploadAction: avatar(),
-      uploadHeaders: { ApiToken: getApiToken() },
+      uploadHeaders: {},
       regionTree: [],
       regionProps: {
-        expandTrigger: "click",
+        expandTrigger: 'click',
         checkStrictly: true,
-        value: "region_id",
-        label: "region_name",
+        value: 'region_id',
+        label: 'region_name'
       },
       rules: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-        ],
-      },
-    };
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
+      }
+    }
   },
   created() {
-    this.isLogin();
+    this.info()
+    const settingsStore = useSettingsStoreHook()
+    const tokenName = settingsStore.tokenName
+    const userStore = useUserStoreHook()
+    const token = userStore.getToken()
+    this.uploadHeaders[tokenName] = token
   },
   methods: {
-    isLogin() {
-      const token = getApiToken();
-      if (token) {
-        this.info();
-      }
-    },
     info() {
-      this.loading = true;
+      this.loading = true
       tree()
         .then((res) => {
-          this.regionTree = res.data.list;
+          this.regionTree = res.data.list
         })
-        .catch(() => {});
+        .catch(() => {})
       info()
         .then((res) => {
-          this.model = res.data;
-          this.loading = false;
+          this.model = res.data
+          this.loading = false
         })
         .catch(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     },
     // 地区选择
     regionChange(value) {
       if (value) {
-        this.model.region_id = value[value.length - 1];
+        this.model.region_id = value[value.length - 1]
       }
     },
     submit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.loading = true;
-          edit(this.model, "post")
+          this.loading = true
+          edit(this.model, 'post')
             .then((res) => {
-              this.info();
-              setAvatar(this.model.avatar_url);
-              this.loading = false;
-              this.$message.success(res.msg);
+              this.info()
+              const userStore = useUserStoreHook()
+              userStore.setUserinfo(this.model)
+              this.loading = false
+              ElMessage.success(res.msg)
             })
             .catch(() => {
-              this.loading = false;
-            });
+              this.loading = false
+            })
         }
-      });
+      })
     },
     reset(formName) {
-      this.$refs[formName].resetFields();
-      this.info();
+      this.$refs[formName].resetFields()
+      this.info()
     },
     // 上传头像
     uploadSuccess(res) {
       if (res.code === 200) {
-        this.model.avatar_id = res.data.file_id;
-        this.model.avatar_url = res.data.file_url;
-        this.$message.success(res.msg);
+        this.model.avatar_id = res.data.file_id
+        this.model.avatar_url = res.data.file_url
+        ElMessage.success(res.msg)
       } else {
-        this.$message.error(res.msg);
+        ElMessage.error(res.msg)
       }
     },
     uploadError(res) {
-      this.$message.error(res.msg || "上传出错");
+      ElMessage.error(res.msg || '上传出错')
     },
-  },
-};
+    avatarDel() {
+      this.model.avatar_id = 0
+      this.model.avatar_url = ''
+    }
+  }
+}
 </script>
 
-<style>
-</style>
+<style></style>

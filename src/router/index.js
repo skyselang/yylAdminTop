@@ -1,66 +1,65 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import { getApiToken } from "@/utils/userinfo"
-import { Message } from 'element-ui'
+import { createRouter, createWebHistory } from 'vue-router'
 
-Vue.use(VueRouter)
-
-const routes = [
-  {
-    path: '/',
-    name: 'Index',
-    component: () => import('@/views/index/index')
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: () => import('@/views/register/register'),
-    meta: {
-      title: 'yylAdmin - 注册'
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'Index',
+      component: () => import('@/views/index/index.vue'),
+      meta: {
+        title: '首页'
+      }
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: () => import('@/views/404/404.vue'),
+      meta: {
+        title: '404'
+      }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: () => import('@/views/login/login.vue'),
+      meta: {
+        title: '登录'
+      }
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: () => import('@/views/register/register.vue'),
+      meta: {
+        title: '注册'
+      }
+    },
+    {
+      path: '/feedback',
+      name: 'Feedback',
+      component: () => import('@/views/feedback/feedback.vue'),
+      meta: {
+        title: '反馈'
+      }
+    },
+    {
+      path: '/member',
+      name: 'Member',
+      component: () => import('@/views/member/member.vue'),
+      meta: {
+        title: '个人中心'
+      }
+    },
+    {
+      path: '/logout',
+      name: 'MemberLogout',
+      component: () => import('@/views/member/logout.vue'),
+      meta: {
+        title: '退出'
+      }
     }
-  },
-  {
-    path: '/feedback',
-    name: 'Feedback',
-    component: () => import('@/views/feedback/feedback'),
-    meta: {
-      title: 'yylAdmin - 反馈'
-    }
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/login/login'),
-    meta: {
-      title: 'yylAdmin - 登录'
-    }
-  },
-  {
-    path: '/member',
-    name: 'Member',
-    component: () => import('@/views/member/member'),
-    meta: {
-      title: 'yylAdmin - 个人中心'
-    }
-  }
-];
-
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
-})
-
-
-router.beforeEach((to, from, next) => {
-  const loginList = ['Feedback', 'Member']
-  const token = getApiToken()
-  if (loginList.includes(to.name) && !token) {
-    Message.error("请登录")
-    next({ name: 'Login' })
-  } else {
-    next()
-  }
+  ]
 })
 
 export default router

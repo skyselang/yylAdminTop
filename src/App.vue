@@ -1,33 +1,38 @@
 <template>
-  <div id="app">
-    <el-row>
-      <el-col>
-        <el-container>
-          <el-header>
-            <app-header></app-header>
-          </el-header>
-          <el-main id="app-main">
-            <router-view />
-          </el-main>
-          <el-footer>
-            <app-footer></app-footer>
-          </el-footer>
-        </el-container>
-      </el-col>
-    </el-row>
-  </div>
+  <el-config-provider :locale="appStore.locale" :size="appStore.size">
+    <div id="app">
+      <el-container>
+        <el-header>
+          <AppHeader />
+        </el-header>
+        <el-main id="app-main">
+          <RouterView />
+        </el-main>
+        <el-footer>
+          <AppFooter />
+        </el-footer>
+      </el-container>
+    </div>
+  </el-config-provider>
 </template>
 
-<script>
-import AppHeader from "@/components/AppHeader/AppHeader";
-import AppFooter from "@/components/AppFooter/AppFooter";
-export default {
-  name: "App",
-  components: {
-    AppHeader,
-    AppFooter,
-  },
-};
+<script setup>
+import { onMounted } from 'vue'
+import { RouterView } from 'vue-router'
+import { useAppStore } from '@/store/modules/app'
+import { useSettingsStore } from '@/store/modules/settings'
+import AppHeader from '@/components/AppHeader/AppHeader.vue'
+import AppFooter from '@/components/AppFooter/AppFooter.vue'
+
+const appStore = useAppStore()
+const settingsStore = useSettingsStore()
+
+onMounted(() => {
+  settingsStore.changeSetting({ key: 'layout', value: settingsStore.layout })
+  settingsStore.changeSetting({ key: 'theme', value: settingsStore.theme })
+  settingsStore.changeSetting({ key: 'themeColor', value: settingsStore.themeColor })
+  settingsStore.changeSetting({ key: 'faviconUrl', value: settingsStore.faviconUrl })
+})
 </script>
 
 <style scoped>

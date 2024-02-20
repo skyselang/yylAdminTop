@@ -1,32 +1,47 @@
 import axios from 'axios'
-import { Message, MessageBox } from 'element-ui'
-import { getApiToken, delApiToken, delUserInfo } from '@/utils/userinfo'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { useSettingsStoreHook } from '@/store/modules/settings'
+import { useUserStoreHook } from '@/store/modules/user'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url=基本url+请求url
-  // withCredentials: true, // 跨域请求时发送Cookie
-  timeout: 60000 // 请求超时时间
+  baseURL: import.meta.env.VITE_APP_BASE_URL, // 接口baseURL
+  timeout: 60000, // 请求超时时间
+  headers: {},
+  params: {},
+  data: {}
 })
 
 // 请求拦截器
 service.interceptors.request.use(
-  config => {
-    // 在发送请求之前做些什么
-
-    // 让每个请求头部带上token
-    // tokenKey自定义头部键名
-    // 可以根据实际情况修改
-    if (getApiToken()) {
-      const tokenName = process.env.VUE_APP_TOKEN_NAME || 'ApiToken'
-      config.headers[tokenName] = getApiToken() || ''
+  // 请求配置
+  (config) => {
+    const userStore = useUserStoreHook()
+    if (userStore.token) {
+      // 设置Token，请求头部header或请求参数param
+      const settingsStore = useSettingsStoreHook()
+      const tokenType = settingsStore.tokenType
+      const tokenName = settingsStore.tokenName
+      const tokenValue = userStore.token
+      if (tokenType === 'header') {
+        // 请求头部token
+        config.headers[tokenName] = tokenValue
+      } else {
+        // 请求参数token
+        if (config.method === 'get') {
+          config.params = { ...config?.params, [tokenName]: tokenValue }
+        } else {
+          config.data = { ...config?.data, [tokenName]: tokenValue }
+        }
+      }
     }
-
     return config
   },
-  error => {
-    // 对请求错误做些什么
-    // console.log(error) // 用于调试
+  // 请求错误
+  (error) => {
+    if (import.meta.env.DEV) {
+      console.log(error)
+    }
     return Promise.reject(error)
   }
 )
@@ -34,73 +49,71 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   /**
-   * 如果您想获取http信息，如头部或状态
-   * 请返回response=>response
+   * 通过接口返回码确定返回状态
+   * 还可以通过HTTP状态代码来判断请求状态
    */
-
-  /**
-   * 通过自定义代码确定请求状态
-   * 这里只是一个例子
-   * 您还可以通过HTTP状态代码来判断状态
-   */
-  response => {
-    // 对响应数据做点什么
+  (response) => {
+    // 响应数据
     const res = response.data
-
-    // 如果自定义代码不是200，则判断为错误
-    if (res.code === 200) {
-      return res
-    } else {
-      // 401:token无效；
-      if (res.code === 401) {
-        // 重新登录
-        MessageBox.confirm(res.msg, '提示', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          delApiToken()
-          delUserInfo()
-          location.href = '/login'
-        }).catch((err) => {
-          console.log(err)
-        })
+    if (response.data && response.config.responseType === 'blob') {
+      // 文件下载
+      if (response.data.type === 'application/json') {
+        const reader = new FileReader()
+        reader.readAsText(response.data, 'utf-8')
+        reader.onload = () => {
+          const result = JSON.parse(reader.result)
+          responseHandle(result)
+          return Promise.reject(new Error(result.msg || 'Server error'))
+        }
+        return Promise.reject()
       } else {
-        Message({
-          showClose: true,
-          message: res.msg || 'Error',
-          type: 'error',
-          duration: 5000
-        })
+        return response.data
       }
-      return Promise.reject(new Error(res.msg || 'Error'))
+    } else {
+      // 返回码200：成功
+      if (res.code === 200) {
+        return res
+      } else {
+        responseHandle(res)
+        return Promise.reject(new Error(res.msg || 'Server error'))
+      }
     }
   },
-  error => {
-    // 对响应错误做点什么
-    console.log('err' + error) // 用于调试
+  (error) => {
+    // 响应错误
     const res = error.response.data
-    if (res.code === 401) {
-      // 重新登录
-      MessageBox.confirm(res.msg || res.message, '提示', {
-        confirmButtonText: '重新登录',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        delApiToken()
-        delUserInfo()
-        location.href = '/login'
-      }).catch(() => { })
-    } else {
-      Message({
-        showClose: true,
-        message: res.message || error.message,
-        type: 'error',
-        duration: 5000
-      })
+    responseHandle(res)
+    if (import.meta.env.DEV) {
+      console.log(error.response)
     }
     return Promise.reject(error)
   }
 )
+
+// 响应处理
+function responseHandle(res) {
+  // 返回码 401：Token 无效
+  if (res.code === 401) {
+    ElMessageBox.confirm(res.msg, '提示', {
+      confirmButtonText: '重新登录',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+      .then(() => {
+        const userStore = useUserStoreHook()
+        userStore.delToken().then(() => {
+          location.reload()
+        })
+      })
+      .catch(() => {})
+  } else {
+    ElMessage({
+      message: res.msg || 'Server error',
+      type: 'error',
+      duration: 5000,
+      showClose: true
+    })
+  }
+}
 
 export default service
