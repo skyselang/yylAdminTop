@@ -8,7 +8,7 @@ const router = createRouter({
       name: 'Index',
       component: () => import('@/views/index/index.vue'),
       meta: {
-        title: '首页'
+        title: ''
       }
     },
     {
