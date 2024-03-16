@@ -6,8 +6,8 @@
           <img class="h-[40px]" src="@/assets/images/logo.png" alt="logo" />
         </el-menu-item>
         <div class="flex-grow"></div>
-        <el-menu-item index="/file">文件</el-menu-item>
         <el-menu-item index="/content">内容</el-menu-item>
+        <el-menu-item index="/file">文件</el-menu-item>
         <el-menu-item index="/feedback">反馈</el-menu-item>
         <el-menu-item v-if="token" @click="logout">退出</el-menu-item>
         <el-menu-item v-if="!token" index="/login">登录</el-menu-item>
