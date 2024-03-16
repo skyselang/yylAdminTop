@@ -1,21 +1,24 @@
 <template>
-  <el-tabs v-loading="loading" v-model="tabActName">
-    <el-tab-pane label="信息" name="info" lazy>
+  <el-tabs>
+    <el-tab-pane label="个人信息" lazy>
       <Info />
     </el-tab-pane>
-    <el-tab-pane label="修改" name="edit" lazy>
+    <el-tab-pane label="修改资料" lazy>
       <Edit />
     </el-tab-pane>
-    <el-tab-pane label="密码" name="pwd" lazy>
+    <el-tab-pane label="修改密码" lazy>
       <Pwd />
     </el-tab-pane>
-    <el-tab-pane label="日志" name="log" lazy>
+    <el-tab-pane label="我的日志" lazy>
       <Log />
     </el-tab-pane>
-    <el-tab-pane label="第三方账号" name="third" lazy>
+    <el-tab-pane label="我的反馈" lazy>
+      <Feedback />
+    </el-tab-pane>
+    <el-tab-pane label="第三方账号" lazy>
       <Third />
     </el-tab-pane>
-    <el-tab-pane label="后台" name="admin" lazy>
+    <el-tab-pane label="系统后台" lazy>
       <Admin />
     </el-tab-pane>
   </el-tabs>
@@ -27,16 +30,14 @@ import Edit from './components/edit.vue'
 import Pwd from './components/pwd.vue'
 import Log from './components/log.vue'
 import Third from './components/third.vue'
+import Feedback from './components/feedback.vue'
 import Admin from './components/admin.vue'
 
 export default {
   name: 'Member',
-  components: { Info, Edit, Pwd, Log, Third, Admin },
+  components: { Info, Edit, Pwd, Log, Third, Feedback, Admin },
   data() {
-    return {
-      loading: false,
-      tabActName: 'info'
-    }
+    return {}
   }
 }
 </script>

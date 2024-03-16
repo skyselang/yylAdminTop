@@ -1,13 +1,12 @@
 import request from '@/utils/request'
-
-// ----------------登录/退出----------------
-
+// 登录/退出
+const url = '/api/member.Login/'
 /**
  * 验证码
  */
 export function captcha() {
   return request({
-    url: '/api/member.Login/captcha',
+    url: url + 'captcha',
     method: 'get'
   })
 }
@@ -18,7 +17,7 @@ export function captcha() {
  */
 export function login(data) {
   return request({
-    url: '/api/member.Login/login',
+    url: url + 'login',
     method: 'post',
     data
   })

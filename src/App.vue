@@ -28,8 +28,6 @@ const appStore = useAppStore()
 const settingsStore = useSettingsStore()
 
 onMounted(() => {
-  settingsStore.changeSetting({ key: 'layout', value: settingsStore.layout })
-  settingsStore.changeSetting({ key: 'theme', value: settingsStore.theme })
   settingsStore.changeSetting({ key: 'themeColor', value: settingsStore.themeColor })
   settingsStore.changeSetting({ key: 'faviconUrl', value: settingsStore.faviconUrl })
 })

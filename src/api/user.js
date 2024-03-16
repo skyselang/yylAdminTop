@@ -1,14 +1,13 @@
 import request from '@/utils/request'
-
-// ----------------个人中心----------------
-
+// 个人中心
+const url = '/api/member.Member/info'
 /**
  * 我的信息
  * @param {array} params 请求参数
  */
 export function userInfo(params) {
   return request({
-    url: '/api/member.Member/info',
+    url: url + 'info',
     method: 'get',
     params: params
   })
@@ -20,13 +19,13 @@ export function userInfo(params) {
 export function userEdit(data, method = 'get') {
   if (method === 'get') {
     return request({
-      url: '/api/member.Member/edit',
+      url: url + 'edit',
       method: 'get',
       params: data
     })
   } else {
     return request({
-      url: '/api/member.Member/edit',
+      url: url + 'edit',
       method: 'post',
       data
     })
@@ -38,7 +37,7 @@ export function userEdit(data, method = 'get') {
  */
 export function userAvatar(data) {
   return request({
-    url: '/api/member.Member/avatar',
+    url: url + 'avatar',
     method: 'post',
     data
   })
@@ -49,7 +48,7 @@ export function userAvatar(data) {
  */
 export function userPwd(data) {
   return request({
-    url: '/api/member.Member/pwd',
+    url: url + 'pwd',
     method: 'post',
     data
   })
@@ -60,7 +59,7 @@ export function userPwd(data) {
  */
 export function logList(params) {
   return request({
-    url: '/api/member.Memberlog',
+    url: url + 'log',
     method: 'get',
     params: params
   })

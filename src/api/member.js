@@ -1,14 +1,13 @@
 import request from '@/utils/request'
-
-// ----------------个人中心----------------
-
+//个人中心
+const url = '/api/member.Member/'
 /**
  * 我的信息
  * @param {array} params 请求参数
  */
 export function info(params) {
   return request({
-    url: '/api/member.Member/info',
+    url: url + 'info',
     method: 'get',
     params: params
   })
@@ -19,7 +18,7 @@ export function info(params) {
  */
 export function edit(data) {
   return request({
-    url: '/api/member.Member/edit',
+    url: url + 'edit',
     method: 'post',
     data
   })
@@ -28,7 +27,7 @@ export function edit(data) {
  * 上传头像
  */
 export function avatar() {
-  return import.meta.env.VITE_APP_BASE_URL + '/api/member.Member/avatar'
+  return import.meta.env.VITE_APP_BASE_URL + url + 'avatar'
 }
 /**
  * 修改密码
@@ -36,7 +35,7 @@ export function avatar() {
  */
 export function pwd(data) {
   return request({
-    url: '/api/member.Member/pwd',
+    url: url + 'pwd',
     method: 'post',
     data
   })
@@ -47,7 +46,7 @@ export function pwd(data) {
  */
 export function log(params) {
   return request({
-    url: '/api/member.Member/log',
+    url: url + 'log',
     method: 'get',
     params: params
   })
@@ -59,7 +58,7 @@ export function log(params) {
  */
 export function thirdList(params) {
   return request({
-    url: '/api/member.Member/thirdList',
+    url: url + 'thirdList',
     method: 'get',
     params: params
   })
@@ -71,7 +70,7 @@ export function thirdList(params) {
  */
 export function thirdUnbind(data) {
   return request({
-    url: '/api/member.Member/thirdUnbind',
+    url: url + 'thirdUnbind',
     method: 'post',
     data
   })

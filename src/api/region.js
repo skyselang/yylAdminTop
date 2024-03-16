@@ -1,13 +1,12 @@
 import request from '@/utils/request'
-
-// ----------------地区----------------
-
+// 地区
+const url = '/api/setting.Region/'
 /**
  * 地区列表
  */
 export function list() {
   return request({
-    url: '/api/setting.Region/list',
+    url: url + 'list',
     method: 'get'
   })
 }
@@ -18,7 +17,7 @@ export function list() {
  */
 export function info(data) {
   return request({
-    url: '/api/setting.Region/info',
+    url: url + 'info',
     method: 'get',
     params: data
   })
@@ -30,7 +29,7 @@ export function info(data) {
  */
 export function tree(data) {
   return request({
-    url: '/api/setting.Region/tree',
+    url: url + 'tree',
     method: 'get',
     params: data
   })

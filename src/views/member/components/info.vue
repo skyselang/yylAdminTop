@@ -2,7 +2,9 @@
   <el-card v-loading="loading">
     <el-form ref="form" :model="model" :rules="rules" label-width="120px">
       <el-form-item label="头像" prop="avatar_url">
-        <el-avatar v-if="model.avatar_url" shape="circle" :size="100" :src="model.avatar_url" />
+        <div class="h-[100px]">
+          <el-avatar v-if="model.avatar_url" shape="circle" :size="100" :src="model.avatar_url" />
+        </div>
       </el-form-item>
       <el-form-item label="用户名" prop="username">
         <el-input v-model="model.username" type="text" placeholder="" disabled />

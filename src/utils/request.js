@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '@/router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useSettingsStoreHook } from '@/store/modules/settings'
 import { useUserStoreHook } from '@/store/modules/user'
@@ -95,14 +96,14 @@ function responseHandle(res) {
   // 返回码 401：Token 无效
   if (res.code === 401) {
     ElMessageBox.confirm(res.msg, '提示', {
-      confirmButtonText: '重新登录',
+      confirmButtonText: '登录',
       cancelButtonText: '取消',
       type: 'warning'
     })
       .then(() => {
         const userStore = useUserStoreHook()
         userStore.delToken().then(() => {
-          location.reload()
+          router.push('/login')
         })
       })
       .catch(() => {})

@@ -1,7 +1,12 @@
 <template>
   <el-row v-loading="loading" class="mt">
     <el-col :span="8" :offset="8">
-      <el-form ref="form" :model="model" :rules="rules" label-width="80px">
+      <el-form v-if="types.length > 0" ref="form" :model="model" :rules="rules" label-width="80px">
+        <el-form-item label="类型" prop="type">
+          <el-select v-model="model.type">
+            <el-option v-for="(item, index) in types" :key="index" :label="item" :value="index" />
+          </el-select>
+        </el-form-item>
         <el-form-item label="标题" prop="title">
           <el-input v-model="model.title" type="text" clearable placeholder="反馈标题" />
         </el-form-item>
@@ -15,8 +20,8 @@
           <el-input v-model="model.email" type="text" clearable placeholder="邮箱" />
         </el-form-item>
         <el-form-item>
-          <el-button @click="resetForm('form')">重置</el-button>
-          <el-button type="primary" @click="submitForm('form')">提交</el-button>
+          <el-button @click="resetForm()">重置</el-button>
+          <el-button type="primary" @click="submitForm()">提交</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -25,14 +30,16 @@
 
 <script>
 import { ElMessage } from 'element-plus'
-import { feedback } from '@/api/feedback'
+import { add } from '@/api/feedback'
 
 export default {
   name: 'Feedback',
   data() {
     return {
       loading: false,
+      types: [],
       model: {
+        type: 0,
         title: '',
         content: '',
         mobile: '',
@@ -44,16 +51,23 @@ export default {
       }
     }
   },
+  created() {
+    add(this.model, 'get')
+      .then((res) => {
+        this.types = res.data.types
+      })
+      .catch(() => {})
+  },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm() {
+      this.$refs['form'].validate((valid) => {
         if (valid) {
           this.loading = true
-          feedback(this.model)
+          add(this.model)
             .then(() => {
               this.loading = false
               ElMessage.success('反馈成功')
-              this.$router.push('/')
+              this.$router.push('/member')
             })
             .catch(() => {
               this.loading = false
@@ -61,8 +75,8 @@ export default {
         }
       })
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
+    resetForm() {
+      this.$refs['form'].resetFields()
     }
   }
 }

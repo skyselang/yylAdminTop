@@ -9,7 +9,7 @@ NProgress.configure({ showSpinner: false })
 const userStore = useUserStoreHook()
 
 // 白名单路由
-const whiteList = ['/', '/404', '/login', '/register']
+const whiteList = ['/', '/file', '/content', '/feedback', '/login', '/register', '/404']
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start()

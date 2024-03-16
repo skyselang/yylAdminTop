@@ -12,11 +12,43 @@ const router = createRouter({
       }
     },
     {
-      path: '/404',
-      name: '404',
-      component: () => import('@/views/404/404.vue'),
+      path: '/file',
+      name: 'File',
+      component: () => import('@/views/file/file.vue'),
       meta: {
-        title: '404'
+        title: '文件'
+      }
+    },
+    {
+      path: '/file-detail',
+      name: 'FileDetail',
+      component: () => import('@/views/file/detail.vue'),
+      meta: {
+        title: '文件详情'
+      }
+    },
+    {
+      path: '/content',
+      name: 'Content',
+      component: () => import('@/views/content/content.vue'),
+      meta: {
+        title: '内容'
+      }
+    },
+    {
+      path: '/content-detail',
+      name: 'ContentDetail',
+      component: () => import('@/views/content/detail.vue'),
+      meta: {
+        title: '内容详情'
+      }
+    },
+    {
+      path: '/feedback',
+      name: 'Feedback',
+      component: () => import('@/views/feedback/feedback.vue'),
+      meta: {
+        title: '反馈'
       }
     },
     {
@@ -36,14 +68,6 @@ const router = createRouter({
       }
     },
     {
-      path: '/feedback',
-      name: 'Feedback',
-      component: () => import('@/views/feedback/feedback.vue'),
-      meta: {
-        title: '反馈'
-      }
-    },
-    {
       path: '/member',
       name: 'Member',
       component: () => import('@/views/member/member.vue'),
@@ -52,11 +76,11 @@ const router = createRouter({
       }
     },
     {
-      path: '/logout',
-      name: 'MemberLogout',
-      component: () => import('@/views/member/logout.vue'),
+      path: '/404',
+      name: '404',
+      component: () => import('@/views/404/404.vue'),
       meta: {
-        title: '退出'
+        title: '404'
       }
     }
   ]

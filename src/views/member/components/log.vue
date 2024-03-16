@@ -5,7 +5,7 @@
     type="daterange"
     start-placeholder="开始日期"
     end-placeholder="结束日期"
-    value-format="yyyy-MM-dd"
+    value-format="YYYY-MM-DD"
   />
   <el-button class="filter-item" type="primary" @click="logSearch">查询</el-button>
   <el-button class="filter-item" @click="logRefresh">刷新</el-button>
@@ -19,22 +19,23 @@
     <el-table-column prop="create_time" label="时间" min-width="160" />
   </el-table>
   <!-- 日志分页 -->
-  <pagination
+  <el-pagination
+    class="mt"
     v-show="logCount > 0"
-    v-model:page="logQuery.page"
-    v-model:limit="logQuery.limit"
+    v-model:page-size="logQuery.limit"
+    v-model:current-page="logQuery.page"
     :total="logCount"
-    @pagination="logs"
+    layout="prev, pager, next"
+    @change="logs"
   />
 </template>
 
 <script>
-import Pagination from '@/components/Pagination/index.vue'
 import { log } from '@/api/member'
 
 export default {
   name: 'MemberLog',
-  components: { Pagination },
+  components: {},
   data() {
     return {
       loading: false,
@@ -42,7 +43,7 @@ export default {
       logCount: 0,
       logQuery: {
         page: 1,
-        limit: 12
+        limit: 10
       }
     }
   },
