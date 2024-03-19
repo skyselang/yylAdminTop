@@ -24,20 +24,8 @@
   </el-tabs>
 </template>
 
-<script>
-import Info from './components/info.vue'
-import Edit from './components/edit.vue'
-import Pwd from './components/pwd.vue'
-import Log from './components/log.vue'
-import Third from './components/third.vue'
-import Feedback from './components/feedback.vue'
-import Admin from './components/admin.vue'
-
-export default {
-  name: 'Member',
-  components: { Info, Edit, Pwd, Log, Third, Feedback, Admin },
-  data() {
-    return {}
-  }
-}
+<script setup>
+defineOptions({
+  name: 'Member'
+})
 </script>

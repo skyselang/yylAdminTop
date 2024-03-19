@@ -17,8 +17,6 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import { RouterView } from 'vue-router'
 import { useAppStore } from '@/store/modules/app'
 import { useSettingsStore } from '@/store/modules/settings'
 import AppHeader from '@/components/AppHeader/AppHeader.vue'

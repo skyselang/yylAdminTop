@@ -29,29 +29,25 @@
               :src="captcha_src"
               alt="验证码"
               title="点击刷新验证码"
-              style="height: 32px; float: right; cursor: pointer"
+              class="h-[32px] v-middle float-right cursor-pointer"
               @click="captchaRefresh"
             />
           </el-col>
         </el-form-item>
         <el-form-item>
-          <el-button @click="resetForm('form')">重置</el-button>
-          <el-button type="primary" @click="submitForm('form')">登录</el-button>
+          <el-button @click="reset()">重置</el-button>
+          <el-button type="primary" @click="submit()">登录</el-button>
         </el-form-item>
         <el-form-item label="">
           <a href="#" @click="thirdLogin('qq')">
-            <img
-              src="@/assets/images/qq-login230x48.png"
-              style="height: 32px; vertical-align: middle"
-              alt="QQ登录"
-            />
+            <img src="@/assets/images/qq-login230x48.png" class="h-[32px] v-middle" alt="QQ登录" />
           </a>
         </el-form-item>
         <el-form-item label="">
           <a href="#" @click="thirdLogin('wb')">
             <img
               src="@/assets/images/weibo-login-48.png"
-              style="height: 32px; vertical-align: middle"
+              class="h-[32px] v-middle"
               alt="微博登录"
             />
           </a>
@@ -61,113 +57,110 @@
   </el-row>
 </template>
 
-<script>
-import { ElMessage } from 'element-plus'
+<script setup>
 import { captcha, login } from '@/api/login'
-import { useUserStoreHook } from '@/store/modules/user'
-import { useSettingsStoreHook } from '@/store/modules/settings'
+import { useSettingsStore } from '@/store/modules/settings'
+import { useMemberStore } from '@/store/modules/member'
+defineOptions({
+  name: 'Login'
+})
 
-export default {
-  name: 'Login',
-  data() {
-    return {
-      loading: false,
-      captcha_switch: 0,
-      captcha_src: '',
-      model: {
-        account: '',
-        password: '',
-        captcha_id: '',
-        captcha_code: ''
-      },
-      rules: {
-        account: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        captcha_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
-      }
+const memberStore = useMemberStore()
+const router = useRouter()
+const loading = ref(false)
+const form = ref()
+const captcha_code_ipt = ref()
+const captcha_switch = ref(0)
+const captcha_src = ref('')
+const model = reactive({
+  account: '',
+  password: '',
+  captcha_id: '',
+  captcha_code: ''
+})
+const rules = ref({
+  account: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  captcha_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
+})
+
+// 验证码
+function captchaGet() {
+  captcha().then((res) => {
+    captcha_switch.value = res.data.captcha_switch
+    if (res.data.captcha_switch) {
+      captcha_src.value = res.data.captcha_src
+      model.captcha_id = res.data.captcha_id
     }
-  },
-  created() {
-    this.getCaptcha()
-    this.thirdLoginRes()
-  },
-  methods: {
-    // 验证码配置
-    getCaptcha() {
-      captcha().then((res) => {
-        this.captcha_switch = res.data.captcha_switch
-        if (res.data.captcha_switch) {
-          this.captcha_src = res.data.captcha_src
-          this.model.captcha_id = res.data.captcha_id
-        }
-      })
-    },
-    // 验证码刷新
-    captchaRefresh() {
-      this.model.captcha_id = ''
-      this.model.captcha_code = ''
-      this.getCaptcha()
-      // this.$refs.captcha_code_ipt.focus()
-    },
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.loading = true
-          login(this.model)
-            .then((res) => {
-              const userStore = useUserStoreHook()
-              userStore.setToken(res.data)
-              userStore.setUserinfo(res.data)
-              this.loading = false
-              ElMessage.success(res.msg)
-              this.$router.push('/member')
-            })
-            .catch(() => {
-              this.loading = false
-            })
-        }
-      })
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
-    },
-    // 第三方登录
-    thirdLogin(app = 'qq') {
-      const baseUrl = import.meta.env.VITE_APP_BASE_URL
-      const loginUrl =
-        baseUrl + '/api/member.Login/website?app=' + app + '&jump_url=' + window.location.href
-      window.open(loginUrl)
-    },
-    thirdLoginRes() {
-      const urlParam = this.getUrlParams()
-      if (urlParam) {
-        const settingsStore = useSettingsStoreHook()
-        const tokenName = settingsStore.tokenName
-        const token = urlParam[tokenName]
-        if (token) {
-          const userStore = useUserStoreHook()
-          userStore.setToken(urlParam)
-          this.$router.push('/member')
-        }
-      }
-    },
-    getUrlParams() {
-      // 获取当前页面的完整URL
-      var url = window.location.href
-      // 将URL拆分成各个部分
-      var urlParts = url.split('?')
-      // 获取URL中的查询字符串部分
-      var queryString = urlParts[1]
-      // 将查询字符串拆分成键值对
-      var queryParameters = {}
-      if (queryString) {
-        queryString.split('&').forEach(function (part) {
-          var paramParts = part.split('=')
-          queryParameters[paramParts[0]] = paramParts[1]
+  })
+}
+function captchaRefresh() {
+  model.captcha_id = ''
+  model.captcha_code = ''
+  captchaGet()
+  captcha_code_ipt.value.focus()
+}
+function submit() {
+  form.value.validate((valid) => {
+    if (valid) {
+      loading.value = true
+      login(model)
+        .then((res) => {
+          memberStore.setToken(res.data)
+          memberStore.setInfo(res.data)
+          loading.value = false
+          ElMessage.success(res.msg)
+          router.push('/member')
         })
-      }
-      return queryParameters
+        .catch(() => {
+          loading.value = false
+        })
+    }
+  })
+}
+function reset() {
+  form.value.resetFields()
+}
+// 第三方登录
+function thirdLogin(app = 'qq') {
+  const baseUrl = import.meta.env.VITE_APP_BASE_URL
+  const apiUrl = '/api/member.Login/website?app=' + app
+  const jumpUrl = '&jump_url=' + window.location.href
+  const loginUrl = baseUrl + apiUrl + jumpUrl
+  window.open(loginUrl)
+}
+function thirdLoginRes() {
+  const params = thirdLoginParam()
+  if (params) {
+    const settingsStore = useSettingsStore()
+    const tokenName = settingsStore.tokenName
+    const tokenValue = params[tokenName]
+    if (tokenValue) {
+      memberStore.setToken(params)
+      router.push('/member')
     }
   }
 }
+function thirdLoginParam() {
+  // 获取当前页面的完整URL
+  let url = window.location.href
+  // 将URL拆分成各个部分
+  let urlParts = url.split('?')
+  // 获取URL中的查询字符串部分
+  let queryString = urlParts[1]
+  // 将查询字符串拆分成键值对
+  let queryParameters = {}
+  if (queryString) {
+    queryString.split('&').forEach(function (part) {
+      let paramParts = part.split('=')
+      queryParameters[paramParts[0]] = paramParts[1]
+    })
+  }
+  return queryParameters
+}
+
+onMounted(() => {
+  captchaGet()
+  thirdLoginRes()
+})
 </script>

@@ -4,10 +4,10 @@
     <el-col :span="22">
       <el-text v-for="group in groups" :key="group.group_id">
         <el-button
-          :type="groupId == group.group_id ? 'primary' : ''"
+          :type="query.group_id == group.group_id ? 'primary' : ''"
           text
           size="small"
-          @click="setGroupId(group)"
+          @click="groupId(group)"
         >
           {{ group.group_name }}
         </el-button>
@@ -20,10 +20,10 @@
     <el-col :span="22">
       <el-text v-for="tag in tags" :key="tag.tag_id">
         <el-button
-          :type="tagId == tag.tag_id ? 'primary' : ''"
+          :type="query.tag_id == tag.tag_id ? 'primary' : ''"
           text
           size="small"
-          @click="setTagId(tag)"
+          @click="tagId(tag)"
         >
           {{ tag.tag_name }}
         </el-button>
@@ -32,17 +32,17 @@
   </el-row>
 
   <el-row v-loading="loading" :gutter="10" class="mt text-center">
-    <template v-if="lists.length > 0">
+    <template v-if="data.length > 0">
       <el-col
-        v-for="item in lists"
+        v-for="item in data"
         :key="item.file_id"
         :span="6"
         class="cursor-pointer"
-        @click="goDetail(item)"
+        @click="detail(item)"
       >
         <div v-if="item.file_url">
           <div v-if="item.file_type === 'image'">
-            <el-image style="height: 150px" :src="item.file_url">
+            <el-image class="h-[150px]" :src="item.file_url">
               <template #error>
                 <span></span>
               </template>
@@ -60,12 +60,12 @@
           </audio>
           <div v-else-if="item.file_type === 'word'" class="v-middle h-[150px]">
             <el-text>
-              <el-icon :size="60"><Document /></el-icon>
+              <el-icon :size="60"><i-ep-Document /></el-icon>
             </el-text>
           </div>
           <div v-else-if="item.file_type === 'other'" class="v-middle h-[150px]">
             <el-text>
-              <el-icon :size="60"><Folder /></el-icon>
+              <el-icon :size="60"><i-ep-Folder /></el-icon>
             </el-text>
           </div>
         </div>
@@ -83,18 +83,17 @@
     <el-col>
       <el-pagination
         class="mt"
-        v-show="listsCount > 0"
-        v-model:page-size="listsLimit"
-        v-model:page-count="listsPages"
-        v-model:current-page="listsPage"
+        v-show="count > 0"
+        v-model:page-size="query.limit"
+        v-model:current-page="query.page"
         layout="prev, pager, next"
-        :total="listsCount"
-        @change="getList"
+        :total="count"
+        @change="list"
       />
     </el-col>
   </el-row>
 
-  <el-row v-if="listsCount > 0" class="text-center mt">
+  <el-row v-if="count > 0" class="text-center mt">
     <el-col>
       <el-text size="small">
         免责声明：内容来自网络，不代表本站观点和立场，如侵权请联系删除。
@@ -104,10 +103,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { Document, Folder } from '@element-plus/icons-vue'
-import { list } from '@/api/file'
+import { list as listApi } from '@/api/file'
 
 defineOptions({
   name: 'File'
@@ -117,50 +113,38 @@ const loading = ref(false)
 const router = useRouter()
 
 const groups = ref([])
-const groupId = ref()
-
 const tags = ref([])
-const tagId = ref()
 
-const lists = ref([])
-const listsPage = ref(1)
-const listsPages = ref(0)
-const listsLimit = ref(12)
-const listsCount = ref(0)
+const query = ref({ page: 1, limit: 8 })
+const data = ref([])
+const count = ref(0)
 
-function setGroupId(data) {
-  if (groupId.value == data.group_id) {
-    groupId.value = ''
+function groupId(group) {
+  if (query.value.group_id == group.group_id) {
+    query.value.group_id = ''
   } else {
-    groupId.value = data.group_id
+    query.value.group_id = group.group_id
   }
-  getList()
+  list()
 }
 
-function setTagId(data) {
-  if (tagId.value == data.tag_id) {
-    tagId.value = ''
+function tagId(tag) {
+  if (query.value.tag_id == tag.tag_id) {
+    query.value.tag_id = ''
   } else {
-    tagId.value = data.tag_id
+    query.value.tag_id = tag.tag_id
   }
-  getList()
+  list()
 }
 
-function getList() {
+function list() {
   loading.value = true
-  list({
-    page: listsPage.value,
-    limit: listsLimit.value,
-    group_id: groupId.value,
-    tag_id: tagId.value
-  })
+  listApi(query.value)
     .then((res) => {
       groups.value = res.data.group
       tags.value = res.data.tag
-      lists.value = res.data.list
-      listsPage.value = res.data.page
-      listsPages.value = res.data.pages
-      listsCount.value = res.data.count
+      data.value = res.data.list
+      count.value = res.data.count
       loading.value = false
     })
     .catch(() => {
@@ -168,16 +152,13 @@ function getList() {
     })
 }
 
-function goDetail(row) {
+function detail(row) {
   let id = row.file_id
-  let routeUrl = router.resolve({
-    path: '/file-detail',
-    query: { id: id }
-  })
-  window.open(routeUrl.href, '_blank')
+  let url = router.resolve({ path: '/file-detail', query: { id: id } })
+  window.open(url.href, '_blank')
 }
 
 onMounted(() => {
-  getList()
+  list()
 })
 </script>

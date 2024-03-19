@@ -14,14 +14,14 @@
         <el-menu-item v-if="!token" index="/register">注册</el-menu-item>
         <el-menu-item index="/member">
           <el-avatar
-            v-if="user.avatar_url"
-            :src="user.avatar_url"
+            v-if="member.avatar_url"
+            :src="member.avatar_url"
             :size="30"
             class="v-middle"
             shape="circle"
             title="个人中心"
           />
-          <el-text v-else :title="user.nickname">个人中心</el-text>
+          <el-text v-else :title="member.nickname">个人中心</el-text>
         </el-menu-item>
       </el-menu>
     </el-col>
@@ -29,15 +29,12 @@
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router'
-import { useUserStore } from '@/store/modules/user'
-import { ElMessageBox } from 'element-plus'
+import { useMemberStore } from '@/store/modules/member'
 import { logout as logoutApi } from '@/api/login'
 
 const router = useRouter()
-const userStore = useUserStore()
-const { token, user } = storeToRefs(userStore)
+const memberStore = useMemberStore()
+const { token, member } = storeToRefs(memberStore)
 
 const logout = () => {
   ElMessageBox.confirm('确定要退出吗？', '提示', {
@@ -48,8 +45,8 @@ const logout = () => {
   })
     .then(() => {
       logoutApi().then(() => {
-        userStore.delToken()
-        userStore.delUserinfo()
+        memberStore.delToken()
+        memberStore.delInfo()
         router.push('/index')
       })
     })

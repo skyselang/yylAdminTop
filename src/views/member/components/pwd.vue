@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <el-form ref="ref" :model="model" :rules="rules" label-width="120px">
+    <el-form ref="form" :model="model" :rules="rules" label-width="120px">
       <el-form-item v-if="member.pwd_edit_type == 0" label="旧密码" prop="password_old">
         <el-input
           v-model="model.password_old"
@@ -29,55 +29,50 @@
   </el-card>
 </template>
 
-<script>
-import { ElMessage } from 'element-plus'
-import { pwd, info } from '@/api/member'
+<script setup>
+import { info as infoApi, pwd as pwdApi } from '@/api/member'
+defineOptions({
+  name: 'MemberPwd'
+})
 
-export default {
-  name: 'MemberPwd',
-  components: {},
-  data() {
-    return {
-      member: {},
-      model: {
-        password_old: '',
-        password_new: ''
-      },
-      rules: {
-        password_old: [{ required: true, message: '请输入旧密码', trigger: 'blur' }],
-        password_new: [{ required: true, message: '请输入新密码', trigger: 'blur' }]
-      }
-    }
-  },
-  created() {
-    this.getInfo()
-  },
-  methods: {
-    getInfo() {
-      info()
-        .then((res) => {
-          this.member = res.data
-        })
-        .catch((err) => {
-          ElMessage.error(err.msg)
-        })
-    },
-    reset() {
-      this.$refs['ref'].resetFields()
-    },
-    submit() {
-      this.$refs['ref'].validate((valid) => {
-        if (valid) {
-          pwd(this.model)
-            .then((res) => {
-              ElMessage.success(res.msg)
-              this.getInfo()
-              this.reset()
-            })
-            .catch()
-        }
-      })
-    }
-  }
+const member = ref({})
+const form = ref()
+const model = ref({
+  password_old: '',
+  password_new: ''
+})
+const rules = ref({
+  password_old: [{ required: true, message: '请输入旧密码', trigger: 'blur' }],
+  password_new: [{ required: true, message: '请输入新密码', trigger: 'blur' }]
+})
+
+function info() {
+  infoApi()
+    .then((res) => {
+      member.value = res.data
+    })
+    .catch((err) => {
+      ElMessage.error(err.msg)
+    })
 }
+function submit() {
+  form.value.validate((valid) => {
+    if (valid) {
+      pwdApi(model.value)
+        .then((res) => {
+          ElMessage.success(res.msg)
+          info()
+          reset()
+        })
+        .catch()
+    }
+  })
+}
+function reset() {
+  form.value.resetFields()
+}
+
+onMounted(() => {
+  info()
+})
 </script>

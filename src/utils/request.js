@@ -1,8 +1,7 @@
 import axios from 'axios'
 import router from '@/router'
-import { ElMessage, ElMessageBox } from 'element-plus'
 import { useSettingsStoreHook } from '@/store/modules/settings'
-import { useUserStoreHook } from '@/store/modules/user'
+import { useMemberStoreHook } from '@/store/modules/member'
 
 // 创建axios实例
 const service = axios.create({
@@ -17,13 +16,13 @@ const service = axios.create({
 service.interceptors.request.use(
   // 请求配置
   (config) => {
-    const userStore = useUserStoreHook()
-    if (userStore.token) {
+    const memberStore = useMemberStoreHook()
+    if (memberStore.token) {
       // 设置Token，请求头部header或请求参数param
       const settingsStore = useSettingsStoreHook()
       const tokenType = settingsStore.tokenType
       const tokenName = settingsStore.tokenName
-      const tokenValue = userStore.token
+      const tokenValue = memberStore.token
       if (tokenType === 'header') {
         // 请求头部token
         config.headers[tokenName] = tokenValue
@@ -101,10 +100,9 @@ function responseHandle(res) {
       type: 'warning'
     })
       .then(() => {
-        const userStore = useUserStoreHook()
-        userStore.delToken().then(() => {
-          router.push('/login')
-        })
+        const memberStore = useMemberStoreHook()
+        memberStore.delToken()
+        router.push('/login')
       })
       .catch(() => {})
   } else {

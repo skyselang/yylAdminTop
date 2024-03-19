@@ -12,22 +12,6 @@ const router = createRouter({
       }
     },
     {
-      path: '/file',
-      name: 'File',
-      component: () => import('@/views/file/file.vue'),
-      meta: {
-        title: '文件'
-      }
-    },
-    {
-      path: '/file-detail',
-      name: 'FileDetail',
-      component: () => import('@/views/file/detail.vue'),
-      meta: {
-        title: '文件详情'
-      }
-    },
-    {
       path: '/content',
       name: 'Content',
       component: () => import('@/views/content/content.vue'),
@@ -41,6 +25,22 @@ const router = createRouter({
       component: () => import('@/views/content/detail.vue'),
       meta: {
         title: '内容详情'
+      }
+    },
+    {
+      path: '/file',
+      name: 'File',
+      component: () => import('@/views/file/file.vue'),
+      meta: {
+        title: '文件'
+      }
+    },
+    {
+      path: '/file-detail',
+      name: 'FileDetail',
+      component: () => import('@/views/file/detail.vue'),
+      meta: {
+        title: '文件详情'
       }
     },
     {

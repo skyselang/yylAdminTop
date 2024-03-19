@@ -1,7 +1,4 @@
-import { computed } from 'vue'
-import { defineStore } from 'pinia'
 import { store } from '@/store'
-import { useStorage } from '@vueuse/core'
 import defaultSettings from '@/settings'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'

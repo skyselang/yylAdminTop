@@ -51,7 +51,6 @@ export function log(params) {
     params: params
   })
 }
-
 /**
  * 第三方账号列表
  * @param {array} params 请求参数
@@ -63,7 +62,6 @@ export function thirdList(params) {
     params: params
   })
 }
-
 /**
  * 第三方账号解绑
  * @param {array} params 请求参数

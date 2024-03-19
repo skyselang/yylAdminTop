@@ -2,7 +2,7 @@
   <el-row>
     <el-col :span="4">
       <el-divider v-if="categorys.length > 0">
-        <el-icon><Tickets /></el-icon>
+        <el-icon><i-ep-Tickets /></el-icon>
       </el-divider>
       <el-tree
         :data="categorys"
@@ -10,10 +10,10 @@
         :expand-on-click-node="false"
         default-expand-all
         check-on-click-node
-        @node-click="setCategoryId"
+        @node-click="categoryId"
       >
         <template #default="{ node, data }">
-          <el-text truncated :type="categoryId == data.category_id ? 'primary' : ''">
+          <el-text truncated :type="query.category_id == data.category_id ? 'primary' : ''">
             {{ node.label }}
           </el-text>
         </template>
@@ -22,67 +22,60 @@
         </template>
       </el-tree>
       <el-divider v-if="tags.length > 0">
-        <el-icon><CollectionTag /></el-icon>
+        <el-icon><i-ep-CollectionTag /></el-icon>
       </el-divider>
       <el-col>
         <el-text truncated v-for="tag in tags" :key="tag.tag_id">
           <el-button
-            :type="tagId == tag.tag_id ? 'primary' : ''"
+            :type="query.tag_id == tag.tag_id ? 'primary' : ''"
             text
             size="small"
-            @click="setTagId(tag)"
+            @click="tagId(tag)"
           >
             {{ tag.tag_name }}
-          </el-button></el-text
-        >
+          </el-button>
+        </el-text>
       </el-col>
     </el-col>
 
     <el-col v-loading="loading" :span="14" class="ml mr">
-      <el-table :data="contents" :show-header="false">
+      <el-table :data="data" :show-header="false">
         <el-table-column prop="image_url" width="120">
           <template #default="scope">
             <el-image
               :src="scope.row.image_url"
-              style="height: 70px"
-              class="cursor-pointer"
-              @click="goDetail(scope.row)"
+              class="h-[70px] cursor-pointer"
+              @click="detail(scope.row)"
             >
               <template #placeholder>
-                <el-icon :size="70"><Picture /></el-icon>
+                <el-icon :size="50"><i-ep-Picture /></el-icon>
               </template>
               <template #error>
-                <el-icon :size="70"><Picture /></el-icon>
+                <el-icon :size="50"><i-ep-Picture /></el-icon>
               </template>
             </el-image>
           </template>
         </el-table-column>
         <el-table-column prop="name">
           <template #default="scope">
-            <el-row class="cursor-pointer" @click="goDetail(scope.row)">
+            <el-row class="cursor-pointer" @click="detail(scope.row)">
               <el-col>
-                <el-text truncated size="large">
-                  {{ scope.row.name }}
-                </el-text>
+                <el-text truncated size="large">{{ scope.row.name }}</el-text>
               </el-col>
               <el-col :span="2">
-                <el-icon><View /></el-icon>
-                {{ scope.row.hits_show }}
+                <el-icon><i-ep-View /></el-icon>{{ scope.row.hits_show }}
               </el-col>
               <el-col :span="7">
-                <el-icon><Calendar /></el-icon>
-                {{ scope.row.release_time }}
+                <el-icon><i-ep-Calendar /></el-icon>{{ scope.row.release_time }}
               </el-col>
               <el-col :span="7" v-if="scope.row.category_names">
                 <el-text truncated>
-                  <el-icon><Tickets /></el-icon>
-                  {{ scope.row.category_names }}
+                  <el-icon><i-ep-Tickets /></el-icon>{{ scope.row.category_names }}
                 </el-text>
               </el-col>
               <el-col :span="8" v-if="scope.row.tag_names">
                 <el-text truncated>
-                  <el-icon><CollectionTag /></el-icon>
-                  {{ scope.row.tag_names }}
+                  <el-icon><i-ep-CollectionTag /></el-icon>{{ scope.row.tag_names }}
                 </el-text>
               </el-col>
             </el-row>
@@ -94,71 +87,64 @@
       </el-table>
       <el-pagination
         class="mt"
-        v-show="contentsCount > 0"
-        v-model:page-size="contentsLimit"
-        v-model:page-count="contentsPages"
-        v-model:current-page="contentsPage"
-        :total="contentsCount"
+        v-show="count > 0"
+        v-model:page-size="query.limit"
+        v-model:current-page="query.page"
+        :total="count"
         layout="prev, pager, next"
-        @change="getList"
+        @change="list"
       />
     </el-col>
 
     <el-col :span="5">
-      <el-col v-if="contentsTop.length > 0">
+      <el-col v-if="tops.length > 0">
         <el-divider content-position="left">
-          <el-icon><Top /></el-icon>
+          <el-icon><i-ep-Top /></el-icon>
         </el-divider>
       </el-col>
       <el-col
-        v-for="top in contentsTop"
+        v-for="top in tops"
         :key="top.content_id"
         :underline="false"
         class="cursor-pointer"
-        @click="goDetail(top)"
+        @click="detail(top)"
       >
-        <el-text truncated>
-          {{ top.name }}
-        </el-text>
+        <el-text truncated>{{ top.name }}</el-text>
       </el-col>
 
-      <el-col v-if="contentsHot.length > 0" class="mt">
+      <el-col v-if="hots.length > 0" class="mt">
         <el-divider content-position="left">
-          <el-icon><Pointer /></el-icon>
+          <el-icon><i-ep-Pointer /></el-icon>
         </el-divider>
       </el-col>
       <el-col
-        v-for="hot in contentsHot"
+        v-for="hot in hots"
         :key="hot.content_id"
         :underline="false"
         class="cursor-pointer"
-        @click="goDetail(hot)"
+        @click="detail(hot)"
       >
-        <el-text truncated>
-          {{ hot.name }}
-        </el-text>
+        <el-text truncated>{{ hot.name }}</el-text>
       </el-col>
 
-      <el-col v-if="contentsRec.length > 0" class="mt">
+      <el-col v-if="recs.length > 0" class="mt">
         <el-divider content-position="left">
-          <el-icon><Position /></el-icon>
+          <el-icon><i-ep-Position /></el-icon>
         </el-divider>
       </el-col>
       <el-col
-        v-for="rec in contentsRec"
+        v-for="rec in recs"
         :key="rec.content_id"
         :underline="false"
         class="cursor-pointer"
-        @click="goDetail(rec)"
+        @click="detail(rec)"
       >
-        <el-text truncated>
-          {{ rec.name }}
-        </el-text>
+        <el-text truncated>{{ rec.name }}</el-text>
       </el-col>
     </el-col>
   </el-row>
 
-  <el-row v-if="contents.length > 0" class="text-center mt">
+  <el-row v-if="data.length > 0" class="text-center mt">
     <el-col>
       <el-text size="small">
         免责声明：内容来自网络，不代表本站观点和立场，如侵权请联系删除。
@@ -168,19 +154,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { list } from '@/api/content'
-import {
-  Picture,
-  View,
-  Calendar,
-  Tickets,
-  CollectionTag,
-  Top,
-  Pointer,
-  Position
-} from '@element-plus/icons-vue'
+import { list as listApi } from '@/api/content'
 
 defineOptions({
   name: 'Content'
@@ -190,60 +164,27 @@ const loading = ref(false)
 const router = useRouter()
 
 const categorys = ref([])
-const categoryId = ref()
-const categorysProps = {
-  children: 'children',
-  label: 'category_name'
-}
-
+const categorysProps = { children: 'children', label: 'category_name' }
 const tags = ref([])
-const tagId = ref()
 
-const contents = ref([])
-const contentsPage = ref(1)
-const contentsPages = ref(0)
-const contentsLimit = ref(8)
-const contentsCount = ref(0)
-const contentsTop = ref([])
-const contentsHot = ref([])
-const contentsRec = ref([])
+const query = ref({ page: 1, limit: 8 })
+const data = ref([])
+const count = ref(0)
+const tops = ref([])
+const hots = ref([])
+const recs = ref([])
 
-function setCategoryId(data) {
-  if (categoryId.value == data.category_id) {
-    categoryId.value = ''
-  } else {
-    categoryId.value = data.category_id
-  }
-  getList()
-}
-
-function setTagId(data) {
-  if (tagId.value == data.tag_id) {
-    tagId.value = ''
-  } else {
-    tagId.value = data.tag_id
-  }
-  getList()
-}
-
-function getList() {
+function list() {
   loading.value = true
-  list({
-    page: contentsPage.value,
-    limit: contentsLimit.value,
-    category_id: categoryId.value,
-    tag_id: tagId.value
-  })
+  listApi(query.value)
     .then((res) => {
       categorys.value = res.data.category
       tags.value = res.data.tag
-      contents.value = res.data.list
-      contentsTop.value = res.data.tops
-      contentsHot.value = res.data.hots
-      contentsRec.value = res.data.recs
-      contentsPage.value = res.data.page
-      contentsPages.value = res.data.pages
-      contentsCount.value = res.data.count
+      data.value = res.data.list
+      tops.value = res.data.tops
+      hots.value = res.data.hots
+      recs.value = res.data.recs
+      count.value = res.data.count
       loading.value = false
     })
     .catch(() => {
@@ -251,17 +192,31 @@ function getList() {
     })
 }
 
-function goDetail(row) {
-  let id = row.content_id
-  let routeUrl = router.resolve({
-    path: '/content-detail',
-    query: { id: id }
-  })
-  window.open(routeUrl.href, '_blank')
-  // router.push(`/content-detail?id=${id}`)
+function categoryId(category) {
+  if (query.value.category_id == category.category_id) {
+    query.value.category_id = ''
+  } else {
+    query.value.category_id = category.category_id
+  }
+  list()
+}
+
+function tagId(tag) {
+  if (query.value.tag_id == tag.tag_id) {
+    query.value.tag_id = ''
+  } else {
+    query.value.tag_id = tag.tag_id
+  }
+  list()
+}
+
+function detail(content) {
+  let id = content.content_id
+  let url = router.resolve({ path: '/content-detail', query: { id: id } })
+  window.open(url.href, '_blank')
 }
 
 onMounted(() => {
-  getList()
+  list()
 })
 </script>

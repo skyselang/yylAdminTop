@@ -12,7 +12,6 @@ export function list(params) {
     params: params
   })
 }
-
 /**
  * 反馈提交
  * @param {array} data 请求数据
@@ -32,7 +31,6 @@ export function add(data, method = 'post') {
     })
   }
 }
-
 /**
  * 反馈信息
  * @param {array} params 请求参数

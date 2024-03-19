@@ -1,6 +1,4 @@
-import { defineStore } from 'pinia'
 import { store } from '@/store'
-import { useStorage } from '@vueuse/core'
 import defaultSettings from '@/settings'
 
 export const useSettingsStore = defineStore('setting', () => {
@@ -11,7 +9,6 @@ export const useSettingsStore = defineStore('setting', () => {
   const themeColor = useStorage('themeColor', defaultSettings.themeColor)
   const tokenType = useStorage('tokenType', defaultSettings.tokenType)
   const tokenName = useStorage('tokenName', defaultSettings.tokenName)
-  const pageLimit = useStorage('pageLimit', defaultSettings.pageLimit)
 
   const settingsMap = {
     systemName,
@@ -20,8 +17,7 @@ export const useSettingsStore = defineStore('setting', () => {
     logoUrl,
     themeColor,
     tokenType,
-    tokenName,
-    pageLimit
+    tokenName
   }
 
   function changeSetting({ key, value }) {
@@ -51,7 +47,6 @@ export const useSettingsStore = defineStore('setting', () => {
     themeColor,
     tokenType,
     tokenName,
-    pageLimit,
     changeSetting
   }
 })

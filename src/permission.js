@@ -1,15 +1,15 @@
 import router from '@/router'
-import { useUserStoreHook } from '@/store/modules/user'
+import { useMemberStoreHook } from '@/store/modules/member'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import getPageTitle from '@/utils/page-title'
 // 进度条
 NProgress.configure({ showSpinner: false })
 
-const userStore = useUserStoreHook()
+const userStore = useMemberStoreHook()
 
 // 白名单路由
-const whiteList = ['/', '/file', '/content', '/feedback', '/login', '/register', '/404']
+const whiteList = ['/', '/content', '/file', '/feedback', '/login', '/register', '/404']
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start()

@@ -10,7 +10,6 @@ export function list() {
     method: 'get'
   })
 }
-
 /**
  * 地区信息
  * @param {array} data 请求数据
@@ -22,7 +21,6 @@ export function info(data) {
     params: data
   })
 }
-
 /**
  * 地区树形
  * @param {array} data 请求数据

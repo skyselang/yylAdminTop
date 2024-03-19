@@ -1,14 +1,12 @@
-import { reactive } from 'vue'
-import { defineStore } from 'pinia'
 import { store } from '@/store'
 import { useStorage } from '@vueuse/core'
 import { useSettingsStore } from '@/store/modules/settings'
 import { login as loginApi, logout as logoutApi } from '@/api/login'
-import { userInfo as userInfoApi } from '@/api/user'
+import { info as infoApi } from '@/api/member'
 
-export const useUserStore = defineStore('user', () => {
+export const useMemberStore = defineStore('member', () => {
   const token = useStorage('ApiToken', '')
-  const user = reactive({
+  const member = reactive({
     username: '',
     nickname: '',
     avatar_url: ''
@@ -28,18 +26,18 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
-  // 用户信息
-  function userInfo() {
+  // 会员信息
+  function info() {
     return new Promise((resolve, reject) => {
-      userInfoApi()
+      infoApi()
         .then(({ data }) => {
           if (!data) {
             reject('Verification failed, please Login again.')
             return
           }
-          user.nickname = data.nickname
-          user.username = data.username
-          user.avatar_url = data.avatar_url
+          member.nickname = data.nickname
+          member.username = data.username
+          member.avatar_url = data.avatar_url
           resolve(data)
         })
         .catch((err) => {
@@ -47,18 +45,18 @@ export const useUserStore = defineStore('user', () => {
         })
     })
   }
-  function setUserinfo(data) {
-    user.nickname = data.nickname
-    user.username = data.username
-    user.avatar_url = data.avatar_url
+  function setInfo(data) {
+    member.nickname = data.nickname
+    member.username = data.username
+    member.avatar_url = data.avatar_url
   }
-  function getUserinfo() {
-    return user
+  function getInfo() {
+    return member
   }
-  function delUserinfo() {
-    user.nickname = ''
-    user.username = ''
-    user.avatar_url = ''
+  function delInfo() {
+    member.nickname = ''
+    member.username = ''
+    member.avatar_url = ''
   }
 
   // 退出
@@ -75,19 +73,15 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
-  // 设置token
+  // token
   function setToken(data) {
     const settingsStore = useSettingsStore()
     const tokenName = settingsStore.tokenName
     token.value = data[tokenName]
   }
-
-  // 获取token
   function getToken() {
     return token.value
   }
-
-  // 移除token
   function delToken() {
     return new Promise((resolve) => {
       token.value = ''
@@ -97,12 +91,12 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     token,
-    user,
+    member,
     login,
-    userInfo,
-    setUserinfo,
-    getUserinfo,
-    delUserinfo,
+    info,
+    setInfo,
+    getInfo,
+    delInfo,
     logout,
     setToken,
     getToken,
@@ -111,6 +105,6 @@ export const useUserStore = defineStore('user', () => {
 })
 
 // 非setup
-export function useUserStoreHook() {
-  return useUserStore(store)
+export function useMemberStoreHook() {
+  return useMemberStore(store)
 }

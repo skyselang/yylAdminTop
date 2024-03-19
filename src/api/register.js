@@ -10,7 +10,6 @@ export function captcha() {
     method: 'get'
   })
 }
-
 /**
  * 注册
  * @param {array} data 请求数据

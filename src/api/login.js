@@ -10,7 +10,6 @@ export function captcha() {
     method: 'get'
   })
 }
-
 /**
  * 登录
  * @param {array} data 请求数据
@@ -22,7 +21,6 @@ export function login(data) {
     data
   })
 }
-
 /**
  * 退出
  * @param {array} data 请求数据
