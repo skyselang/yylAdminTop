@@ -83,4 +83,8 @@ function unbind(row) {
       loading.value = false
     })
 }
+
+onMounted(() => {
+  list()
+})
 </script>
