@@ -1,6 +1,6 @@
 <template>
   <el-row v-loading="loading" class="mt">
-    <el-col :span="8" :offset="8">
+    <el-col v-if="types.length > 0" :span="8" :offset="8">
       <el-form v-if="types.length > 0" ref="form" :model="model" :rules="rules" label-width="80px">
         <el-form-item label="类型" prop="type">
           <el-select v-model="model.type">
@@ -24,6 +24,9 @@
           <el-button type="primary" @click="submit">提交</el-button>
         </el-form-item>
       </el-form>
+    </el-col>
+    <el-col v-else>
+      <el-empty description="请登录" />
     </el-col>
   </el-row>
 </template>

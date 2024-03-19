@@ -115,7 +115,7 @@ const router = useRouter()
 const groups = ref([])
 const tags = ref([])
 
-const query = ref({ page: 1, limit: 8 })
+const query = ref({ page: 1, limit: 12 })
 const data = ref([])
 const count = ref(0)
 
