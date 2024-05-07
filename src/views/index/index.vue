@@ -74,7 +74,7 @@ const navs = [
   {
     name: '文档',
     image: Logo,
-    href: 'http://skyselang.gitee.io/yyladmindoc/'
+    href: 'http://doc.yyladmin.top/'
   },
   {
     name: 'Gitee',
