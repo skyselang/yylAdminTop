@@ -62,6 +62,7 @@
 </template>
 
 <script setup>
+import Demo from '@/assets/images/demo.png'
 import Logo from '@/assets/images/logo.png'
 import Gitee from '@/assets/images/gitee.png'
 import Github from '@/assets/images/github.png'
@@ -71,6 +72,11 @@ defineOptions({
 })
 
 const navs = [
+  {
+    name: '演示',
+    image: Demo,
+    href: 'http://doc.yyladmin.top/guide/demo.html'
+  },
   {
     name: '文档',
     image: Logo,
