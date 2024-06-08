@@ -17,10 +17,11 @@ service.interceptors.request.use(
   // 请求配置
   (config) => {
     const memberStore = useMemberStoreHook()
+    const settingsStore = useSettingsStoreHook()
+    const tokenType = settingsStore.tokenType
+
+    // 设置Token
     if (memberStore.token) {
-      // 设置Token，请求头部header或请求参数param
-      const settingsStore = useSettingsStoreHook()
-      const tokenType = settingsStore.tokenType
       const tokenName = settingsStore.tokenName
       const tokenValue = memberStore.token
       if (tokenType === 'header') {
@@ -33,6 +34,17 @@ service.interceptors.request.use(
         } else {
           config.data = { ...config?.data, [tokenName]: tokenValue }
         }
+      }
+    }
+
+    // 设置应用
+    if (tokenType === 'header') {
+      config.headers['application'] = 13
+    } else {
+      if (config.method === 'get') {
+        config.params = { ...config?.params, application: 13 }
+      } else {
+        config.data = { ...config?.data, application: 13 }
       }
     }
     return config
