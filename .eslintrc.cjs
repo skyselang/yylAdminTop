@@ -45,6 +45,9 @@ module.exports = {
       {
         useTabs: false
       }
-    ]
+    ],
+    globals: {
+      OptionType: 'readonly'
+    }
   }
 }

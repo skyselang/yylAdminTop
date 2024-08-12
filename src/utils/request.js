@@ -114,6 +114,7 @@ function responseHandle(res) {
       .then(() => {
         const memberStore = useMemberStoreHook()
         memberStore.delToken()
+        memberStore.delInfo()
         router.push('/login')
       })
       .catch(() => {})

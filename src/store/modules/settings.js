@@ -2,13 +2,14 @@ import { store } from '@/store'
 import defaultSettings from '@/settings'
 
 export const useSettingsStore = defineStore('setting', () => {
-  const systemName = useStorage('systemName', defaultSettings.systemName)
-  const pageTitle = useStorage('pageTitle', defaultSettings.pageTitle)
-  const faviconUrl = useStorage('faviconUrl', defaultSettings.faviconUrl)
-  const logoUrl = useStorage('logoUrl', defaultSettings.logoUrl)
-  const themeColor = useStorage('themeColor', defaultSettings.themeColor)
-  const tokenType = useStorage('tokenType', defaultSettings.tokenType)
-  const tokenName = useStorage('tokenName', defaultSettings.tokenName)
+  const storePrefix = defaultSettings.storePrefix
+  const systemName = useStorage(storePrefix + 'systemName', defaultSettings.systemName)
+  const pageTitle = useStorage(storePrefix + 'pageTitle', defaultSettings.pageTitle)
+  const faviconUrl = useStorage(storePrefix + 'faviconUrl', defaultSettings.faviconUrl)
+  const logoUrl = useStorage(storePrefix + 'logoUrl', defaultSettings.logoUrl)
+  const themeColor = useStorage(storePrefix + 'themeColor', defaultSettings.themeColor)
+  const tokenType = useStorage(storePrefix + 'tokenType', defaultSettings.tokenType)
+  const tokenName = useStorage(storePrefix + 'tokenName', defaultSettings.tokenName)
 
   const settingsMap = {
     systemName,

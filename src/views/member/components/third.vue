@@ -1,6 +1,7 @@
 <template>
-  <el-button type="primary" @click="bind('qq')">绑定QQ</el-button>
-  <el-button type="primary" @click="bind('wb')">绑定微博</el-button>
+  <el-button type="primary" @click="bindWebsite('qq')">绑定QQ</el-button>
+  <el-button type="primary" @click="bindWebsite('wb')">绑定微博</el-button>
+  <el-button v-if="isdev" type="primary" @click="bindOffiacc('wx')">绑定公众号</el-button>
   <el-button type="primary" @click="refresh">刷新</el-button>
 
   <el-table v-loading="loading" :data="data" :height="height">
@@ -38,6 +39,13 @@ defineOptions({
   name: 'MemberThird'
 })
 
+const isdev = import.meta.env.DEV
+const baseUrl = import.meta.env.VITE_APP_BASE_URL
+const redirectUri = 'http://127.0.0.1:9526/api/member.Login/redirectUri'
+const settingsStore = useSettingsStore()
+const memberStore = useMemberStore()
+const tokenName = settingsStore.tokenName
+const tokenValue = memberStore.getToken()
 const height = ref(500)
 const loading = ref(false)
 const data = ref([])
@@ -59,15 +67,24 @@ function refresh() {
   list()
 }
 // 绑定
-function bind(app = 'qq') {
-  const settingsStore = useSettingsStore()
-  const memberStore = useMemberStore()
-  const tokenName = settingsStore.tokenName
-  const tokenValue = memberStore.getToken()
-  const baseUrl = import.meta.env.VITE_APP_BASE_URL
-  const apiUrl = '/api/member.Member/bindWebsite?app=' + app
-  const jumpUrl = '&jump_url=' + window.location.href + '&' + tokenName + '=' + tokenValue
-  const loginUrl = baseUrl + apiUrl + jumpUrl
+function bindWebsite(app = 'qq') {
+  const apiUrl = '/api/member.Member/bindWebsite'
+  let params = new URLSearchParams()
+  params.append('app', app)
+  params.append('redirect_uri', isdev ? redirectUri : '')
+  params.append('jump_url', window.location.href)
+  params.append(tokenName, tokenValue)
+  let loginUrl = baseUrl + apiUrl + '?' + params.toString()
+  window.open(loginUrl)
+}
+function bindOffiacc(app = 'wx') {
+  const apiUrl = '/api/member.Member/bindOffiacc'
+  let params = new URLSearchParams()
+  params.append('app', app)
+  params.append('redirect_uri', isdev ? redirectUri : '')
+  params.append('jump_url', window.location.href)
+  params.append(tokenName, tokenValue)
+  let loginUrl = baseUrl + apiUrl + '?' + params.toString()
   window.open(loginUrl)
 }
 // 解绑

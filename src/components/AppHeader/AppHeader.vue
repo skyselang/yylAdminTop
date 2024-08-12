@@ -31,6 +31,7 @@
 <script setup>
 import { useMemberStore } from '@/store/modules/member'
 import { logout as logoutApi } from '@/api/login'
+import { setToken } from '@/utils/index'
 
 const router = useRouter()
 const memberStore = useMemberStore()
@@ -52,4 +53,8 @@ const logout = () => {
     })
     .catch(() => {})
 }
+
+onMounted(() => {
+  setToken()
+})
 </script>

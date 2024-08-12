@@ -1,12 +1,15 @@
 import router from '@/router'
+import defaultSettings from '@/settings'
+import { useSettingsStoreHook } from '@/store/modules/settings'
 import { useMemberStoreHook } from '@/store/modules/member'
+import getPageTitle from '@/utils/page-title'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import getPageTitle from '@/utils/page-title'
 // 进度条
 NProgress.configure({ showSpinner: false })
 
-const userStore = useMemberStoreHook()
+const settingsStore = useSettingsStoreHook()
+const memberStore = useMemberStoreHook()
 
 // 白名单路由
 const whiteList = ['/', '/content', '/file', '/feedback', '/login', '/register', '/404']
@@ -15,15 +18,16 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start()
   // 设置页面标题
   document.title = getPageTitle(to.meta.title)
-
-  const hasToken = localStorage.getItem('ApiToken')
+  const storePrefix = defaultSettings.storePrefix
+  const tokenName = settingsStore.tokenName
+  const hasToken = localStorage.getItem(storePrefix + tokenName)
   if (hasToken) {
     if (to.path === '/login') {
       // 如果已登录，跳转首页
       next({ path: '/' })
       NProgress.done()
     } else {
-      const hasToken = userStore.token
+      const hasToken = memberStore.token
       if (hasToken) {
         // 未匹配到任何路由，跳转404
         if (to.matched.length === 0) {
@@ -33,11 +37,11 @@ router.beforeEach(async (to, from, next) => {
         }
       } else {
         try {
-          await userStore.userInfo()
+          await memberStore.userInfo()
           next({ ...to, replace: true })
         } catch (error) {
           // 移除 token 并跳转登录页
-          await userStore.delToken()
+          await memberStore.delToken()
           next('/login')
           NProgress.done()
         }

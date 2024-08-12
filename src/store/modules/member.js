@@ -1,11 +1,15 @@
 import { store } from '@/store'
+import defaultSettings from '@/settings'
 import { useStorage } from '@vueuse/core'
 import { useSettingsStore } from '@/store/modules/settings'
 import { login as loginApi, logout as logoutApi } from '@/api/login'
 import { info as infoApi } from '@/api/member'
 
 export const useMemberStore = defineStore('member', () => {
-  const token = useStorage('ApiToken', '')
+  const settingsStore = useSettingsStore()
+  const storePrefix = defaultSettings.storePrefix
+  const tokenName = settingsStore.tokenName
+  const token = useStorage(storePrefix + tokenName, '')
   const member = reactive({
     username: '',
     nickname: '',
@@ -75,9 +79,9 @@ export const useMemberStore = defineStore('member', () => {
 
   // token
   function setToken(data) {
-    const settingsStore = useSettingsStore()
     const tokenName = settingsStore.tokenName
-    token.value = data[tokenName]
+    let tokenValue = data[tokenName]
+    token.value = tokenValue.replace(/#\/.*$/, '')
   }
   function getToken() {
     return token.value
@@ -85,6 +89,7 @@ export const useMemberStore = defineStore('member', () => {
   function delToken() {
     return new Promise((resolve) => {
       token.value = ''
+      delInfo()
       resolve()
     })
   }

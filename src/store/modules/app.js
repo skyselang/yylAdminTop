@@ -5,10 +5,11 @@ import en from 'element-plus/es/locale/lang/en'
 
 // setup
 export const useAppStore = defineStore('app', () => {
+  const storePrefix = defaultSettings.storePrefix
   // state
-  const device = useStorage('device', 'desktop')
-  const size = useStorage('size', defaultSettings.size)
-  const language = useStorage('language', defaultSettings.language)
+  const device = useStorage(storePrefix + 'device', 'desktop')
+  const size = useStorage(storePrefix + 'size', defaultSettings.size)
+  const language = useStorage(storePrefix + 'language', defaultSettings.language)
   // 语言包
   const locale = computed(() => {
     if (language?.value == 'en') {

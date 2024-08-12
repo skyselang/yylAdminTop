@@ -39,12 +39,15 @@
           <el-button type="primary" @click="submit()">登录</el-button>
         </el-form-item>
         <el-form-item label="">
-          <a href="#" @click="thirdLogin('qq')">
+          <a href="#" @click="website('qq')">
             <img src="@/assets/images/qq-login230x48.png" class="h-[32px] v-middle" alt="QQ登录" />
           </a>
         </el-form-item>
+        <el-form-item v-if="isdev" label="">
+          <el-button type="primary" @click="offiacc('wx')">公众号登录</el-button>
+        </el-form-item>
         <el-form-item label="">
-          <a href="#" @click="thirdLogin('wb')">
+          <a href="#" @click="website('wb')">
             <img
               src="@/assets/images/weibo-login-48.png"
               class="h-[32px] v-middle"
@@ -59,12 +62,15 @@
 
 <script setup>
 import { captcha, login } from '@/api/login'
-import { useSettingsStore } from '@/store/modules/settings'
 import { useMemberStore } from '@/store/modules/member'
+
 defineOptions({
   name: 'Login'
 })
 
+const isdev = import.meta.env.DEV
+const baseUrl = import.meta.env.VITE_APP_BASE_URL
+const redirectUri = 'http://127.0.0.1:9526/api/member.Login/redirectUri'
 const memberStore = useMemberStore()
 const router = useRouter()
 const loading = ref(false)
@@ -122,45 +128,26 @@ function reset() {
   form.value.resetFields()
 }
 // 第三方登录
-function thirdLogin(app = 'qq') {
-  const baseUrl = import.meta.env.VITE_APP_BASE_URL
-  const apiUrl = '/api/member.Login/website?app=' + app
-  const jumpUrl = '&jump_url=' + window.location.href
-  const loginUrl = baseUrl + apiUrl + jumpUrl
+function website(app = 'qq') {
+  const apiUrl = '/api/member.Login/website'
+  let params = new URLSearchParams()
+  params.append('app', app)
+  params.append('redirect_uri', isdev ? redirectUri : '')
+  params.append('jump_url', window.location.href)
+  let loginUrl = baseUrl + apiUrl + '?' + params.toString()
   window.open(loginUrl)
 }
-function thirdLoginRes() {
-  const params = thirdLoginParam()
-  if (params) {
-    const settingsStore = useSettingsStore()
-    const tokenName = settingsStore.tokenName
-    const tokenValue = params[tokenName]
-    if (tokenValue) {
-      memberStore.setToken(params)
-      router.push('/member')
-    }
-  }
-}
-function thirdLoginParam() {
-  // 获取当前页面的完整URL
-  let url = window.location.href
-  // 将URL拆分成各个部分
-  let urlParts = url.split('?')
-  // 获取URL中的查询字符串部分
-  let queryString = urlParts[1]
-  // 将查询字符串拆分成键值对
-  let queryParameters = {}
-  if (queryString) {
-    queryString.split('&').forEach(function (part) {
-      let paramParts = part.split('=')
-      queryParameters[paramParts[0]] = paramParts[1]
-    })
-  }
-  return queryParameters
+function offiacc(app = 'wx') {
+  const apiUrl = '/api/member.Login/offiacc'
+  let params = new URLSearchParams()
+  params.append('app', app)
+  params.append('redirect_uri', isdev ? redirectUri : '')
+  params.append('jump_url', window.location.href)
+  let loginUrl = baseUrl + apiUrl + '?' + params.toString()
+  window.open(loginUrl)
 }
 
 onMounted(() => {
   captchaGet()
-  thirdLoginRes()
 })
 </script>

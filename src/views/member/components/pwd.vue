@@ -21,6 +21,7 @@
           show-password
         />
       </el-form-item>
+      <el-form-item> <el-text>修改密码后需要重新登录。</el-text> </el-form-item>
       <el-form-item>
         <el-button @click="reset">重置</el-button>
         <el-button type="primary" @click="submit">提交</el-button>
@@ -51,9 +52,7 @@ function info() {
     .then((res) => {
       member.value = res.data
     })
-    .catch((err) => {
-      ElMessage.error(err.msg)
-    })
+    .catch(() => {})
 }
 function submit() {
   form.value.validate((valid) => {
