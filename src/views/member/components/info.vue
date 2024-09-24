@@ -12,11 +12,11 @@
           />
         </div>
       </el-form-item>
-      <el-form-item label="用户名" prop="username">
-        <el-input v-model="model.username" type="text" disabled />
-      </el-form-item>
       <el-form-item label="昵称" prop="nickname">
         <el-input v-model="model.nickname" type="text" disabled />
+      </el-form-item>
+      <el-form-item label="用户名" prop="username">
+        <el-input v-model="model.username" type="text" disabled />
       </el-form-item>
       <el-form-item label="手机" prop="phone">
         <el-input v-model="model.phone" type="text" disabled />
@@ -24,29 +24,21 @@
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="model.email" type="text" disabled />
       </el-form-item>
+      <el-form-item label="姓名" prop="name">
+        <el-input v-model="model.name" type="text" disabled />
+      </el-form-item>
+      <el-form-item label="性别" prop="gender_name">
+        <el-input v-model="model.gender_name" type="text" disabled />
+      </el-form-item>
       <el-form-item label="所在地" prop="region_id">
         <el-cascader
           v-model="model.region_id"
           :options="regionTree"
           :props="regionProps"
           class="w-full"
+          placeholder=" "
           disabled
         />
-      </el-form-item>
-      <el-form-item label="登录次数" prop="login_num">
-        <el-input v-model="model.login_num" type="text" disabled />
-      </el-form-item>
-      <el-form-item label="登录IP" prop="login_ip">
-        <el-input v-model="model.login_ip" type="text" disabled />
-      </el-form-item>
-      <el-form-item label="登录地区" prop="login_region">
-        <el-input v-model="model.login_region" type="text" disabled />
-      </el-form-item>
-      <el-form-item label="登陆时间" prop="login_time">
-        <el-input v-model="model.login_time" type="text" disabled />
-      </el-form-item>
-      <el-form-item label="注册时间" prop="create_time">
-        <el-input v-model="model.create_time" type="text" disabled />
       </el-form-item>
       <el-form-item>
         <el-button @click="info">刷新</el-button>

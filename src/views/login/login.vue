@@ -37,6 +37,7 @@
         <el-form-item>
           <el-button @click="reset()">重置</el-button>
           <el-button type="primary" @click="submit()">登录</el-button>
+          <el-button @click="register()">注册</el-button>
         </el-form-item>
         <el-form-item label="">
           <a href="#" @click="website('qq')">
@@ -126,6 +127,9 @@ function submit() {
 }
 function reset() {
   form.value.resetFields()
+}
+function register() {
+  router.push('/register')
 }
 // 第三方登录
 function website(app = 'qq') {

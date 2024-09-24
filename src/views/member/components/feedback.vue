@@ -55,7 +55,12 @@
           <el-input v-model="model.title" placeholder="请输入标题" clearable />
         </el-form-item>
         <el-form-item label="内容" prop="content">
-          <el-input v-model="model.content" type="textarea" autosize placeholder="请输入内容" />
+          <el-input
+            v-model="model.content"
+            type="textarea"
+            :autosize="{ minRows: 3, maxRows: 6 }"
+            placeholder="请输入内容"
+          />
         </el-form-item>
         <el-form-item label="手机" prop="phone">
           <el-input v-model="model.phone" placeholder="手机号码" clearable />

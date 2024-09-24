@@ -6,13 +6,18 @@
           <img class="h-[40px]" src="@/assets/images/logo.png" alt="logo" />
         </el-menu-item>
         <div class="flex-grow"></div>
-        <el-menu-item index="/content">内容</el-menu-item>
-        <el-menu-item index="/file">文件</el-menu-item>
-        <el-menu-item index="/feedback">反馈</el-menu-item>
-        <el-menu-item v-if="token" @click="logout">退出</el-menu-item>
-        <el-menu-item v-if="!token" index="/login">登录</el-menu-item>
-        <el-menu-item v-if="!token" index="/register">注册</el-menu-item>
-        <el-menu-item index="/member">
+        <el-menu-item v-if="token" index="/content">内容</el-menu-item>
+        <el-menu-item v-if="token" index="/file">文件</el-menu-item>
+        <el-menu-item>
+          <e-link @click="openUrl('https://doc.yyladmin.top/guide/demo.html')">演示</e-link>
+        </el-menu-item>
+        <el-menu-item>
+          <e-link @click="openUrl('https://doc.yyladmin.top/')">文档</e-link>
+        </el-menu-item>
+        <el-menu-item>
+          <e-link @click="openUrl('https://gitee.com/skyselang/yylAdmin/')">Gitee</e-link>
+        </el-menu-item>
+        <el-menu-item v-if="token" index="/member">
           <el-avatar
             v-if="member.avatar_url"
             :src="member.avatar_url"
@@ -23,35 +28,21 @@
           />
           <el-text v-else :title="member.nickname">个人中心</el-text>
         </el-menu-item>
+        <el-menu-item v-else index="/login">登录</el-menu-item>
       </el-menu>
     </el-col>
   </el-row>
 </template>
 
 <script setup>
-import { useMemberStore } from '@/store/modules/member'
-import { logout as logoutApi } from '@/api/login'
 import { setToken } from '@/utils/index'
+import { useMemberStore } from '@/store/modules/member'
 
-const router = useRouter()
 const memberStore = useMemberStore()
 const { token, member } = storeToRefs(memberStore)
 
-const logout = () => {
-  ElMessageBox.confirm('确定要退出吗？', '提示', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-    lockScroll: false
-  })
-    .then(() => {
-      logoutApi().then(() => {
-        memberStore.delToken()
-        memberStore.delInfo()
-        router.push('/index')
-      })
-    })
-    .catch(() => {})
+function openUrl(url) {
+  window.open(url, '_blank')
 }
 
 onMounted(() => {

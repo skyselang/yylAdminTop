@@ -11,7 +11,6 @@
   <el-button class="filter-item" @click="refresh">刷新</el-button>
   <!-- 列表 -->
   <el-table v-loading="loading" :data="data" :height="height" @sort-change="sort">
-    <el-table-column prop="log_id" label="ID" min-width="100" sortable="custom" />
     <el-table-column prop="api_name" label="操作" min-width="130" />
     <el-table-column prop="request_ip" label="IP" min-width="130" />
     <el-table-column prop="request_region" label="地区" min-width="150" />

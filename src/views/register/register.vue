@@ -41,6 +41,7 @@
         <el-form-item>
           <el-button @click="reset">重置</el-button>
           <el-button type="primary" @click="submit">注册</el-button>
+          <el-button @click="login()">登录</el-button>
         </el-form-item>
         <el-form-item label="">
           <a href="#" @click="thirdLogin('qq')">
@@ -123,6 +124,9 @@ function submit() {
 }
 function reset() {
   form.value.resetFields()
+}
+function login() {
+  router.push('/login')
 }
 // 第三方登录
 function thirdLogin(app = 'qq') {

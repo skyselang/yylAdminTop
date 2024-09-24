@@ -11,8 +11,8 @@ export const useMemberStore = defineStore('member', () => {
   const tokenName = settingsStore.tokenName
   const token = useStorage(storePrefix + tokenName, '')
   const member = reactive({
-    username: '',
     nickname: '',
+    username: '',
     avatar_url: ''
   })
 

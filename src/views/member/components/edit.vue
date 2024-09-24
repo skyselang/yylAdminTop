@@ -32,11 +32,27 @@
           </el-row>
         </el-col>
       </el-form-item>
+      <el-form-item label="昵称" prop="nickname">
+        <el-input v-model="model.nickname" placeholder="请输入昵称" />
+      </el-form-item>
       <el-form-item label="用户名" prop="username">
         <el-input v-model="model.username" placeholder="请输入用户名" />
       </el-form-item>
-      <el-form-item label="昵称" prop="nickname">
-        <el-input v-model="model.nickname" placeholder="请输入昵称" />
+      <el-form-item label="手机" prop="phone">
+        <el-input v-model="model.phone" type="text" />
+      </el-form-item>
+      <el-form-item label="邮箱" prop="email">
+        <el-input v-model="model.email" type="text" />
+      </el-form-item>
+      <el-form-item label="姓名" prop="name">
+        <el-input v-model="model.name" type="text" />
+      </el-form-item>
+      <el-form-item label="性别" prop="gender">
+        <el-radio-group v-model="model.gender">
+          <el-radio :value="0">未知</el-radio>
+          <el-radio :value="1">男</el-radio>
+          <el-radio :value="2">女</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="所在地" prop="region_id">
         <el-cascader
@@ -74,14 +90,17 @@ const model = ref({
   member_id: '',
   avatar_id: 0,
   avatar_url: '',
+  nickname: '',
   username: '',
-  email: '',
   phone: '',
+  email: '',
+  name: '',
+  gender: 0,
   region_id: ''
 })
 const rules = ref({
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  nickname: [{ required: true, message: '请输入昵称', trigger: 'blur' }]
+  nickname: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
+  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
 })
 const uploadAction = avatar()
 const uploadHeaders = ref({})
