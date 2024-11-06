@@ -26,12 +26,7 @@
       </el-divider>
       <el-col>
         <el-text truncated v-for="tag in tags" :key="tag.tag_id">
-          <el-button
-            :type="query.tag_id == tag.tag_id ? 'primary' : ''"
-            text
-            size="small"
-            @click="tagId(tag)"
-          >
+          <el-button :type="query.tag_id == tag.tag_id ? 'primary' : ''" text size="small" @click="tagId(tag)">
             {{ tag.tag_name }}
           </el-button>
         </el-text>
@@ -42,11 +37,7 @@
       <el-table :data="data" :show-header="false">
         <el-table-column prop="image_url" width="120">
           <template #default="scope">
-            <el-image
-              :src="scope.row.image_url"
-              class="h-[70px] cursor-pointer"
-              @click="detail(scope.row)"
-            >
+            <el-image :src="scope.row.image_url" class="h-[70px] cursor-pointer" @click="detail(scope.row)">
               <template #placeholder>
                 <el-icon :size="50"><i-ep-Picture /></el-icon>
               </template>
@@ -102,13 +93,7 @@
           <el-icon><i-ep-Top /></el-icon>
         </el-divider>
       </el-col>
-      <el-col
-        v-for="top in tops"
-        :key="top.content_id"
-        :underline="false"
-        class="cursor-pointer"
-        @click="detail(top)"
-      >
+      <el-col v-for="top in tops" :key="top.content_id" :underline="false" class="cursor-pointer" @click="detail(top)">
         <el-text truncated>{{ top.name }}</el-text>
       </el-col>
 
@@ -117,13 +102,7 @@
           <el-icon><i-ep-Pointer /></el-icon>
         </el-divider>
       </el-col>
-      <el-col
-        v-for="hot in hots"
-        :key="hot.content_id"
-        :underline="false"
-        class="cursor-pointer"
-        @click="detail(hot)"
-      >
+      <el-col v-for="hot in hots" :key="hot.content_id" :underline="false" class="cursor-pointer" @click="detail(hot)">
         <el-text truncated>{{ hot.name }}</el-text>
       </el-col>
 
@@ -132,13 +111,7 @@
           <el-icon><i-ep-Position /></el-icon>
         </el-divider>
       </el-col>
-      <el-col
-        v-for="rec in recs"
-        :key="rec.content_id"
-        :underline="false"
-        class="cursor-pointer"
-        @click="detail(rec)"
-      >
+      <el-col v-for="rec in recs" :key="rec.content_id" :underline="false" class="cursor-pointer" @click="detail(rec)">
         <el-text truncated>{{ rec.name }}</el-text>
       </el-col>
     </el-col>
@@ -146,9 +119,7 @@
 
   <el-row v-if="data.length > 0" class="text-center mt">
     <el-col>
-      <el-text size="small">
-        免责声明：内容来自网络，不代表本站观点和立场，如侵权请联系删除。
-      </el-text>
+      <el-text size="small"> 免责声明：内容来自网络，不代表本站观点和立场，如侵权请联系删除。 </el-text>
     </el-col>
   </el-row>
 </template>

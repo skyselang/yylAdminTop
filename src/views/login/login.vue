@@ -6,13 +6,7 @@
           <el-input v-model="model.account" clearable placeholder="请输入用户名" />
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input
-            v-model="model.password"
-            type="password"
-            clearable
-            show-password
-            placeholder="请输入密码"
-          />
+          <el-input v-model="model.password" type="password" clearable show-password placeholder="请输入密码" />
         </el-form-item>
         <el-form-item label="验证码" v-if="captcha_switch" prop="captcha_code">
           <el-col :span="12">
@@ -49,11 +43,7 @@
         </el-form-item>
         <el-form-item label="">
           <a href="#" @click="website('wb')">
-            <img
-              src="@/assets/images/weibo-login-48.png"
-              class="h-[32px] v-middle"
-              alt="微博登录"
-            />
+            <img src="@/assets/images/weibo-login-48.png" class="h-[32px] v-middle" alt="微博登录" />
           </a>
         </el-form-item>
       </el-form>

@@ -3,12 +3,7 @@
     <el-col :span="2"><el-text v-if="groups.length > 0">分类：</el-text></el-col>
     <el-col :span="22">
       <el-text v-for="group in groups" :key="group.group_id">
-        <el-button
-          :type="query.group_id == group.group_id ? 'primary' : ''"
-          text
-          size="small"
-          @click="groupId(group)"
-        >
+        <el-button :type="query.group_id == group.group_id ? 'primary' : ''" text size="small" @click="groupId(group)">
           {{ group.group_name }}
         </el-button>
       </el-text>
@@ -19,12 +14,7 @@
     <el-col :span="2"><el-text v-if="tags.length > 0">标签：</el-text></el-col>
     <el-col :span="22">
       <el-text v-for="tag in tags" :key="tag.tag_id">
-        <el-button
-          :type="query.tag_id == tag.tag_id ? 'primary' : ''"
-          text
-          size="small"
-          @click="tagId(tag)"
-        >
+        <el-button :type="query.tag_id == tag.tag_id ? 'primary' : ''" text size="small" @click="tagId(tag)">
           {{ tag.tag_name }}
         </el-button>
       </el-text>
@@ -33,13 +23,7 @@
 
   <el-row v-loading="loading" :gutter="10" class="mt text-center">
     <template v-if="data.length > 0">
-      <el-col
-        v-for="item in data"
-        :key="item.file_id"
-        :span="6"
-        class="cursor-pointer"
-        @click="detail(item)"
-      >
+      <el-col v-for="item in data" :key="item.file_id" :span="6" class="cursor-pointer" @click="detail(item)">
         <div v-if="item.file_url">
           <div v-if="item.file_type === 'image'">
             <el-image class="h-[150px]" :src="item.file_url">
@@ -95,9 +79,7 @@
 
   <el-row v-if="count > 0" class="text-center mt">
     <el-col>
-      <el-text size="small">
-        免责声明：内容来自网络，不代表本站观点和立场，如侵权请联系删除。
-      </el-text>
+      <el-text size="small"> 免责声明：内容来自网络，不代表本站观点和立场，如侵权请联系删除。 </el-text>
     </el-col>
   </el-row>
 </template>

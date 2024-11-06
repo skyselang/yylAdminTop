@@ -13,9 +13,6 @@
       <el-form-item label="登录次数" prop="login_num">
         <el-input v-model="model.login_num" type="text" disabled />
       </el-form-item>
-      <el-form-item label="注册时间" prop="create_time">
-        <el-input v-model="model.create_time" type="text" disabled />
-      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="logout()">退出</el-button>
       </el-form-item>

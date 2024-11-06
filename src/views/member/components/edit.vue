@@ -132,7 +132,17 @@ function submit() {
   form.value.validate((valid) => {
     if (valid) {
       loading.value = true
-      edit(model.value)
+      const param = {}
+      param.member_id = model.value.member_id
+      param.avatar_id = model.value.avatar_id
+      param.nickname = model.value.nickname
+      param.username = model.value.username
+      param.phone = model.value.phone
+      param.email = model.value.email
+      param.name = model.value.name
+      param.gender = model.value.gender
+      param.region_id = model.value.region_id
+      edit(param)
         .then((res) => {
           detail()
           loading.value = false

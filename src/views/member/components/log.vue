@@ -8,7 +8,7 @@
     value-format="YYYY-MM-DD"
   />
   <el-button class="filter-item" type="primary" @click="search">查询</el-button>
-  <el-button class="filter-item" @click="refresh">刷新</el-button>
+  <el-button class="filter-item" @click="reset">重置</el-button>
   <!-- 列表 -->
   <el-table v-loading="loading" :data="data" :height="height" @sort-change="sort">
     <el-table-column prop="api_name" label="操作" min-width="130" />
@@ -72,8 +72,8 @@ function search() {
   query.value.page = 1
   list()
 }
-// 刷新
-function refresh() {
+// 重置
+function reset() {
   query.value = { page: 1, list: 10 }
   list()
 }

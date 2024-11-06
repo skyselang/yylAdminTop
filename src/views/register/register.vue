@@ -6,13 +6,7 @@
           <el-input v-model="model.username" clearable placeholder="2至32个字符" />
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input
-            v-model="model.password"
-            type="password"
-            clearable
-            show-password
-            placeholder="6至18个字符"
-          />
+          <el-input v-model="model.password" type="password" clearable show-password placeholder="6至18个字符" />
         </el-form-item>
         <el-form-item label="昵称" prop="nickname">
           <el-input v-model="model.nickname" clearable placeholder="1至64个字符" />
@@ -50,11 +44,7 @@
         </el-form-item>
         <el-form-item label="">
           <a href="#" @click="thirdLogin('wb')">
-            <img
-              src="@/assets/images/weibo-login-48.png"
-              class="h-[32px] v-middle"
-              alt="微博登录"
-            />
+            <img src="@/assets/images/weibo-login-48.png" class="h-[32px] v-middle" alt="微博登录" />
           </a>
         </el-form-item>
       </el-form>
@@ -131,8 +121,7 @@ function login() {
 // 第三方登录
 function thirdLogin(app = 'qq') {
   const baseUrl = import.meta.env.VITE_APP_BASE_URL
-  const loginUrl =
-    baseUrl + '/api/member.Login/website?app=' + app + '&jump_url=' + window.location.href
+  const loginUrl = baseUrl + '/api/member.Login/website?app=' + app + '&jump_url=' + window.location.href
   window.open(loginUrl)
 }
 function thirdLoginRes() {

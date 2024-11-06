@@ -62,9 +62,7 @@
   </el-row>
   <el-row v-if="model.content_id" class="text-center mt-9">
     <el-col>
-      <el-text size="small">
-        免责声明：内容来自网络，不代表本站观点和立场，如侵权请联系删除。
-      </el-text>
+      <el-text size="small"> 免责声明：内容来自网络，不代表本站观点和立场，如侵权请联系删除。 </el-text>
     </el-col>
   </el-row>
 </template>

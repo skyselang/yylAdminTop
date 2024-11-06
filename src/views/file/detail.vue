@@ -23,12 +23,7 @@
     <el-col class="text-center font-size-4 mt">
       <div v-if="model.file_url">
         <div v-if="model.file_type === 'image'">
-          <el-image
-            class="w-[90%]"
-            :src="model.file_url"
-            :preview-src-list="[model.file_url]"
-            title="点击看大图"
-          >
+          <el-image class="w-[90%]" :src="model.file_url" :preview-src-list="[model.file_url]" title="点击看大图">
             <template #error>
               <span></span>
             </template>
@@ -49,18 +44,14 @@
             <el-icon :size="60"><i-ep-Document /></el-icon>
           </el-text>
           <br />
-          <el-link :href="model.file_url" target="_blank">
-            {{ model.file_name }}.{{ model.file_ext }}
-          </el-link>
+          <el-link :href="model.file_url" target="_blank"> {{ model.file_name }}.{{ model.file_ext }} </el-link>
         </div>
         <div v-else-if="model.file_type === 'other'">
           <el-text>
             <el-icon :size="60"><i-ep-Folder /></el-icon>
           </el-text>
           <br />
-          <el-link :href="model.file_url" target="_blank">
-            {{ model.file_name }}.{{ model.file_ext }}
-          </el-link>
+          <el-link :href="model.file_url" target="_blank"> {{ model.file_name }}.{{ model.file_ext }} </el-link>
         </div>
       </div>
     </el-col>
@@ -79,9 +70,7 @@
   </el-row>
   <el-row v-if="model.file_id" class="text-center mt-9">
     <el-col>
-      <el-text size="small">
-        免责声明：内容来自网络，不代表本站观点和立场，如侵权请联系删除。
-      </el-text>
+      <el-text size="small"> 免责声明：内容来自网络，不代表本站观点和立场，如侵权请联系删除。 </el-text>
     </el-col>
   </el-row>
 </template>
