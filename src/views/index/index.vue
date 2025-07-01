@@ -18,7 +18,7 @@
   <el-row :gutter="5">
     <el-col class="text-center">
       <el-button round v-for="nav in navs" :key="nav.name">
-        <el-link :href="nav.href" :underline="false" target="_blank">
+        <el-link :href="nav.href" underline="never" target="_blank">
           <el-image :src="nav.image" class="h-[18px]">
             <template #error>
               <el-text />
@@ -36,7 +36,7 @@
         <el-table-column prop="version" label="版本" min-width="60" />
         <el-table-column prop="branch" label="分支" min-width="80">
           <template #default="scope">
-            <el-link :href="scope.row.href" :underline="false" type="primary" target="_blank">
+            <el-link :href="scope.row.href" underline="never" type="primary" target="_blank">
               {{ scope.row.branch }}
             </el-link>
           </template>

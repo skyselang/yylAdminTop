@@ -25,7 +25,7 @@
     <el-table-column prop="create_time" label="时间" min-width="165" />
     <el-table-column label="操作" width="100">
       <template #default="scope">
-        <el-link type="primary" :underline="false" @click="unbind(scope.row)">解绑</el-link>
+        <el-link type="primary" underline="never" @click="unbind(scope.row)">解绑</el-link>
       </template>
     </el-table-column>
   </el-table>

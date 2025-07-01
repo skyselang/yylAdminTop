@@ -21,7 +21,7 @@
     <el-table-column prop="create_time" label="提交时间" min-width="165" />
     <el-table-column label="操作" width="70">
       <template #default="scope">
-        <el-link type="primary" :underline="false" @click="edit(scope.row)">详情</el-link>
+        <el-link type="primary" underline="never" @click="edit(scope.row)">详情</el-link>
       </template>
     </el-table-column>
   </el-table>

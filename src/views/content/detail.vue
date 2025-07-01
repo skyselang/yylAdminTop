@@ -6,7 +6,7 @@
           {{ model.name }}
         </el-col>
         <el-col class="font-size-2 mt">
-          <el-link :href="model.url" :underline="false" target="_blank">
+          <el-link :href="model.url" underline="never" target="_blank">
             <el-icon class="ml" v-if="model.content_id"><i-ep-View /></el-icon>
             {{ model.hits_show }}
             <el-icon class="ml" v-if="model.content_id"><i-ep-Calendar /></el-icon>
@@ -38,7 +38,7 @@
       <el-col
         v-for="item in model.list"
         :key="item.content_id"
-        :underline="false"
+        underline="never"
         class="cursor-pointer"
         @click="detail(item)"
       >

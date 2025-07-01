@@ -8,7 +8,7 @@
         <el-input v-model="model.password" />
       </el-form-item>
       <el-form-item>
-        <el-link :href="model.adminurl" :underline="false" target="_blank">
+        <el-link :href="model.adminurl" underline="never" target="_blank">
           <el-button type="primary">后台</el-button>
         </el-link>
       </el-form-item>
