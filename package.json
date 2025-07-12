@@ -1,6 +1,7 @@
 {
   "name": "yyladminpc",
   "version": "3.0.0",
+  "description": "yyladmin pc",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -31,5 +32,9 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "engines": {
+    "node": ">=12.12.0",
+    "npm": ">=6.9.0"
+  }
 }
