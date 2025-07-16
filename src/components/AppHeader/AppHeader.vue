@@ -9,10 +9,10 @@
         <el-menu-item v-if="token" index="/content">内容</el-menu-item>
         <el-menu-item v-if="token" index="/file">文件</el-menu-item>
         <el-menu-item index="demo">
-          <el-link @click="openUrl('https://doc.yyladmin.top/guide/demo.html')">演示</el-link>
+          <el-link @click="openUrl('https://docv4.yyladmin.top/guide/demo.html')">演示</el-link>
         </el-menu-item>
         <el-menu-item index="doc">
-          <el-link @click="openUrl('https://doc.yyladmin.top/')">文档</el-link>
+          <el-link @click="openUrl('https://docv4.yyladmin.top/')">文档</el-link>
         </el-menu-item>
         <el-menu-item index="gitee">
           <el-link @click="openUrl('https://gitee.com/skyselang/yylAdmin/')">Gitee</el-link>

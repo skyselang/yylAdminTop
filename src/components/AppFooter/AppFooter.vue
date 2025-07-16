@@ -5,7 +5,6 @@
     </el-col>
     <el-col class="text-center">
       <el-text>Copyright © 2018-{{ year }} yylAdmin, Apache-2.0 license。</el-text>
-      <el-link underline="never" href="https://beian.miit.gov.cn" target="_blank">桂ICP备2021007680号-1</el-link>
     </el-col>
   </el-row>
 </template>

@@ -75,12 +75,12 @@ const navs = [
   {
     name: '演示',
     image: Demo,
-    href: 'http://doc.yyladmin.top/guide/demo.html'
+    href: 'http://docv4.yyladmin.top/guide/demo.html'
   },
   {
     name: '文档',
     image: Logo,
-    href: 'http://doc.yyladmin.top/'
+    href: 'http://docv4.yyladmin.top/'
   },
   {
     name: 'Gitee',
@@ -97,8 +97,8 @@ const navs = [
 const versions = [
   {
     version: 'v4',
-    branch: 'master',
-    href: 'https://gitee.com/skyselang/yylAdmin',
+    branch: 'v4',
+    href: 'https://gitee.com/skyselang/yylAdmin/tree/v4/',
     desc: 'thinkphp8 vue3 element-plus',
     dev: 'php8.0 node18'
   },
