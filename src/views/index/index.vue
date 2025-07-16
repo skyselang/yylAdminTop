@@ -12,7 +12,7 @@
       <el-col class="ya-text-center" :span="24">
         <el-button round>
           <el-link
-            href="http://skyselang.gitee.io/yyladmindoc/"
+            href="https://docv3.yyladmin.top/"
             target="_blank"
           >
             <img
@@ -23,6 +23,21 @@
               height="18"
             />
             文档
+          </el-link>
+        </el-button>
+        <el-button round>
+          <el-link
+            href="https://docv3.yyladmin.top/guide/intro/"
+            target="_blank"
+          >
+            <img
+              class="ya-guide-img"
+              src="@/assets/img/logo.png"
+              alt="Gitee"
+              width="18"
+              height="18"
+            />
+            演示
           </el-link>
         </el-button>
         <el-button round>
