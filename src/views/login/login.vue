@@ -39,7 +39,8 @@
           </a>
         </el-form-item>
         <el-form-item v-if="isdev" label="">
-          <el-button type="primary" @click="offiacc('wx')">公众号登录</el-button>
+          <img src="@/assets/images/wx-gzh-logo.png" class="h-[32px] v-middle border border-[#409eff] rounded-[4px]" alt="微信公众号登录" />
+          <el-button type="primary" @click="offiacc('wx')">微信公众号登录</el-button>
         </el-form-item>
         <el-form-item label="">
           <a href="#" @click="website('wb')">

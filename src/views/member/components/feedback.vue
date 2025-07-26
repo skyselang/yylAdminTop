@@ -1,6 +1,6 @@
 <template>
   <!-- 查询 -->
-  <el-input v-model="query.title" class="w-[240px]" placeholder="标题、回执编号" />
+  <el-input v-model="query.title" class="w-[240px]" placeholder="标题、编号" />
   <el-date-picker
     v-model="query.create_time"
     type="daterange"
@@ -14,14 +14,14 @@
   <!-- 列表 -->
   <el-table v-loading="loading" :data="data" :height="height" @sort-change="sort">
     <el-table-column prop="feedback_id" label="ID" min-width="80" sortable="custom" />
+    <el-table-column prop="unique" label="编号" min-width="140" />
     <el-table-column prop="type_name" label="类型" min-width="80" />
     <el-table-column prop="title" label="标题" min-width="150" />
-    <el-table-column prop="receipt_no" label="回执编号" min-width="100" />
     <el-table-column prop="status_name" label="状态" min-width="80" />
     <el-table-column prop="create_time" label="提交时间" min-width="165" />
     <el-table-column label="操作" width="70">
       <template #default="scope">
-        <el-link type="primary" :underline="false" @click="edit(scope.row)">详情</el-link>
+        <el-link type="primary" underline="never" @click="edit(scope.row)">详情</el-link>
       </template>
     </el-table-column>
   </el-table>
@@ -44,11 +44,14 @@
     :before-close="cancel"
     top="8vh"
   >
-    <el-scrollbar native :height="height">
+    <el-scrollbar :height="height">
       <el-form ref="form" :rules="rules" :model="model" label-width="120px">
+        <el-form-item v-if="model[idkey]" label="编号" prop="unique">
+          <el-input v-model="model.unique" placeholder="编号" disabled />
+        </el-form-item>
         <el-form-item label="类型" prop="type">
           <el-select v-model="model.type">
-            <el-option v-for="(item, index) in types" :key="index" :label="item" :value="index" />
+            <el-option v-for="v in types" :key="v.value" :value="v.value" :label="v.label" />
           </el-select>
         </el-form-item>
         <el-form-item label="标题" prop="title">
@@ -69,18 +72,21 @@
           <el-input v-model="model.email" placeholder="邮箱地址" clearable />
         </el-form-item>
         <el-form-item v-if="model[idkey]" label="回复" prop="reply">
-          <el-input v-model="model.reply" type="textarea" autosize placeholder="回复内容" />
+          <el-input
+            v-model="model.reply"
+            type="textarea"
+            :autosize="{ minRows: 3, maxRows: 6 }"
+            placeholder="回复内容"
+            disabled
+          />
         </el-form-item>
         <el-form-item v-if="model[idkey]" label="状态" prop="status">
-          <el-select v-model="model.status">
-            <el-option v-for="(item, index) in statuss" :key="index" :label="item" :value="index" />
+          <el-select v-model="model.status" disabled>
+            <el-option v-for="v in statuss" :key="v.value" :value="v.value" :label="v.label" />
           </el-select>
         </el-form-item>
-        <el-form-item v-if="model[idkey]" label="回执编号" prop="receipt_no">
-          <el-input v-model="model.receipt_no" placeholder="回执编号" />
-        </el-form-item>
         <el-form-item v-if="model[idkey]" label="提交时间" prop="create_time">
-          <el-input v-model="model.create_time" />
+          <el-input v-model="model.create_time" disabled />
         </el-form-item>
       </el-form>
     </el-scrollbar>
@@ -119,7 +125,7 @@ const model = ref({
   images: [],
   reply: '',
   status: 0,
-  receipt_no: '',
+  unique: '',
   create_time: ''
 })
 let modelInit = {}
@@ -133,8 +139,8 @@ function list() {
   loading.value = true
   listApi(query.value)
     .then((res) => {
-      types.value = res.data.types
-      statuss.value = res.data.statuss
+      types.value = res.data.basedata.types
+      statuss.value = res.data.basedata.statuss
       data.value = res.data.list
       count.value = res.data.count
       loading.value = false

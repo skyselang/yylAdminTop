@@ -44,14 +44,6 @@ const router = createRouter({
       }
     },
     {
-      path: '/feedback',
-      name: 'Feedback',
-      component: () => import('@/views/feedback/feedback.vue'),
-      meta: {
-        title: '反馈'
-      }
-    },
-    {
       path: '/login',
       name: 'Login',
       component: () => import('@/views/login/login.vue'),

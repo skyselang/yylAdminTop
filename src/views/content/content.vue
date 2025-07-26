@@ -93,7 +93,7 @@
           <el-icon><i-ep-Top /></el-icon>
         </el-divider>
       </el-col>
-      <el-col v-for="top in tops" :key="top.content_id" :underline="false" class="cursor-pointer" @click="detail(top)">
+      <el-col v-for="top in tops" :key="top.content_id" underline="never" class="cursor-pointer" @click="detail(top)">
         <el-text truncated>{{ top.name }}</el-text>
       </el-col>
 
@@ -102,7 +102,7 @@
           <el-icon><i-ep-Pointer /></el-icon>
         </el-divider>
       </el-col>
-      <el-col v-for="hot in hots" :key="hot.content_id" :underline="false" class="cursor-pointer" @click="detail(hot)">
+      <el-col v-for="hot in hots" :key="hot.content_id" underline="never" class="cursor-pointer" @click="detail(hot)">
         <el-text truncated>{{ hot.name }}</el-text>
       </el-col>
 
@@ -111,7 +111,7 @@
           <el-icon><i-ep-Position /></el-icon>
         </el-divider>
       </el-col>
-      <el-col v-for="rec in recs" :key="rec.content_id" :underline="false" class="cursor-pointer" @click="detail(rec)">
+      <el-col v-for="rec in recs" :key="rec.content_id" underline="never" class="cursor-pointer" @click="detail(rec)">
         <el-text truncated>{{ rec.name }}</el-text>
       </el-col>
     </el-col>
