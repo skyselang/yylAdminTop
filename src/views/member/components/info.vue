@@ -30,13 +30,26 @@
       <el-form-item label="性别" prop="gender_name">
         <el-input v-model="model.gender_name" type="text" disabled />
       </el-form-item>
+      <el-form-item label="生日" prop="birthday">
+        <el-input v-model="model.birthday" type="text" disabled />
+      </el-form-item>
+      <el-form-item label="家乡" prop="hometown_id">
+        <el-cascader
+          v-model="model.hometown_id"
+          :options="regionTree"
+          :props="regionProps"
+          class="w-full"
+          placeholder=""
+          disabled
+        />
+      </el-form-item>
       <el-form-item label="所在地" prop="region_id">
         <el-cascader
           v-model="model.region_id"
           :options="regionTree"
           :props="regionProps"
           class="w-full"
-          placeholder=" "
+          placeholder=""
           disabled
         />
       </el-form-item>

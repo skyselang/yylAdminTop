@@ -54,13 +54,26 @@
           <el-radio :value="2">女</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="生日" prop="birthday">
+        <el-date-picker v-model="model.birthday" type="date" clearable value-format="YYYY-MM-DD" />
+      </el-form-item>
+      <el-form-item label="家乡" prop="hometown_id">
+        <el-cascader
+          v-model="model.hometown_id"
+          :options="regionTree"
+          :props="regionProps"
+          clearable
+          class="w-full"
+          @change="hometownChange"
+        />
+      </el-form-item>
       <el-form-item label="所在地" prop="region_id">
         <el-cascader
           v-model="model.region_id"
           :options="regionTree"
           :props="regionProps"
+          clearable
           class="w-full"
-          placeholder="请选择所在地区"
           @change="regionChange"
         />
       </el-form-item>
@@ -96,6 +109,8 @@ const model = ref({
   email: '',
   name: '',
   gender: 0,
+  birthday: '',
+  hometown_id: 0,
   region_id: ''
 })
 const rules = ref({
@@ -141,6 +156,8 @@ function submit() {
       param.email = model.value.email
       param.name = model.value.name
       param.gender = model.value.gender
+      param.birthday = model.value.birthday
+      param.hometown_id = model.value.hometown_id
       param.region_id = model.value.region_id
       edit(param)
         .then((res) => {
@@ -162,6 +179,11 @@ function reset() {
 function regionChange(value) {
   if (value) {
     model.value.region_id = value[value.length - 1]
+  }
+}
+function hometownChange(value) {
+  if (value) {
+    model.value.hometown_id = value[value.length - 1]
   }
 }
 // 上传头像

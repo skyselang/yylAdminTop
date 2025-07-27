@@ -11,7 +11,7 @@
       </el-image>
     </el-col>
     <el-col class="text-center mb">
-      <el-text>基于ThinkPHP8和Vue3的极简后台管理系统</el-text>
+      <el-text>基于ThinkPHP和Vue的极简后台管理系统</el-text>
     </el-col>
   </el-row>
 
@@ -95,6 +95,13 @@ const navs = [
 ]
 
 const versions = [
+  {
+    version: 'v5',
+    branch: 'master',
+    href: 'https://gitee.com/skyselang/yylAdmin',
+    desc: 'thinkphp8 vue3 element-plus',
+    dev: 'php8.2 node20'
+  },
   {
     version: 'v4',
     branch: 'v4',

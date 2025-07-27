@@ -24,7 +24,7 @@
           </el-col>
           <el-col :span="12">
             <el-image
-              :src="captcha_src"
+              :src="captcha_img"
               class="h-[32px] float-right cursor-pointer"
               alt="验证码"
               title="点击刷新验证码"
@@ -63,7 +63,7 @@ defineOptions({
 const router = useRouter()
 const loading = ref(false)
 const captcha_switch = ref(0)
-const captcha_src = ref('')
+const captcha_img = ref('')
 const captcha_code_ipt = ref()
 const form = ref()
 const model = ref({
@@ -84,7 +84,7 @@ function captchaGet() {
   captcha().then((res) => {
     captcha_switch.value = res.data.captcha_switch
     if (res.data.captcha_switch) {
-      captcha_src.value = res.data.captcha_src
+      captcha_img.value = res.data.captcha_img
       model.value.captcha_id = res.data.captcha_id
     }
   })
