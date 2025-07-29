@@ -39,7 +39,7 @@ export default {
       model: {
         username: "admin、yyladmin",
         password: "123456",
-        adminurl: "https://admin.yyladmin.top/#/login",
+        adminurl: "https://adminv3.yyladmin.top/#/login",
       },
     };
   },
