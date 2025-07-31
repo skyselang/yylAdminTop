@@ -94,8 +94,8 @@ export default defineConfig(({ mode }) => {
         'element-plus/es/components/divider/style/css',
         'element-plus/es/components/icon/style/css',
         'element-plus/es/components/result/style/css',
-        'element-plus/es/components/radio-group/style/css',
-        'element-plus/es/components/radio/style/css'
+        'element-plus/es/components/radio/style/css',
+        'element-plus/es/components/radio-group/style/css'
       ]
     }
   }
