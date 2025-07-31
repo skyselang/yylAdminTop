@@ -75,12 +75,12 @@ const navs = [
   {
     name: '演示',
     image: Demo,
-    href: 'http://doc.yyladmin.top/guide/demo.html'
+    href: 'https://doc.yyladmin.top/guide/demo.html'
   },
   {
     name: '文档',
     image: Logo,
-    href: 'http://doc.yyladmin.top/'
+    href: 'https://doc.yyladmin.top/'
   },
   {
     name: 'Gitee',
