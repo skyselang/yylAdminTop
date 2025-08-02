@@ -2,8 +2,8 @@
   <el-row v-loading="loading" class="mt">
     <el-col :span="8" :offset="8">
       <el-form ref="form" :model="model" :rules="rules" label-width="80px">
-        <el-form-item label="用户名" prop="account">
-          <el-input v-model="model.account" clearable placeholder="请输入用户名" />
+        <el-form-item label="账号" prop="account">
+          <el-input v-model="model.account" clearable placeholder="请输入账号（邮箱/手机号/用户名）" />
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input v-model="model.password" type="password" clearable show-password placeholder="请输入密码" />
@@ -46,6 +46,11 @@
           <a href="#" @click="website('wb')">
             <img src="@/assets/images/weibo-login-48.png" class="h-[32px] v-middle" alt="微博登录" />
           </a>
+        </el-form-item>
+        <!-- 邮箱登录 -->
+        <el-form-item label="">
+          <img src="@/assets/images/mail.png" class="h-[32px] v-middle" alt="邮箱登录" />
+          <el-button type="primary" @click="emailLogin()">邮箱登录</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -140,6 +145,9 @@ function offiacc(app = 'wx') {
   params.append('jump_url', window.location.href)
   let loginUrl = baseUrl + apiUrl + '?' + params.toString()
   window.open(loginUrl)
+}
+function emailLogin() {
+  router.push('/email-login')
 }
 
 onMounted(() => {

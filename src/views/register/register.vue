@@ -47,6 +47,11 @@
             <img src="@/assets/images/weibo-login-48.png" class="h-[32px] v-middle" alt="微博登录" />
           </a>
         </el-form-item>
+        <!-- 邮箱注册 -->
+        <el-form-item label="">
+          <img src="@/assets/images/mail.png" class="h-[32px] v-middle" alt="邮箱注册" />
+          <el-button type="primary" @click="emailRegister()">邮箱注册</el-button>
+        </el-form-item>
       </el-form>
     </el-col>
   </el-row>
@@ -153,6 +158,10 @@ function thirdLoginParam() {
     })
   }
   return queryParameters
+}
+// 邮箱注册
+function emailRegister() {
+  router.push('/email-register')
 }
 
 onMounted(() => {

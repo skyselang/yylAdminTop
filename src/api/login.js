@@ -32,3 +32,26 @@ export function logout(data) {
     data
   })
 }
+
+/**
+ * 邮箱登录验证码
+ * @param {object} data 包含邮箱和验证码
+ */
+export function emailCaptcha(data) {
+  return request({
+    url: url + 'emailCaptcha',
+    method: 'post',
+    data
+  })
+}
+/**
+ * 邮箱登录
+ * @param {array} data 请求数据
+ */
+export function emailLogin(data) {
+  return request({
+    url: url + 'emailLogin',
+    method: 'post',
+    data
+  })
+}

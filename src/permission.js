@@ -12,7 +12,7 @@ const settingsStore = useSettingsStoreHook()
 const memberStore = useMemberStoreHook()
 
 // 白名单路由
-const whiteList = ['/', '/login', '/register', '/404']
+const whiteList = ['/', '/login', '/register', '/email-register', '/email-login', '/404']
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start()

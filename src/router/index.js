@@ -52,11 +52,27 @@ const router = createRouter({
       }
     },
     {
+      path: '/email-login',
+      name: 'EmailLogin',
+      component: () => import('@/views/login/email-login.vue'),
+      meta: {
+        title: '邮箱登录'
+      }
+    },
+    {
       path: '/register',
       name: 'Register',
       component: () => import('@/views/register/register.vue'),
       meta: {
         title: '注册'
+      }
+    },
+    {
+      path: '/email-register',
+      name: 'EmailRegister',
+      component: () => import('@/views/register/email-register.vue'),
+      meta: {
+        title: '邮箱注册'
       }
     },
     {

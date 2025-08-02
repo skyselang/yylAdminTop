@@ -21,3 +21,27 @@ export function register(data) {
     data
   })
 }
+
+/**
+ * 发送邮箱验证码
+ * @param {object} data 包含邮箱地址
+ */
+export function sendEmailCode(data) {
+  return request({
+    url: url + 'emailCaptcha',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 邮箱注册
+ * @param {object} data 包含邮箱、验证码、密码等信息
+ */
+export function emailRegister(data) {
+  return request({
+    url: url + 'emailRegister',
+    method: 'post',
+    data
+  })
+}
