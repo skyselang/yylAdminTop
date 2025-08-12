@@ -38,13 +38,14 @@ service.interceptors.request.use(
     }
 
     // 设置应用
+    const application = settingsStore.application
     if (tokenType === 'header') {
-      config.headers['application'] = 13
+      config.headers['application'] = application
     } else {
       if (config.method === 'get') {
-        config.params = { ...config?.params, application: 13 }
+        config.params = { ...config?.params, application: application }
       } else {
-        config.data = { ...config?.data, application: 13 }
+        config.data = { ...config?.data, application: application }
       }
     }
     return config

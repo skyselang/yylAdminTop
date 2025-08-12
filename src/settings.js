@@ -8,7 +8,8 @@ const defaultSettings = {
   tokenName: 'ApiToken', // token名称，前后端必须一致
   size: 'default',
   language: 'zh-cn',
-  storePrefix: import.meta.env.VITE_APP_STORE_PREFIX || 'top_' // 存储前缀
+  storePrefix: import.meta.env.VITE_APP_STORE_PREFIX || 'top_', // 存储前缀
+  application: 13, // 应用代码
 }
 
 export default defaultSettings

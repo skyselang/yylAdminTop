@@ -10,6 +10,7 @@ export const useSettingsStore = defineStore('setting', () => {
   const themeColor = useStorage(storePrefix + 'themeColor', defaultSettings.themeColor)
   const tokenType = useStorage(storePrefix + 'tokenType', defaultSettings.tokenType)
   const tokenName = useStorage(storePrefix + 'tokenName', defaultSettings.tokenName)
+  const application = useStorage(storePrefix + 'application', defaultSettings.application)
 
   const settingsMap = {
     systemName,
@@ -18,7 +19,8 @@ export const useSettingsStore = defineStore('setting', () => {
     logoUrl,
     themeColor,
     tokenType,
-    tokenName
+    tokenName,
+    application
   }
 
   function changeSetting({ key, value }) {
@@ -47,6 +49,7 @@ export const useSettingsStore = defineStore('setting', () => {
     themeColor,
     tokenType,
     tokenName,
+    application,
     changeSetting
   }
 })
