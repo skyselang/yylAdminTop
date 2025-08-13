@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-// 登录/退出
+// 登录
 const url = '/api/member.Login/'
 /**
  * 验证码
@@ -21,18 +21,6 @@ export function login(data) {
     data
   })
 }
-/**
- * 退出
- * @param {array} data 请求数据
- */
-export function logout(data) {
-  return request({
-    url: '/api/member.Logout/logout',
-    method: 'post',
-    data
-  })
-}
-
 /**
  * 邮箱登录验证码
  * @param {object} data 包含邮箱和验证码

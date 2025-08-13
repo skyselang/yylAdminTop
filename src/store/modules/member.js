@@ -2,7 +2,8 @@ import { store } from '@/store'
 import defaultSettings from '@/settings'
 import { useStorage } from '@vueuse/core'
 import { useSettingsStore } from '@/store/modules/settings'
-import { login as loginApi, logout as logoutApi } from '@/api/login'
+import { login as loginApi } from '@/api/login'
+import { logout as logoutApi } from '@/api/logout'
 import { info as infoApi } from '@/api/member'
 
 export const useMemberStore = defineStore('member', () => {

@@ -21,8 +21,11 @@
     <el-tab-pane label="系统后台" lazy>
       <Admin />
     </el-tab-pane>
-    <el-tab-pane label="退出" lazy>
+    <el-tab-pane label="退出登录" lazy>
       <Logout />
+    </el-tab-pane>
+    <el-tab-pane label="注销账号" lazy>
+      <Cancel />
     </el-tab-pane>
   </el-tabs>
 </template>

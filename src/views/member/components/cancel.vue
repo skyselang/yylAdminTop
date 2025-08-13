@@ -1,27 +1,25 @@
 <template>
   <el-card>
     <el-form ref="form" :model="model" :rules="rules" label-width="120px">
-      <el-form-item v-if="member.pwd_edit_type == 0" label="旧密码" prop="password_old">
+      <el-form-item label="昵称" prop="nickname">
+        <el-input v-model="member.nickname" type="text" disabled />
+      </el-form-item>
+      <el-form-item label="用户名" prop="username">
+        <el-input v-model="member.username" type="text" disabled />
+      </el-form-item>
+      <el-form-item label="密码" prop="password">
         <el-input
-          v-model="model.password_old"
+          v-model="model.password"
           type="password"
           autocomplete="new-password"
-          placeholder="请输入旧密码"
+          placeholder="请输入密码"
           clearable
           show-password
         />
       </el-form-item>
-      <el-form-item label="新密码" prop="password_new">
-        <el-input
-          v-model="model.password_new"
-          type="password"
-          autocomplete="new-password"
-          placeholder="请输入新密码"
-          clearable
-          show-password
-        />
+      <el-form-item>
+        <el-text>注销后会删除账号</el-text>
       </el-form-item>
-      <el-form-item> <el-text>修改密码后需要重新登录。</el-text> </el-form-item>
       <el-form-item>
         <el-button @click="reset">重置</el-button>
         <el-button type="primary" @click="submit">提交</el-button>
@@ -31,20 +29,19 @@
 </template>
 
 <script setup>
-import { info as infoApi, pwd as pwdApi } from '@/api/member'
+import { info as infoApi } from '@/api/member'
+import { cancel as cancelApi } from '@/api/logout'
 defineOptions({
-  name: 'MemberPwd'
+  name: 'MemberCancel'
 })
 
 const member = ref({})
 const form = ref()
 const model = ref({
-  password_old: '',
-  password_new: ''
+  password: ''
 })
 const rules = ref({
-  password_old: [{ required: true, message: '请输入旧密码', trigger: 'blur' }],
-  password_new: [{ required: true, message: '请输入新密码', trigger: 'blur' }]
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 })
 
 function info() {
@@ -57,7 +54,7 @@ function info() {
 function submit() {
   form.value.validate((valid) => {
     if (valid) {
-      pwdApi(model.value)
+      cancelApi(model.value)
         .then((res) => {
           ElMessage.success(res.msg)
           info()

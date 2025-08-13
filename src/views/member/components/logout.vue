@@ -22,7 +22,7 @@
 
 <script setup>
 import { info as infoApi } from '@/api/member'
-import { logout as logoutApi } from '@/api/login'
+import { logout as logoutApi } from '@/api/logout'
 import { useMemberStore } from '@/store/modules/member'
 defineOptions({
   name: 'MemberLogout'
