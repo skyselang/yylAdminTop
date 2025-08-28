@@ -11,10 +11,9 @@
         <el-form-item label="昵称" prop="nickname">
           <el-input v-model="model.nickname" clearable placeholder="1至64个字符" />
         </el-form-item>
-        <el-form-item label="验证码" v-if="captcha_switch" prop="captcha_code">
+        <el-form-item v-if="captcha_switch && captcha_img" label="验证码" prop="captcha_code">
           <el-col :span="12">
             <el-input
-              ref="captcha_code_ipt"
               v-model="model.captcha_code"
               class="h-[32px] lh-[32px]"
               clearable
@@ -34,7 +33,17 @@
         </el-form-item>
         <el-form-item>
           <el-button @click="reset">重置</el-button>
-          <el-button type="primary" @click="submit">注册</el-button>
+          <el-button
+            v-if="captcha_switch && captcha_mode === 2"
+            :loading="loading"
+            type="primary"
+            @click="ajcaptchaShow"
+          >
+            注册
+          </el-button>
+          <el-button v-else :loading="loading" type="primary" @click="handleSubmit">
+            注册
+          </el-button>
           <el-button @click="login()">登录</el-button>
         </el-form-item>
         <el-form-item label="">
@@ -53,6 +62,13 @@
           <el-button type="primary" @click="emailRegister()">邮箱注册</el-button>
         </el-form-item>
       </el-form>
+      <aj-captcha
+        v-if="captcha_switch && captcha_mode === 2"
+        ref="ajcaptcha"
+        mode="pop"
+        :captcha-type="captcha_type"
+        @success="ajcaptchaSuccess"
+      />
     </el-col>
   </el-row>
 </template>
@@ -61,6 +77,8 @@
 import { useSettingsStore } from '@/store/modules/settings'
 import { useMemberStore } from '@/store/modules/member'
 import { captcha, register } from '@/api/register'
+import AjCaptcha from './component/AjCaptcha/index.vue'
+
 defineOptions({
   name: 'Register'
 })
@@ -69,14 +87,17 @@ const router = useRouter()
 const loading = ref(false)
 const captcha_switch = ref(0)
 const captcha_img = ref('')
-const captcha_code_ipt = ref()
+const captcha_mode = ref(1)
+const captcha_type = ref('blockPuzzle')
 const form = ref()
+const ajcaptcha = ref()
 const model = ref({
   username: '',
   password: '',
   nickname: '',
   captcha_id: '',
-  captcha_code: ''
+  captcha_code: '',
+  ajcaptcha: {}
 })
 const rules = ref({
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -88,9 +109,20 @@ const rules = ref({
 function captchaGet() {
   captcha().then((res) => {
     captcha_switch.value = res.data.captcha_switch
+    captcha_mode.value = res.data.captcha_mode
+    model.value.captcha_id = ''
+    model.value.captcha_code = ''
     if (res.data.captcha_switch) {
-      captcha_img.value = res.data.captcha_img
-      model.value.captcha_id = res.data.captcha_id
+      if (res.data.captcha_mode === 1) {
+        captcha_img.value = res.data.captcha_img
+        model.value.captcha_id = res.data.captcha_id
+      } else {
+        if (res.data.captcha_type === 1) {
+          captcha_type.value = 'blockPuzzle'
+        } else {
+          captcha_type.value = 'clickWord'
+        }
+      }
     }
   })
 }
@@ -98,10 +130,22 @@ function captchaRefresh() {
   model.value.captcha_id = ''
   model.value.captcha_code = ''
   captchaGet()
-  captcha_code_ipt.value.focus()
+}
+function ajcaptchaSuccess(params) {
+  model.value.ajcaptcha = params
+  handleSubmit()
+}
+function ajcaptchaShow() {
+  form.value.validate((valid) => {
+    if (!valid) {
+      return false
+    } else {
+      ajcaptcha.value.show()
+    }
+  })
 }
 // 注册
-function submit() {
+function handleSubmit() {
   form.value.validate((valid) => {
     if (valid) {
       loading.value = true
@@ -113,6 +157,11 @@ function submit() {
         })
         .catch(() => {
           loading.value = false
+          if (captcha_switch.value && captcha_mode.value === 2) {
+            ajcaptcha.value.refresh()
+          } else {
+            captchaGet()
+          }
         })
     }
   })

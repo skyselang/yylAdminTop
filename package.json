@@ -17,6 +17,7 @@
     "@element-plus/icons-vue": "^2.3.2",
     "@vueuse/core": "^10.11.1",
     "axios": "^1.11.0",
+    "crypto-js": "^4.2.0",
     "element-plus": "^2.10.7",
     "nprogress": "^0.2.0",
     "pinia": "^3.0.3",

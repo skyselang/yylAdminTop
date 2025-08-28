@@ -8,11 +8,11 @@
         <el-form-item label="密码" prop="password">
           <el-input v-model="model.password" type="password" clearable show-password placeholder="请输入密码" />
         </el-form-item>
-        <el-form-item label="验证码" v-if="captcha_switch" prop="captcha_code">
+        <el-form-item v-if="captcha_switch && captcha_img" label="验证码" prop="captcha_code">
           <el-col :span="12">
             <el-input
-              ref="captcha_code_ipt"
               v-model="model.captcha_code"
+              class="h-[32px] lh-[32px]"
               clearable
               placeholder="请输入验证码"
               autocomplete="off"
@@ -20,17 +20,25 @@
           </el-col>
           <el-col :span="12">
             <el-image
-              :src="captcha_src"
+              :src="captcha_img"
+              class="h-[32px] float-right cursor-pointer"
               alt="验证码"
               title="点击刷新验证码"
-              class="h-[32px] v-middle float-right cursor-pointer"
               @click="captchaRefresh"
             />
           </el-col>
         </el-form-item>
         <el-form-item>
-          <el-button @click="reset()">重置</el-button>
-          <el-button type="primary" @click="submit()">登录</el-button>
+          <el-button @click="reset">重置</el-button>
+          <el-button
+            v-if="captcha_switch && captcha_mode === 2"
+            :loading="loading"
+            type="primary"
+            @click="ajcaptchaShow"
+          >
+            登录
+          </el-button>
+          <el-button v-else :loading="loading" type="primary" @click="handleSubmit"> 登录 </el-button>
           <el-button @click="register()">注册</el-button>
         </el-form-item>
         <el-form-item label="">
@@ -39,7 +47,11 @@
           </a>
         </el-form-item>
         <el-form-item v-if="isdev" label="">
-          <img src="@/assets/images/wx-gzh-logo.png" class="h-[32px] v-middle border border-[#409eff] rounded-[4px]" alt="微信公众号登录" />
+          <img
+            src="@/assets/images/wx-gzh-logo.png"
+            class="h-[32px] v-middle border border-[#409eff] rounded-[4px]"
+            alt="微信公众号登录"
+          />
           <el-button type="primary" @click="offiacc('wx')">微信公众号登录</el-button>
         </el-form-item>
         <el-form-item label="">
@@ -53,6 +65,13 @@
           <el-button type="primary" @click="emailLogin()">邮箱登录</el-button>
         </el-form-item>
       </el-form>
+      <aj-captcha
+        v-if="captcha_switch && captcha_mode === 2"
+        ref="ajcaptcha"
+        mode="pop"
+        :captcha-type="captcha_type"
+        @success="ajcaptchaSuccess"
+      />
     </el-col>
   </el-row>
 </template>
@@ -60,6 +79,7 @@
 <script setup>
 import { captcha, login } from '@/api/login'
 import { useMemberStore } from '@/store/modules/member'
+import AjCaptcha from './component/AjCaptcha/index.vue'
 
 defineOptions({
   name: 'Login'
@@ -71,15 +91,18 @@ const redirectUri = 'http://127.0.0.1:9526/api/member.Login/redirectUri'
 const memberStore = useMemberStore()
 const router = useRouter()
 const loading = ref(false)
-const form = ref()
-const captcha_code_ipt = ref()
 const captcha_switch = ref(0)
-const captcha_src = ref('')
-const model = reactive({
+const captcha_img = ref('')
+const captcha_mode = ref(1)
+const captcha_type = ref('blockPuzzle')
+const form = ref()
+const ajcaptcha = ref()
+const model = ref({
   account: '',
   password: '',
   captcha_id: '',
-  captcha_code: ''
+  captcha_code: '',
+  ajcaptcha: {}
 })
 const rules = ref({
   account: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -91,23 +114,46 @@ const rules = ref({
 function captchaGet() {
   captcha().then((res) => {
     captcha_switch.value = res.data.captcha_switch
+    captcha_mode.value = res.data.captcha_mode
+    model.value.captcha_id = ''
+    model.value.captcha_code = ''
     if (res.data.captcha_switch) {
-      captcha_src.value = res.data.captcha_src
-      model.captcha_id = res.data.captcha_id
+      if (res.data.captcha_mode === 1) {
+        captcha_img.value = res.data.captcha_img
+        model.value.captcha_id = res.data.captcha_id
+      } else {
+        if (res.data.captcha_type === 1) {
+          captcha_type.value = 'blockPuzzle'
+        } else {
+          captcha_type.value = 'clickWord'
+        }
+      }
     }
   })
 }
 function captchaRefresh() {
-  model.captcha_id = ''
-  model.captcha_code = ''
+  model.value.captcha_id = ''
+  model.value.captcha_code = ''
   captchaGet()
-  captcha_code_ipt.value.focus()
 }
-function submit() {
+function ajcaptchaSuccess(params) {
+  model.value.ajcaptcha = params
+  handleSubmit()
+}
+function ajcaptchaShow() {
+  form.value.validate((valid) => {
+    if (!valid) {
+      return false
+    } else {
+      ajcaptcha.value.show()
+    }
+  })
+}
+function handleSubmit() {
   form.value.validate((valid) => {
     if (valid) {
       loading.value = true
-      login(model)
+      login(model.value)
         .then((res) => {
           memberStore.setToken(res.data)
           memberStore.setInfo(res.data)
@@ -117,6 +163,11 @@ function submit() {
         })
         .catch(() => {
           loading.value = false
+          if (captcha_switch.value && captcha_mode.value === 2) {
+            ajcaptcha.value.refresh()
+          } else {
+            captchaGet()
+          }
         })
     }
   })
