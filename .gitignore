@@ -21,6 +21,11 @@ coverage
 .vscode
 .DS_Store
 .idea
+/.cursor
+/.trae
+/.codebuddy
+/.qoder
+/.comate
 *.suo
 *.ntvs*
 *.njsproj
