@@ -26,22 +26,16 @@ export default defineConfig(({ mode }) => {
       }
     },
     plugins: [
-      UnoCSS(),
       vue(),
+      UnoCSS(),
       AutoImport({
         // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
         imports: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
         // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)、图标组件
         resolvers: [IconsResolver(), ElementPlusResolver()],
-        eslintrc: {
-          // 是否自动生成 eslint 规则，建议生成之后设置 false
-          enabled: true,
-          // 指定自动导入函数 eslint 规则的文件
-          filepath: './.eslintrc-auto-import.json',
-          globalsPropValue: true
-        },
         // 是否在 vue 模板中自动导入
-        vueTemplate: true
+        vueTemplate: true,
+        dts: false
       }),
       Components({
         resolvers: [
