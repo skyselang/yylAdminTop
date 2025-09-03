@@ -69,6 +69,7 @@ export default defineConfig(({ mode }) => {
         'pinia',
         'axios',
         'nprogress',
+        'crypto-js',
         'element-plus/es/components/tabs/style/css',
         'element-plus/es/components/tab-pane/style/css',
         'element-plus/es/components/loading/style/css',
