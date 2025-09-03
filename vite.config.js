@@ -16,7 +16,14 @@ export default defineConfig(({ mode }) => {
     server: {
       host: '0.0.0.0',
       port: 9528,
-      open: true
+      open: true,
+      proxy: {
+        [env.VITE_APP_BASE_URL]: {
+          target: env.VITE_APP_VITE_TARGET,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(new RegExp('^' + env.VITE_APP_BASE_URL), '')
+        }
+      }
     },
     plugins: [
       UnoCSS(),
