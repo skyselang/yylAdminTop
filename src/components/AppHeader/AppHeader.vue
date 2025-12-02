@@ -6,6 +6,9 @@
           <img class="h-[40px]" :src="logo" alt="logo" />
         </el-menu-item>
         <div class="flex-grow"></div>
+        <el-menu-item index="gitee2025">
+          <el-link style="color:red" @click="openUrl('https://gitee.com/activity/2025opensource?ident=IZQ0KG')">Gitee2025年度开源项目评选投票</el-link>
+        </el-menu-item>
         <el-menu-item v-if="token" index="/content">内容</el-menu-item>
         <el-menu-item v-if="token" index="/file">文件</el-menu-item>
         <el-menu-item index="demo">
